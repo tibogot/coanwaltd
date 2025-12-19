@@ -1,17 +1,11 @@
-import Image from "next/image";
 import TextReveal from "../components/TextReveal";
+import FractalGlass from "../components/FractalGlass/FractalGlass";
 
 export default function Services() {
   return (
     <div className="relative h-[100dvh] w-full overflow-hidden">
       <div className="absolute inset-0 z-0">
-        <Image
-          src="/images/sticky-cards/stickycard-4.webp"
-          alt="Services Background"
-          fill
-          className="object-cover"
-          priority
-        />
+        <FractalGlass imgSrc="/images/sticky-cards/stickycard-4.webp" />
       </div>
       <div className="relative z-10 flex h-full items-end justify-start">
         <div className="p-4 md:p-8 md:pb-12">
