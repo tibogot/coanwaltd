@@ -101,14 +101,14 @@ const ProfilesGrid = () => {
                 sizes="(max-width: 768px) 100vw, 33vw"
                 priority
               />
-              {/* Info Card - full content always visible */}
-              <div className="absolute right-0 bottom-0 left-0">
-                <div className="bg-secondary flex h-32 flex-col justify-between px-4 py-3 md:h-40 md:px-6 md:py-4">
+              {/* Info Card - moves up on hover to reveal full content */}
+              <div className="absolute right-0 bottom-0 left-0 h-16 overflow-hidden transition-all duration-500 ease-out group-hover:h-32 md:h-20 md:group-hover:h-40">
+                <div className="bg-secondary absolute right-0 bottom-0 left-0 flex h-32 translate-y-16 flex-col justify-between px-4 py-3 transition-transform duration-500 ease-out group-hover:translate-y-0 md:h-40 md:translate-y-20 md:px-6 md:py-4">
                   <div className="flex flex-col">
                     <h3 className="font-pp-neue-montreal text-left text-lg text-white md:text-2xl">
                       {profile.name}
                     </h3>
-                    <p className="font-pp-neue-montreal text-left text-sm text-white/80 uppercase md:text-base">
+                    <p className="font-pp-neue-montreal-mono text-left text-sm text-white/80 uppercase md:text-base">
                       {profile.title}
                     </p>
                   </div>

@@ -79,8 +79,8 @@ export default function Home() {
           />
         </div>
         {/* Bottom Right Square with Arrow */}
-        <div className="bg-secondary absolute right-0 bottom-0 z-10 flex h-16 w-16 items-center justify-center md:h-20 md:w-20">
-          <ArrowDownRight className="h-6 w-6 text-white md:h-8 md:w-8" />
+        <div className="bg-secondary absolute right-0 bottom-0 z-10 flex h-12 w-12 items-center justify-center md:h-16 md:w-16">
+          <ArrowDownRight className="h-5 w-5 text-white md:h-6 md:w-6" />
         </div>
       </section>
 
