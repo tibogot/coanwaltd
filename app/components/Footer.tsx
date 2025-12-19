@@ -23,6 +23,7 @@ export default function Footer() {
                     width={90}
                     height={24}
                     className="h-10 w-auto"
+                    style={{ width: "auto" }}
                   />
                 </Link>
                 <p className="font-pp-neue-montreal text-lg leading-relaxed text-white/80">

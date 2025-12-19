@@ -6,6 +6,7 @@ interface ProfileType {
   id: number;
   name: string;
   title: string;
+  description: string;
   image: string;
   countries: string[];
 }
@@ -15,13 +16,17 @@ const PROFILES: ProfileType[] = [
     id: 1,
     name: "Chief Christian Nwogu",
     title: "Chairman",
-    image: "/Chairman-scaled-tiny.jpg",
+    description:
+      "Leading the company with decades of construction experience and strategic vision.",
+    image: "/images/Chairman-scaled-tiny.jpg",
     countries: ["Allemagne", "Luxembourg"],
   },
   {
     id: 2,
     name: "Engr. Chukwudi Nwogu",
     title: "Co-Founder & CEO",
+    description:
+      "Driving innovation and excellence in construction and engineering solutions.",
     image:
       "https://coanwaltd.com/wp-content/uploads/2022/04/MD-scaled-e1692892180900.jpg",
     countries: ["Allemagne", "France"],
@@ -30,6 +35,8 @@ const PROFILES: ProfileType[] = [
     id: 3,
     name: "Nonso Nwogwu",
     title: "Director",
+    description:
+      "Overseeing strategic operations and ensuring project delivery excellence.",
     image:
       "https://coanwaltd.com/wp-content/uploads/2022/04/pexels-dellon-thomas-1405963.jpg",
     countries: ["France"],
@@ -38,6 +45,8 @@ const PROFILES: ProfileType[] = [
     id: 4,
     name: "Engr Ralf Jonas",
     title: "CTO",
+    description:
+      "Leading technological innovation and digital transformation initiatives.",
     image:
       "https://coanwaltd.com/wp-content/uploads/2022/04/pexels-dellon-thomas-2474307.jpg",
     countries: ["USA"],
@@ -46,6 +55,8 @@ const PROFILES: ProfileType[] = [
     id: 5,
     name: "Mr Ugwu Osita Sabastine",
     title: "Accountant",
+    description:
+      "Managing financial operations and ensuring fiscal responsibility.",
     image:
       "https://coanwaltd.com/wp-content/uploads/2018/12/Mr-Ugwu-Osita-Sabastine.jpg",
     countries: ["UK"],
@@ -54,6 +65,8 @@ const PROFILES: ProfileType[] = [
     id: 6,
     name: "Akubor George",
     title: "Secretary",
+    description:
+      "Coordinating administrative functions and organizational communications.",
     image:
       "https://coanwaltd.com/wp-content/uploads/2022/04/George-Edited.jpg ",
     countries: ["UK"],
@@ -62,6 +75,7 @@ const PROFILES: ProfileType[] = [
     id: 7,
     name: "Mr Osagie Omoragbon",
     title: "Admin Manager",
+    description: "Managing daily operations and administrative excellence.",
     image:
       "https://coanwaltd.com/wp-content/uploads/2018/12/Mr-Omoragbon-Paul-Osagie-768x1024.jpg ",
     countries: ["UK"],
@@ -70,30 +84,41 @@ const PROFILES: ProfileType[] = [
 
 const ProfilesGrid = () => {
   return (
-    <div className="font-NHD w-full px-4 py-8">
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
+    <div className="w-full overflow-hidden px-4 py-16 md:px-8">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         {PROFILES.map((profile) => (
           <div
             key={profile.id}
             className="profile-card group relative flex h-[400px] w-full cursor-pointer flex-col md:h-[600px]"
           >
-            {/* Image wrapper to keep container size fixed */}
-            <div className="h-[80%] w-full overflow-hidden relative rounded-sm">
+            {/* Profile Image */}
+            <div className="group relative h-full w-full overflow-hidden">
               <Image
                 src={profile.image}
                 alt={profile.name}
                 fill
                 className="object-cover transition-transform duration-600 ease-in-out group-hover:scale-105"
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                placeholder="blur"
-                blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
+                sizes="(max-width: 768px) 100vw, 33vw"
+                priority
               />
-            </div>
-
-            {/* Text */}
-            <div className="flex flex-col justify-between p-4">
-              <h3>{profile.name}</h3>
-              <p className="mt-1 text-sm text-gray-500">{profile.title}</p>
+              {/* Info Card - full content always visible */}
+              <div className="absolute right-0 bottom-0 left-0">
+                <div className="bg-secondary flex h-32 flex-col justify-between px-4 py-3 md:h-40 md:px-6 md:py-4">
+                  <div className="flex flex-col">
+                    <h3 className="font-pp-neue-montreal text-left text-lg text-white md:text-2xl">
+                      {profile.name}
+                    </h3>
+                    <p className="font-pp-neue-montreal text-left text-sm text-white/80 uppercase md:text-base">
+                      {profile.title}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="font-pp-neue-montreal text-left text-xs text-white/70 md:text-sm">
+                      {profile.description}
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         ))}

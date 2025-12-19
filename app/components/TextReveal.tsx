@@ -30,11 +30,14 @@ export default function TextReveal({
   const timelines = useRef<gsap.core.Timeline[]>([]);
 
   useGSAP(
-    () => {
+    async () => {
       if (!containerRef.current) return;
 
       // Ensure element is in the DOM and has content
       if (!containerRef.current.isConnected) return;
+
+      // Wait for fonts to load before creating SplitText
+      await document.fonts.ready;
 
       // Cleanup previous state - kill all animations first
       triggers.current.forEach((t) => t.kill());

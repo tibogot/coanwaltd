@@ -1,7 +1,6 @@
 "use client";
 
 import TextReveal from "./components/TextReveal";
-// import StickyCards3D from "./components/StickyCards3D";
 import ProfilesTicker from "./components/ProfilesTicker";
 import FAQ from "./components/FAQ";
 import Image from "next/image";
@@ -56,7 +55,7 @@ export default function Home() {
       {/* Hero Section with Image Background */}
       <section className="relative min-h-[100dvh] min-h-[100svh] w-full">
         {/* Bottom-left logo overlay */}
-        <div className="pointer-events-none absolute inset-0 z-10 flex items-end justify-start p-6 md:p-10">
+        <div className="pointer-events-none absolute inset-0 z-10 flex flex-col items-start justify-end p-6 md:p-10">
           <Image
             src="/images/newlogohero.svg"
             alt="COANWA"
@@ -65,6 +64,9 @@ export default function Home() {
             priority
             className="h-auto w-[min(60vw,520px)]"
           />
+          <p className="font-pp-neue-montreal mt-2 text-sm text-white md:text-base">
+            Construction West Africa Unlimited
+          </p>
         </div>
         {/* Background Image - 100vh, not fixed */}
         <div className="absolute inset-0 z-0">
@@ -82,33 +84,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Sticky Cards Section */}
-      {/* <StickyCards /> */}
+      {/* About Section */}
       <section className="bg-primary relative min-h-[120vh] w-full overflow-hidden px-4 py-30 md:px-8">
         {/* Nigeria map background (watermark) */}
         <div className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center opacity-50">
           <NigeriaMapSvg className="h-full w-full p-10 md:p-16" aria-hidden />
         </div>
-
-        {/* 4 pulsing hotspots overlay */}
-        {/* <div className="pointer-events-none absolute inset-0 z-1">
-          <span
-            className="map-pulse map-pulse--sm"
-            style={{ left: "22%", top: "52%" }}
-          />
-          <span
-            className="map-pulse map-pulse--md"
-            style={{ left: "43%", top: "38%" }}
-          />
-          <span
-            className="map-pulse map-pulse--lg"
-            style={{ left: "63%", top: "66%" }}
-          />
-          <span
-            className="map-pulse map-pulse--xl"
-            style={{ left: "76%", top: "30%" }}
-          />
-        </div> */}
 
         <div className="relative z-10 mx-auto flex h-full w-full flex-col">
           <div className="text-left">
@@ -196,8 +177,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-      {/* Service Scroll Section */}
-      {/* <ServiceScroll /> */}
 
       {/* 100vh Image Background Section */}
       <section className="relative flex min-h-dvh min-h-svh w-full flex-col justify-between overflow-hidden">
@@ -231,10 +210,6 @@ export default function Home() {
         </div>
         {/* Bottom Right Container */}
         <div className="bg-secondary relative z-10 flex min-h-[40vh] w-full max-w-lg flex-col justify-between self-end pt-4 pl-4 md:px-6 md:py-6">
-          {/* Top Right Arrow */}
-          {/* <div className="absolute top-0 right-0 p-4 md:p-6">
-            <ArrowUpRight className="h-6 w-6 text-white md:h-8 md:w-8" />
-          </div> */}
           <TextReveal blockColor="var(--primary)" animateOnScroll={true}>
             <h2 className="font-pp-neue-montreal max-w-xs text-left text-xl text-white md:text-2xl">
               Infrastructure Development Across West Africa
@@ -285,8 +260,6 @@ export default function Home() {
           </p>
         </div>
       </section>
-
-      {/* <StickyCards3D /> */}
 
       {/* Profiles Ticker Section */}
       <section className="bg-primary relative w-full py-24 md:py-32">
@@ -343,9 +316,9 @@ export default function Home() {
         <div className="relative z-10 p-4 md:p-8 md:pb-12">
           <TextReveal blockColor="var(--primary)" animateOnScroll={true}>
             <p className="font-pp-neue-montreal max-w-6xl text-left text-2xl text-white md:text-6xl">
-              <span className="opacity-0">Fortransforming </span>Transforming
-              landscapes and shaping futures through innovative construction
-              solutions and engineering excellence across West Africa.
+              Transforming landscapes and shaping futures through innovative
+              construction solutions and engineering excellence across West
+              Africa.
             </p>
           </TextReveal>
         </div>

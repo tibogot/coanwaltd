@@ -194,9 +194,6 @@ function AnimatedTextHorizontal({
           retryCountRef.current += 1;
           if (retryCountRef.current < 10) {
             // Max 10 retries (1 second)
-            console.warn(
-              `Horizontal container not found, retrying in 100ms... (attempt ${retryCountRef.current}/10)`,
-            );
             // Clear any existing timeout before setting a new one
             if (timeoutRef.current) {
               clearTimeout(timeoutRef.current);

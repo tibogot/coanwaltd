@@ -1,9 +1,11 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
+import { Draggable } from "gsap/Draggable";
+import { InertiaPlugin } from "gsap/InertiaPlugin";
 
-// Register ScrollTrigger plugin
-gsap.registerPlugin(ScrollTrigger, SplitText);
+// Register all plugins
+gsap.registerPlugin(ScrollTrigger, SplitText, Draggable, InertiaPlugin);
 
-export { gsap, ScrollTrigger, SplitText };
+export { gsap, ScrollTrigger, SplitText, Draggable, InertiaPlugin };
 
