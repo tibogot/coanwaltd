@@ -4,6 +4,7 @@ import TextReveal from "./components/TextReveal";
 import ProfilesTicker from "./components/ProfilesTicker";
 import FAQ from "./components/FAQ";
 import AboutSection from "./components/AboutSection";
+import FractalGlass from "./components/FractalGlass/FractalGlass";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ArrowDownRight, ArrowUpRight } from "lucide-react";
@@ -54,7 +55,7 @@ export default function Home() {
   return (
     <>
       {/* Hero Section with Image Background */}
-      <section className="relative min-h-[100dvh] min-h-[100svh] w-full">
+      <section className="relative min-h-[100dvh] min-h-[100svh] w-full overflow-hidden">
         {/* Bottom-left logo overlay */}
         <div className="pointer-events-none absolute inset-0 z-10 flex flex-col items-start justify-end p-6 md:p-10">
           <Image
@@ -78,6 +79,8 @@ export default function Home() {
             className="object-cover"
             priority
           />
+          {/* FractalGlass version - commented out for now */}
+          {/* <FractalGlass imgSrc="/images/vitalis-nwenyi.webp" /> */}
         </div>
         {/* Bottom Right Square with Arrow */}
         <div className="bg-secondary absolute right-0 bottom-0 z-10 flex h-12 w-12 items-center justify-center md:h-16 md:w-16">
