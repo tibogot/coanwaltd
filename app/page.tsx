@@ -3,6 +3,7 @@
 import TextReveal from "./components/TextReveal";
 import ProfilesTicker from "./components/ProfilesTicker";
 import FAQ from "./components/FAQ";
+import AboutSection from "./components/AboutSection";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ArrowDownRight, ArrowUpRight } from "lucide-react";
@@ -177,6 +178,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* New About Section Component */}
+      <AboutSection />
 
       {/* 100vh Image Background Section */}
       <section className="relative flex min-h-dvh min-h-svh w-full flex-col justify-between overflow-hidden">

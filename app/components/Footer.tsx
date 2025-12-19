@@ -6,16 +6,16 @@ import Link from "next/link";
 export default function Footer() {
   return (
     <footer
-      className="footer-transition relative h-[80vh] w-full"
+      className="footer-transition relative h-[50vh] w-full"
       style={{ clipPath: "polygon(0% 0, 100% 0%, 100% 100%, 0 100%)" }}
     >
-      <div className="relative -top-[100vh] h-[calc(100vh+80vh)]">
-        <div className="sticky top-[calc(100vh-80vh)] h-[80vh]">
-          <div className="bg-tertiary flex h-full w-full flex-col justify-between px-4 pt-16 pb-8 text-white md:px-8">
+      <div className="relative -top-[100vh] h-[calc(100vh+50vh)]">
+        <div className="sticky top-[calc(100vh-50vh)] h-[50vh]">
+          <div className="bg-tertiary flex h-full w-full flex-col justify-between px-4 pt-10 pb-6 text-white md:px-8">
             {/* Top Section */}
-            <div className="flex flex-col gap-12 md:flex-row md:justify-start md:gap-4">
+            <div className="flex flex-col gap-8 md:flex-row md:justify-between md:gap-4">
               {/* Company Info */}
-              <div className="flex flex-col gap-6 md:max-w-md">
+              <div className="flex flex-col gap-4 md:max-w-md">
                 <Link href="/" className="inline-block cursor-pointer">
                   <Image
                     src="/images/logovintage.svg"
@@ -26,20 +26,20 @@ export default function Footer() {
                     style={{ width: "auto" }}
                   />
                 </Link>
-                <p className="font-pp-neue-montreal text-lg leading-relaxed text-white/80">
+                <p className="font-pp-neue-montreal text-base leading-relaxed text-white/80">
                   A leading construction company offering integrated solutions
                   and related services.
                 </p>
               </div>
 
               {/* Navigation Links */}
-              <div className="grid grid-cols-2 gap-12 md:grid-cols-2 md:gap-8">
+              <div className="grid grid-cols-2 gap-8 md:grid-cols-2 md:gap-6">
                 <div className="flex flex-col gap-4">
                   <ul className="flex flex-col gap-3">
                     <li>
                       <Link
                         href="/company"
-                        className="font-pp-neue-montreal cursor-pointer text-lg text-white/80 transition-opacity hover:opacity-80 md:text-xl"
+                        className="font-pp-neue-montreal cursor-pointer text-base text-white/80 transition-opacity hover:opacity-80 md:text-lg"
                       >
                         Company
                       </Link>
@@ -47,7 +47,7 @@ export default function Footer() {
                     <li>
                       <Link
                         href="/projects"
-                        className="font-pp-neue-montreal cursor-pointer text-lg text-white/80 transition-opacity hover:opacity-80 md:text-xl"
+                        className="font-pp-neue-montreal cursor-pointer text-base text-white/80 transition-opacity hover:opacity-80 md:text-lg"
                       >
                         Projects
                       </Link>
@@ -55,7 +55,7 @@ export default function Footer() {
                     <li>
                       <Link
                         href="/services"
-                        className="font-pp-neue-montreal cursor-pointer text-lg text-white/80 transition-opacity hover:opacity-80 md:text-xl"
+                        className="font-pp-neue-montreal cursor-pointer text-base text-white/80 transition-opacity hover:opacity-80 md:text-lg"
                       >
                         Services
                       </Link>
@@ -63,7 +63,7 @@ export default function Footer() {
                     <li>
                       <Link
                         href="/gallery"
-                        className="font-pp-neue-montreal cursor-pointer text-lg text-white/80 transition-opacity hover:opacity-80 md:text-xl"
+                        className="font-pp-neue-montreal cursor-pointer text-base text-white/80 transition-opacity hover:opacity-80 md:text-lg"
                       >
                         Gallery
                       </Link>
@@ -71,7 +71,7 @@ export default function Footer() {
                     <li>
                       <Link
                         href="/contact"
-                        className="font-pp-neue-montreal cursor-pointer text-lg text-white/80 transition-opacity hover:opacity-80 md:text-xl"
+                        className="font-pp-neue-montreal cursor-pointer text-base text-white/80 transition-opacity hover:opacity-80 md:text-lg"
                       >
                         Contact
                       </Link>
@@ -84,7 +84,7 @@ export default function Footer() {
                     <li>
                       <a
                         href="mailto:info@coanwa.com"
-                        className="font-pp-neue-montreal cursor-pointer text-lg text-white/80 transition-opacity hover:opacity-80 md:text-xl"
+                        className="font-pp-neue-montreal cursor-pointer text-base text-white/80 transition-opacity hover:opacity-80 md:text-lg"
                       >
                         info@coanwa.com
                       </a>
@@ -92,7 +92,7 @@ export default function Footer() {
                     <li>
                       <a
                         href="tel:+2348037869334"
-                        className="font-pp-neue-montreal cursor-pointer text-lg text-white/80 transition-opacity hover:opacity-80 md:text-xl"
+                        className="font-pp-neue-montreal cursor-pointer text-base text-white/80 transition-opacity hover:opacity-80 md:text-lg"
                       >
                         +234 803 786 9334
                       </a>
@@ -100,13 +100,13 @@ export default function Footer() {
                     <li>
                       <a
                         href="tel:+2347033668523"
-                        className="font-pp-neue-montreal cursor-pointer text-lg text-white/80 transition-opacity hover:opacity-80 md:text-xl"
+                        className="font-pp-neue-montreal cursor-pointer text-base text-white/80 transition-opacity hover:opacity-80 md:text-lg"
                       >
                         +234 703 366 8523
                       </a>
                     </li>
                     <li className="text-white/80">
-                      <p className="font-pp-neue-montreal text-lg md:text-xl">
+                      <p className="font-pp-neue-montreal text-base md:text-lg">
                         22 Durban Street, Wuse 2,
                         <br />
                         Abuja, Nigeria.
@@ -118,7 +118,7 @@ export default function Footer() {
             </div>
 
             {/* Bottom Section */}
-            <div className="mt-12 border-t border-white/10 pt-8">
+            <div className="mt-8 border-t border-white/10 pt-6">
               <p className="text-sm text-white/60">
                 © {new Date().getFullYear()} COAN West Africa Limited. All
                 rights reserved.
