@@ -108,7 +108,7 @@ const ProfilesGrid = () => {
                     <h3 className="font-pp-neue-montreal text-left text-lg text-white md:text-2xl">
                       {profile.name}
                     </h3>
-                    <p className="font-pp-neue-montreal-mono text-left text-sm text-white/80 uppercase md:text-base">
+                    <p className="font-pp-neue-montreal-mono text-left text-sm text-white/80 uppercase md:text-sm">
                       {profile.title}
                     </p>
                   </div>

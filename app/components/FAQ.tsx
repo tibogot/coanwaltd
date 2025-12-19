@@ -67,45 +67,48 @@ export default function FAQ() {
   }, []);
 
   // Smooth open/close animation driven by GSAP (height: 0 <-> auto).
-  useGSAP(() => {
-    FAQ_DATA.forEach((_, i) => {
-      const content = contentRefs.current[i];
-      const inner = innerRefs.current[i];
-      if (!content || !inner) return;
+  useGSAP(
+    () => {
+      FAQ_DATA.forEach((_, i) => {
+        const content = contentRefs.current[i];
+        const inner = innerRefs.current[i];
+        if (!content || !inner) return;
 
-      gsap.killTweensOf([content, inner]);
+        gsap.killTweensOf([content, inner]);
 
-      const isOpen = openIndex === i;
-      if (isOpen) {
-        gsap.to(content, {
-          height: "auto",
-          opacity: 1,
-          duration: 0.45,
-          ease: "power2.out",
-        });
-        gsap.to(inner, {
-          y: 0,
-          duration: 0.45,
-          ease: "power2.out",
-        });
-      } else {
-        gsap.to(content, {
-          height: 0,
-          opacity: 0,
-          duration: 0.35,
-          ease: "power2.inOut",
-        });
-        gsap.to(inner, {
-          y: -4,
-          duration: 0.35,
-          ease: "power2.inOut",
-        });
-      }
-    });
-  }, { dependencies: [openIndex] });
+        const isOpen = openIndex === i;
+        if (isOpen) {
+          gsap.to(content, {
+            height: "auto",
+            opacity: 1,
+            duration: 0.45,
+            ease: "power2.out",
+          });
+          gsap.to(inner, {
+            y: 0,
+            duration: 0.45,
+            ease: "power2.out",
+          });
+        } else {
+          gsap.to(content, {
+            height: 0,
+            opacity: 0,
+            duration: 0.35,
+            ease: "power2.inOut",
+          });
+          gsap.to(inner, {
+            y: -4,
+            duration: 0.35,
+            ease: "power2.inOut",
+          });
+        }
+      });
+    },
+    { dependencies: [openIndex] },
+  );
 
   return (
-    <section className="relative w-full bg-primary py-24 md:py-32">
+    <section className="bg-primary relative w-full py-24">
       <div className="px-4 md:px-8">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-12 md:gap-16">
           {/* Left column (desktop): section label */}

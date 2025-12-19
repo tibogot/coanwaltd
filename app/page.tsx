@@ -269,7 +269,7 @@ export default function Home() {
       </section>
 
       {/* Profiles Ticker Section */}
-      <section className="bg-primary relative w-full py-24 md:py-32">
+      <section className="bg-primary relative w-full py-24">
         <div className="mb-16 px-4 md:mb-24 md:px-8">
           <div className="flex flex-col items-start">
             <div className="text-left">

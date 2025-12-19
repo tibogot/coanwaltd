@@ -35,6 +35,26 @@ export default function Company() {
           </div>
         </div>
       </div>
+
+      {/* About Section Layout (without map SVG) */}
+      <section className="bg-primary relative min-h-[120vh] w-full overflow-hidden px-4 py-30 md:px-8">
+        <div className="relative z-10 mx-auto flex h-full w-full flex-col">
+          <div className="text-left">
+            <TextReveal blockColor="var(--secondary)" animateOnScroll={true}>
+              <p className="font-pp-neue-montreal-mono text-secondary mb-8 text-xs md:text-sm">
+                COMPANY
+              </p>
+              <h2 className="font-pp-neue-montreal text-secondary text-left text-4xl md:text-6xl">
+                A construction company,
+                <br />
+                offering integrated solutions and
+                <br />
+                related services across West Africa.
+              </h2>
+            </TextReveal>
+          </div>
+        </div>
+      </section>
       <ProfileGrid />
     </>
   );
