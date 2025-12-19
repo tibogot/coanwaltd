@@ -51,7 +51,7 @@ export default function Projects() {
                 <br />
                 offering integrated solution and
                 <br />
-                related services.
+                related services across West Africa.
               </h2>
             </TextReveal>
           </div>
