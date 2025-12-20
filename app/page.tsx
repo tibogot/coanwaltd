@@ -4,6 +4,7 @@ import TextReveal from "./components/TextReveal";
 import ProfilesTicker from "./components/ProfilesTicker";
 import FAQ from "./components/FAQ";
 import AboutSection from "./components/AboutSection";
+// import ServiceScroll from "./components/ServiceScroll";
 import FractalGlass from "./components/FractalGlass/FractalGlass";
 import Image from "next/image";
 import Link from "next/link";
@@ -102,7 +103,8 @@ export default function Home() {
                 ABOUT
               </p>
               <h2 className="font-pp-neue-montreal text-secondary text-left text-4xl md:text-6xl">
-                <span className="opacity-0 select-none">A c</span>A construction company,
+                <span className="opacity-0 select-none">A c</span>A construction
+                company,
                 <br />
                 offering integrated solution and
                 <br />
@@ -184,6 +186,9 @@ export default function Home() {
 
       {/* New About Section Component */}
       <AboutSection />
+
+      {/* Service Scroll Section */}
+      {/* <ServiceScroll /> */}
 
       {/* 100vh Image Background Section */}
       <section className="relative flex min-h-dvh min-h-svh w-full flex-col justify-between overflow-hidden">

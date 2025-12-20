@@ -9,49 +9,49 @@ import { gsap, ScrollTrigger, SplitText } from "@/lib/gsapConfig";
 const servicesData = [
   {
     title: "Deliverables",
-    image: "/sticky-cards/stickycard-1.webp",
+    image: "/images/projects-1.webp",
     description:
       "We transform your ideas into tangible results. Our deliverables are meticulously crafted to exceed expectations, ensuring every project milestone is met with precision and excellence. From concept to completion.",
   },
   {
     title: "Brand & Event Design",
-    image: "/sticky-cards/stickycard-2.webp",
+    image: "/images/projects-2.webp",
     description:
       "Our brand and event design services create compelling visual identities that leave lasting impressions. We craft cohesive brand experiences and design engaging event spaces that tell your story, connect with your audience, and elevate your brand.",
   },
   {
     title: "Video & Fotographie",
-    image: "/sticky-cards/stickycard-3.webp",
+    image: "/images/projects-3.webp",
     description:
       "Through expert videography and photography, we capture the essence of your brand. Our visual storytelling combines technical excellence with creative vision, delivering powerful imagery that resonates with your target audience.",
   },
   {
     title: "Motion Design",
-    image: "/sticky-cards/stickycard-4.webp",
+    image: "/images/projects-4.webp",
     description:
       "Our motion design expertise brings static concepts to life. We create dynamic visual experiences through animation, kinetic typography, and fluid transitions, ensuring your message not only reaches but captivates your audience in today's fast-paced landscape.",
   },
   {
     title: "3D Graphics",
-    image: "/sticky-cards/stickycard-1.webp",
+    image: "/images/projects-5.webp",
     description:
       "We push creative boundaries with cutting-edge 3D graphics. Our team creates immersive visual experiences, from product visualization to architectural rendering, bringing depth and dimension to your projects with state-of-the-art modeling.",
   },
   {
     title: "Print & Drukwork",
-    image: "/sticky-cards/stickycard-2.webp",
+    image: "/images/projects-6.webp",
     description:
       "Our print and drukwerk solutions combine traditional craftsmanship with modern innovation. We deliver premium quality printed materials that make a tangible impact, from business collateral to large-format displays, using sustainable materials.",
   },
   {
     title: "Digital Antwerp (UI/UX)",
-    image: "/sticky-cards/stickycard-3.webp",
+    image: "/images/sticky-cards/stickycard-1.webp",
     description:
       "Through intuitive UI/UX design, we create digital experiences that delight users. Our approach combines aesthetic excellence with functional efficiency, ensuring every interaction is meaningful, accessible, and aligned with your business objectives.",
   },
   {
     title: "Web Development",
-    image: "/sticky-cards/stickycard-4.webp",
+    image: "/images/sticky-cards/stickycard-2.webp",
     description:
       "Our web development solutions leverage cutting-edge technologies to build robust, scalable digital platforms. We create responsive, performance-optimized websites and applications that provide seamless user experiences across all devices.",
   },
@@ -66,25 +66,26 @@ export default function ServiceScroll() {
   const serviceCopyRef = useRef<HTMLParagraphElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
   const splitTextRef = useRef<SplitText | null>(null);
+  const currentIndexRef = useRef(0);
   const lenis = useLenis();
 
-  // Sync Lenis with ScrollTrigger and GSAP ticker
+  // Sync Lenis with ScrollTrigger
   useEffect(() => {
     if (!lenis) return;
 
-    // Sync Lenis scroll events with ScrollTrigger
     lenis.on("scroll", ScrollTrigger.update);
 
-    // Sync Lenis RAF with GSAP ticker (like the original script)
-    const raf = (time: number) => {
+    gsap.ticker.add((time) => {
       lenis.raf(time * 1000);
-    };
-    gsap.ticker.add(raf);
+    });
+
     gsap.ticker.lagSmoothing(0);
 
     return () => {
       lenis.off("scroll", ScrollTrigger.update);
-      gsap.ticker.remove(raf);
+      gsap.ticker.remove((time) => {
+        lenis.raf(time * 1000);
+      });
     };
   }, [lenis]);
 
@@ -106,9 +107,9 @@ export default function ServiceScroll() {
       const progress = progressRef.current;
       const services = servicesRef.current;
 
-      const stickyHeight = window.innerHeight * 8;
+      const stickyHeight = window.innerHeight * servicesData.length;
       const serviceHeight = 38;
-      const serviceSpacing = 16; // mb-4 = 16px
+      const serviceSpacing = 16;
       const totalServiceHeight = serviceHeight + serviceSpacing;
       const imgHeight = 250;
 
@@ -119,26 +120,15 @@ export default function ServiceScroll() {
       });
 
       // Measure service widths
-      const measureContainer = document.createElement("div");
-      measureContainer.style.cssText = `
-        position: absolute;
-        visibility: hidden;
-        height: auto;
-        width: auto;
-        white-space: nowrap;
-        font-family: var(--font-pp-neue-montreal);
-        font-size: 36px;
-        font-weight: 600;
-      `;
-      document.body.appendChild(measureContainer);
-
+      // Measure actual service widths from rendered elements
       const serviceWidths = services.map((service) => {
-        const text = service.querySelector("p")?.textContent || "";
-        measureContainer.textContent = text;
-        return measureContainer.offsetWidth + 8;
+        const textElement = service.querySelector("p");
+        if (textElement) {
+          const width = textElement.getBoundingClientRect().width;
+          return width + 16; // Add padding
+        }
+        return 0;
       });
-
-      document.body.removeChild(measureContainer);
 
       // Set initial indicator position
       gsap.set(indicator, {
@@ -147,9 +137,6 @@ export default function ServiceScroll() {
         left: "50%",
         top: 0,
       });
-
-      const scrollPerService = window.innerHeight;
-      let currentIndex = 0;
 
       const animateTextChange = (index: number) => {
         return new Promise<void>((resolve) => {
@@ -166,10 +153,10 @@ export default function ServiceScroll() {
 
           gsap.to(lines, {
             opacity: 0,
-            y: -20,
+            y: -15,
             duration: 0.25,
-            stagger: 0.025,
-            ease: "power3.inOut",
+            stagger: 0.015,
+            ease: "power1.in",
             onComplete: () => {
               if (splitTextRef.current) {
                 splitTextRef.current.revert();
@@ -186,15 +173,15 @@ export default function ServiceScroll() {
               if (newLines && newLines.length > 0) {
                 gsap.set(newLines, {
                   opacity: 0,
-                  y: 20,
+                  y: 15,
                 });
 
                 gsap.to(newLines, {
                   opacity: 1,
                   y: 0,
                   duration: 0.25,
-                  stagger: 0.025,
-                  ease: "power3.out",
+                  stagger: 0.015,
+                  ease: "power1.out",
                   onComplete: resolve,
                 });
               } else {
@@ -205,57 +192,67 @@ export default function ServiceScroll() {
         });
       };
 
+      // Main ScrollTrigger
       ScrollTrigger.create({
         trigger: stickySection,
         start: "top top",
-        end: `${stickyHeight}px`,
+        end: `+=${stickyHeight}`,
         pin: true,
+        scrub: 0.2,
         invalidateOnRefresh: true,
-        onUpdate: async (self) => {
-          const progressValue = self.progress;
-          gsap.set(progress, { scaleY: progressValue });
+        onUpdate: (self) => {
+          const progress = self.progress;
 
-          // Use scroll position from ScrollTrigger which is synced with Lenis
-          const scrollPosition = Math.max(
-            0,
-            self.scroll() - window.innerHeight,
-          );
-          const activeIndex = Math.floor(scrollPosition / scrollPerService);
+          // Update progress bar smoothly
+          gsap.set(progressRef.current, {
+            scaleY: progress,
+          });
 
-          if (
-            activeIndex >= 0 &&
-            activeIndex < services.length &&
-            currentIndex !== activeIndex
-          ) {
-            currentIndex = activeIndex;
+          // Calculate active index based on progress
+          const totalServices = servicesData.length;
+          const rawIndex = progress * totalServices;
+          const activeIndex = Math.min(Math.floor(rawIndex), totalServices - 1);
 
-            services.forEach((service) => service.classList.remove("active"));
-            services[activeIndex].classList.add("active");
+          // Only update if index changed
+          if (activeIndex !== currentIndexRef.current) {
+            currentIndexRef.current = activeIndex;
 
-            await Promise.all([
-              gsap.to(indicator, {
-                y: activeIndex * totalServiceHeight,
-                width: serviceWidths[activeIndex],
-                duration: 0.3,
-                ease: "power3.inOut",
-                overwrite: true,
-              }),
+            // Update active class
+            services.forEach((service, i) => {
+              if (i === activeIndex) {
+                service.classList.add("active");
+              } else {
+                service.classList.remove("active");
+              }
+            });
 
-              gsap.to(serviceImg, {
-                y: -(activeIndex * imgHeight),
-                duration: 0.3,
-                ease: "power3.inOut",
-                overwrite: true,
-              }),
+            // Animate indicator with smoother easing
+            gsap.to(indicator, {
+              y: activeIndex * totalServiceHeight,
+              width: serviceWidths[activeIndex],
+              duration: 0.3,
+              ease: "power1.out",
+              overwrite: true,
+            });
 
-              animateTextChange(activeIndex),
-            ]);
+            // Animate image
+            gsap.to(serviceImg, {
+              y: -(activeIndex * imgHeight),
+              duration: 0.3,
+              ease: "power1.out",
+              overwrite: true,
+            });
+
+            // Animate text change
+            animateTextChange(activeIndex);
           }
         },
       });
 
-      // Refresh ScrollTrigger after setup to ensure sync with Lenis
-      ScrollTrigger.refresh();
+      // Refresh after a brief delay to ensure everything is set up
+      setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 100);
 
       // Cleanup
       return () => {
@@ -269,7 +266,7 @@ export default function ServiceScroll() {
         });
       };
     },
-    { scope: containerRef },
+    { scope: containerRef, dependencies: [] },
   );
 
   return (
@@ -285,7 +282,7 @@ export default function ServiceScroll() {
             {/* Indicator */}
             <div
               ref={indicatorRef}
-              className="indicator bg-secondary absolute top-0 left-0 z-[-1] h-[38px]"
+              className="indicator bg-secondary absolute top-0 left-0 z-[-1] h-[38px] rounded-md transition-all"
             />
 
             {/* Services */}
@@ -327,6 +324,7 @@ export default function ServiceScroll() {
                     src={service.image}
                     alt={service.title}
                     fill
+                    sizes="(max-width: 768px) 25vw, 60vw"
                     className="object-cover"
                   />
                 </div>
