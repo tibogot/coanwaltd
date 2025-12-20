@@ -7,6 +7,7 @@ import FAQ from "./components/FAQ";
 import AboutSection from "./components/AboutSection";
 // import ServiceScroll from "./components/ServiceScroll";
 import FractalGlass from "./components/FractalGlass/FractalGlass";
+// import LoaderSplash from "./components/LoaderSplash";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ArrowDownRight, ArrowUpRight } from "lucide-react";
@@ -56,6 +57,7 @@ export default function Home() {
 
   return (
     <>
+      {/* <LoaderSplash /> */}
       {/* Hero Section with Image Background */}
       <section className="relative min-h-[100dvh] min-h-[100svh] w-full overflow-hidden">
         {/* Bottom-left logo overlay */}
