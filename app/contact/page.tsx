@@ -45,11 +45,11 @@ export default function Contact() {
                 CONTACT
               </p>
               <h2 className="font-pp-neue-montreal text-secondary text-left text-4xl md:text-6xl">
-                A construction company,
+                Ready to start your project,
                 <br />
-                offering integrated solutions and
+                connect with our team and discover
                 <br />
-                related services across West Africa.
+                how we can bring your vision to life.
               </h2>
             </TextReveal>
           </div>

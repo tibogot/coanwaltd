@@ -47,11 +47,11 @@ export default function Projects() {
                 PROJECTS
               </p>
               <h2 className="font-pp-neue-montreal text-secondary text-left text-4xl md:text-6xl">
-                A construction company,
+                Our portfolio showcases excellence,
                 <br />
-                offering integrated solution and
+                featuring transformative projects
                 <br />
-                related services across West Africa.
+                that shape communities and infrastructure.
               </h2>
             </TextReveal>
           </div>

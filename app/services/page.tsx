@@ -39,11 +39,11 @@ export default function Services() {
                 SERVICES
               </p>
               <h2 className="font-pp-neue-montreal text-secondary text-left text-4xl md:text-6xl">
-                A construction company,
+                From civil to mechanical engineering,
                 <br />
-                offering integrated solutions and
+                we deliver comprehensive construction
                 <br />
-                related services across West Africa.
+                services tailored to your needs.
               </h2>
             </TextReveal>
           </div>

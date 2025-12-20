@@ -45,11 +45,11 @@ export default function Company() {
                 COMPANY
               </p>
               <h2 className="font-pp-neue-montreal text-secondary text-left text-4xl md:text-6xl">
-                A construction company,
+                Three decades of excellence,
                 <br />
-                offering integrated solutions and
+                building the future of infrastructure
                 <br />
-                related services across West Africa.
+                across West Africa with precision and innovation.
               </h2>
             </TextReveal>
           </div>

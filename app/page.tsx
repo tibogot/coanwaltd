@@ -102,7 +102,7 @@ export default function Home() {
                 ABOUT
               </p>
               <h2 className="font-pp-neue-montreal text-secondary text-left text-4xl md:text-6xl">
-                A construction company,
+                <span className="opacity-0 select-none">A c</span>A construction company,
                 <br />
                 offering integrated solution and
                 <br />
