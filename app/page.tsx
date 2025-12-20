@@ -103,7 +103,7 @@ export default function Home() {
       {/* About Section */}
       <section className="bg-primary relative min-h-[120vh] w-full overflow-hidden px-4 py-30 md:px-8">
         {/* Nigeria map background (watermark) */}
-        <div className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center opacity-50">
+        <div className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center opacity-70">
           <NigeriaMapSvg className="h-full w-full p-10 md:p-16" aria-hidden />
         </div>
 

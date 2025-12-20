@@ -37,7 +37,7 @@ export default function Company() {
       </div>
 
       {/* About Section Layout (without map SVG) */}
-      <section className="bg-primary relative min-h-[120vh] w-full overflow-hidden px-4 py-30 md:px-8">
+      <section className="bg-primary relative w-full overflow-hidden px-4 py-10 md:px-8 md:py-20">
         <div className="relative z-10 mx-auto flex h-full w-full flex-col">
           <div className="text-left">
             <TextReveal blockColor="var(--secondary)" animateOnScroll={true}>
@@ -62,13 +62,13 @@ export default function Company() {
               <div className="border-secondary mb-4 border-t"></div>
 
               {/* First content block */}
-              <div className="flex gap-4 pb-4">
-                <div className="w-1/2">
+              <div className="flex flex-col gap-4 pb-4 md:flex-row">
+                <div className="w-full md:w-1/2">
                   <h3 className="font-pp-neue-montreal text-secondary text-left text-xl md:text-2xl">
                     Our Mission
                   </h3>
                 </div>
-                <div className="w-1/2">
+                <div className="w-full md:w-1/2">
                   <p className="font-pp-neue-montreal text-secondary text-left text-sm md:text-base">
                     We are committed to delivering world-class construction and
                     engineering solutions that transform communities and drive
@@ -83,13 +83,13 @@ export default function Company() {
               <div className="border-secondary mb-4 border-t"></div>
 
               {/* Second content block */}
-              <div className="flex gap-4">
-                <div className="w-1/2">
+              <div className="flex flex-col gap-4 md:flex-row">
+                <div className="w-full md:w-1/2">
                   <h3 className="font-pp-neue-montreal text-secondary text-left text-xl md:text-2xl">
                     Our Values
                   </h3>
                 </div>
-                <div className="w-1/2">
+                <div className="w-full md:w-1/2">
                   <p className="font-pp-neue-montreal text-secondary text-left text-sm md:text-base">
                     Integrity, excellence, and innovation guide everything we
                     do. We prioritize safety, sustainability, and client
@@ -103,7 +103,7 @@ export default function Company() {
         </div>
       </section>
 
-      <div className="bg-primary px-4 py-8 md:px-8">
+      <div className="bg-primary px-4 md:px-8">
         <TextReveal blockColor="var(--secondary)" animateOnScroll={true}>
           <p className="font-pp-neue-montreal-mono text-secondary mb-8 text-left text-xs md:text-sm">
             LEADERSHIP
