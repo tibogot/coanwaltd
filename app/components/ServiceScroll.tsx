@@ -1,8 +1,7 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
-import { useLenis } from "lenis/react";
 import Image from "next/image";
 import { gsap, ScrollTrigger, SplitText } from "@/lib/gsapConfig";
 
@@ -67,27 +66,6 @@ export default function ServiceScroll() {
   const progressRef = useRef<HTMLDivElement>(null);
   const splitTextRef = useRef<SplitText | null>(null);
   const currentIndexRef = useRef(0);
-  const lenis = useLenis();
-
-  // Sync Lenis with ScrollTrigger
-  useEffect(() => {
-    if (!lenis) return;
-
-    lenis.on("scroll", ScrollTrigger.update);
-
-    gsap.ticker.add((time) => {
-      lenis.raf(time * 1000);
-    });
-
-    gsap.ticker.lagSmoothing(0);
-
-    return () => {
-      lenis.off("scroll", ScrollTrigger.update);
-      gsap.ticker.remove((time) => {
-        lenis.raf(time * 1000);
-      });
-    };
-  }, [lenis]);
 
   useGSAP(
     () => {

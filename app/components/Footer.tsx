@@ -46,18 +46,18 @@ export default function Footer() {
                     </li>
                     <li>
                       <Link
-                        href="/projects"
-                        className="font-pp-neue-montreal cursor-pointer text-base text-white/80 transition-opacity hover:opacity-80 md:text-lg"
-                      >
-                        Projects
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
                         href="/services"
                         className="font-pp-neue-montreal cursor-pointer text-base text-white/80 transition-opacity hover:opacity-80 md:text-lg"
                       >
                         Services
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        href="/projects"
+                        className="font-pp-neue-montreal cursor-pointer text-base text-white/80 transition-opacity hover:opacity-80 md:text-lg"
+                      >
+                        Projects
                       </Link>
                     </li>
                     <li>
