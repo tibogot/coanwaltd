@@ -1,7 +1,24 @@
+"use client";
+
 import Image from "next/image";
 import TextReveal from "../components/TextReveal";
+import MasonryGallery from "../components/MasonryGallery";
+
+const galleryImages = [
+  { src: "/images/projects-1.webp", alt: "Project 1" },
+  { src: "/images/projects-2.webp", alt: "Project 2" },
+  { src: "/images/projects-3.webp", alt: "Project 3" },
+  { src: "/images/projects-4.webp", alt: "Project 4" },
+  { src: "/images/projects-5.webp", alt: "Project 5" },
+  { src: "/images/projects-6.webp", alt: "Project 6" },
+  { src: "/images/sticky-cards/stickycard-1.webp", alt: "Sticky Card 1" },
+  { src: "/images/sticky-cards/stickycard-2.webp", alt: "Sticky Card 2" },
+  { src: "/images/sticky-cards/stickycard-3.webp", alt: "Sticky Card 3" },
+  { src: "/images/sticky-cards/stickycard-4.webp", alt: "Sticky Card 4" },
+];
 
 export default function Gallery() {
+
   return (
     <>
       {/* Hero Section */}
@@ -36,10 +53,10 @@ export default function Gallery() {
         </div>
       </div>
 
-      {/* About Section Layout (without map SVG) */}
-      <section className="bg-primary relative min-h-[120vh] w-full overflow-hidden px-4 py-30 md:px-8">
-        <div className="relative z-10 mx-auto flex h-full w-full flex-col">
-          <div className="text-left">
+      {/* Gallery Section */}
+      <section className="bg-primary relative min-h-screen w-full overflow-hidden px-4 py-20 md:px-8 md:py-30">
+        <div className="relative z-10 mx-auto w-full max-w-7xl">
+          <div className="mb-16 text-left">
             <TextReveal blockColor="var(--secondary)" animateOnScroll={true}>
               <p className="font-pp-neue-montreal-mono text-secondary mb-8 text-xs md:text-sm">
                 GALLERY
@@ -53,6 +70,9 @@ export default function Gallery() {
               </h2>
             </TextReveal>
           </div>
+
+          {/* Gallery Grid - Masonry Style */}
+          <MasonryGallery images={galleryImages} />
         </div>
       </section>
     </>
