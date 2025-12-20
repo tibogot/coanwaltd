@@ -56,8 +56,8 @@ export default function Company() {
             </TextReveal>
           </div>
           <div className="flex w-full gap-4 py-20">
-            <div className="w-1/2"></div>
-            <div className="flex w-1/2 flex-col">
+            <div className="hidden w-1/2 md:block"></div>
+            <div className="flex w-full flex-col md:w-1/2">
               {/* Top border */}
               <div className="border-secondary mb-4 border-t"></div>
 
