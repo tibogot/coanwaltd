@@ -71,7 +71,8 @@ body {
 }
 
 /* Prevent FOUC - hide content until GSAP initializes */
-[data-text-reveal] {
+[data-text-reveal],
+[data-logo-reveal] {
   visibility: hidden;
 }
 

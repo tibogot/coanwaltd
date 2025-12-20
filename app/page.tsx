@@ -1,6 +1,7 @@
 "use client";
 
 import TextReveal from "./components/TextReveal";
+import LogoReveal from "./components/LogoReveal";
 import ProfilesTicker from "./components/ProfilesTicker";
 import FAQ from "./components/FAQ";
 import AboutSection from "./components/AboutSection";
@@ -59,17 +60,25 @@ export default function Home() {
       <section className="relative min-h-[100dvh] min-h-[100svh] w-full overflow-hidden">
         {/* Bottom-left logo overlay */}
         <div className="pointer-events-none absolute inset-0 z-10 flex flex-col items-start justify-end p-6 md:p-10">
-          <Image
-            src="/images/newlogohero.svg"
-            alt="COANWA"
-            width={850}
-            height={260}
-            priority
-            className="h-auto w-[min(60vw,520px)]"
-          />
-          <p className="font-pp-neue-montreal mt-2 text-sm text-white md:text-base">
-            Construction West Africa Unlimited
-          </p>
+          <LogoReveal blockColor="var(--primary)">
+            <Image
+              src="/images/newlogohero.svg"
+              alt="COANWA"
+              width={850}
+              height={260}
+              priority
+              className="h-auto w-[min(60vw,520px)]"
+            />
+          </LogoReveal>
+          <TextReveal
+            blockColor="var(--primary)"
+            animateOnScroll={false}
+            delay={0.2}
+          >
+            <p className="font-pp-neue-montreal mt-2 text-sm text-white md:text-base">
+              Construction West Africa Unlimited
+            </p>
+          </TextReveal>
         </div>
         {/* Background Image - 100vh, not fixed */}
         <div className="absolute inset-0 z-0">
