@@ -73,7 +73,7 @@ export default function Home() {
           <TextReveal
             blockColor="var(--primary)"
             animateOnScroll={false}
-            delay={0.2}
+            delay={0.4}
           >
             <p className="font-pp-neue-montreal mt-2 text-sm text-white md:text-base">
               Construction West Africa Unlimited

@@ -37,15 +37,17 @@ export default function LogoReveal({
       if (wrapperRef.current && wrapperRef.current.parentNode) {
         const wrapper = wrapperRef.current;
         const parent = wrapper.parentNode;
-        // Move all content children back (exclude the block revealer)
-        const contentNodes = Array.from(wrapper.childNodes).filter(
-          (node) =>
-            !(node instanceof HTMLElement && node.classList.contains("block-revealer"))
-        );
-        contentNodes.forEach((node) => {
-          parent.insertBefore(node, wrapper);
-        });
-        wrapper.remove();
+        if (parent) {
+          // Move all content children back (exclude the block revealer)
+          const contentNodes = Array.from(wrapper.childNodes).filter(
+            (node) =>
+              !(node instanceof HTMLElement && node.classList.contains("block-revealer"))
+          );
+          contentNodes.forEach((node) => {
+            parent.insertBefore(node, wrapper);
+          });
+          wrapper.remove();
+        }
         wrapperRef.current = null;
       }
 
@@ -137,15 +139,17 @@ export default function LogoReveal({
         if (wrapperRef.current && wrapperRef.current.parentNode) {
           const wrapper = wrapperRef.current;
           const parent = wrapper.parentNode;
-          // Move all content children back (exclude the block revealer)
-          const contentNodes = Array.from(wrapper.childNodes).filter(
-            (node) =>
-              !(node instanceof HTMLElement && node.classList.contains("block-revealer"))
-          );
-          contentNodes.forEach((node) => {
-            parent.insertBefore(node, wrapper);
-          });
-          wrapper.remove();
+          if (parent) {
+            // Move all content children back (exclude the block revealer)
+            const contentNodes = Array.from(wrapper.childNodes).filter(
+              (node) =>
+                !(node instanceof HTMLElement && node.classList.contains("block-revealer"))
+            );
+            contentNodes.forEach((node) => {
+              parent.insertBefore(node, wrapper);
+            });
+            wrapper.remove();
+          }
         }
 
         wrapperRef.current = null;
