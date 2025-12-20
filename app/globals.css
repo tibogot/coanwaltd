@@ -1,12 +1,26 @@
 @import "tailwindcss";
 
 /* Navbar responsive behavior (must be global to avoid hydration flash) */
+.mobile-menu-btn {
+  display: none;
+}
+
+.mobile-nav {
+  visibility: hidden;
+}
+
 @media (max-width: 768px) {
   .desktop-nav {
     display: none !important;
   }
   .mobile-menu-btn {
-    display: block !important;
+    display: flex !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .mobile-menu-btn {
+    display: none !important;
   }
 }
 

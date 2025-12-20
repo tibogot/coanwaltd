@@ -55,6 +55,142 @@ export default function Projects() {
               </h2>
             </TextReveal>
           </div>
+
+          {/* Project Cards Grid - 2 rows of 3 cards */}
+          <div className="mt-24 grid grid-cols-1 gap-8 md:mt-32 md:grid-cols-3 md:gap-12">
+            {/* Row 1 */}
+            <div className="group relative flex flex-col">
+              <div className="relative h-[300px] w-full overflow-hidden md:h-[380px]">
+                <Image
+                  src="/images/projects-1.webp"
+                  alt="Project 1"
+                  fill
+                  className="object-cover transition-transform duration-600 ease-in-out group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
+              </div>
+              <div className="mt-4">
+                <p className="font-pp-neue-montreal-mono text-secondary mb-2 text-left text-sm uppercase md:text-sm">
+                  Ongoing
+                </p>
+                <h3 className="font-pp-neue-montreal text-secondary text-left text-lg md:text-xl">
+                  Award of Contract of the Construction of Yaba-Kpache Road (LOT
+                  EWR) Project, Abuja Under Satellite Town Development Agency
+                  (STDA)
+                </h3>
+              </div>
+            </div>
+
+            <div className="group relative flex flex-col">
+              <div className="relative h-[300px] w-full overflow-hidden md:h-[380px]">
+                <Image
+                  src="/images/projects-2.webp"
+                  alt="Project 2"
+                  fill
+                  className="object-cover transition-transform duration-600 ease-in-out group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
+              </div>
+              <div className="mt-4">
+                <p className="font-pp-neue-montreal-mono text-secondary mb-2 text-left text-sm uppercase md:text-sm">
+                  Ongoing
+                </p>
+                <h3 className="font-pp-neue-montreal text-secondary text-left text-lg md:text-xl">
+                  Award of Contract for the provision of Engineering
+                  Infrastructure to Plot 4075, Asokoro Extension (Comprising 50
+                  Plots) Abuja
+                </h3>
+              </div>
+            </div>
+
+            <div className="group relative flex flex-col">
+              <div className="relative h-[300px] w-full overflow-hidden md:h-[380px]">
+                <Image
+                  src="/images/projects-3.webp"
+                  alt="Project 3"
+                  fill
+                  className="object-cover transition-transform duration-600 ease-in-out group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
+              </div>
+              <div className="mt-4">
+                <p className="font-pp-neue-montreal-mono text-secondary mb-2 text-left text-sm uppercase md:text-sm">
+                  Completed
+                </p>
+                <h3 className="font-pp-neue-montreal text-secondary text-left text-lg md:text-xl">
+                  Award of Contract for the Provision of Engineering
+                  Infrastructure to Plot 1038 Extension, Cadastral Zone AD5,
+                  Maitama District, Abuja
+                </h3>
+              </div>
+            </div>
+
+            {/* Row 2 */}
+            <div className="group relative flex flex-col">
+              <div className="relative h-[300px] w-full overflow-hidden md:h-[380px]">
+                <Image
+                  src="/images/projects-4.webp"
+                  alt="Project 4"
+                  fill
+                  className="object-cover transition-transform duration-600 ease-in-out group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
+              </div>
+              <div className="mt-4">
+                <p className="font-pp-neue-montreal-mono text-secondary mb-2 text-left text-sm uppercase md:text-sm">
+                  Completed
+                </p>
+                <h3 className="font-pp-neue-montreal text-secondary text-left text-lg md:text-xl">
+                  Award of Contract for the provision of Infrastructure to
+                  outstanding Areas in Phase I (Lot1 – Provision of
+                  Infrastructure to Plot 447 Extension Maitama District) Abuja
+                </h3>
+              </div>
+            </div>
+
+            <div className="group relative flex flex-col">
+              <div className="relative h-[300px] w-full overflow-hidden md:h-[380px]">
+                <Image
+                  src="/images/projects-5.webp"
+                  alt="Project 5"
+                  fill
+                  className="object-cover transition-transform duration-600 ease-in-out group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
+              </div>
+              <div className="mt-4">
+                <p className="font-pp-neue-montreal-mono text-secondary mb-2 text-left text-sm uppercase md:text-sm">
+                  Completed
+                </p>
+                <h3 className="font-pp-neue-montreal text-secondary text-left text-lg md:text-xl">
+                  Award of Contract for the Construction of Road Infrastructure
+                  (Lot 11) for Jibi Resettlement Town
+                </h3>
+              </div>
+            </div>
+
+            <div className="group relative flex flex-col">
+              <div className="relative h-[300px] w-full overflow-hidden md:h-[380px]">
+                <Image
+                  src="/images/projects-6.webp"
+                  alt="Project 6"
+                  fill
+                  className="object-cover transition-transform duration-600 ease-in-out group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
+              </div>
+              <div className="mt-4">
+                <p className="font-pp-neue-montreal-mono text-secondary mb-2 text-left text-sm uppercase md:text-sm">
+                  Completed
+                </p>
+                <h3 className="font-pp-neue-montreal text-secondary text-left text-lg md:text-xl">
+                  Award of Contract for the upgrading of the existing
+                  Engineering Infrastructure at APO/GARKI Resettlement Village,
+                  Abuja (Lot – Roads Works)
+                </h3>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </>
