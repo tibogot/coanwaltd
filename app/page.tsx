@@ -278,9 +278,9 @@ export default function Home() {
       <section className="bg-secondary relative w-full py-24">
         <div className="mx-auto flex w-full flex-col items-center justify-center gap-16 px-4 md:gap-20 md:px-8">
           <h3 className="font-pp-neue-montreal max-w-4xl text-center text-xl text-white md:text-4xl">
-            Parce que la musique réside dans le mouvement, en perpétuelle
-            évolution, à travers le choix d’œuvres qui en font une expérience
-            profondément humaine.{" "}
+            Because infrastructure is built on movement, in perpetual
+            development, through the choice of projects that create a
+            profoundly transformative human experience.{" "}
           </h3>
           <p className="font-pp-neue-montreal max-w-sm text-center text-sm text-white/80 md:text-base">
             Your trusted partner for comprehensive road construction and
