@@ -5,6 +5,8 @@ import LogoReveal from "./components/LogoReveal";
 import ProfilesTicker from "./components/ProfilesTicker";
 import FAQ from "./components/FAQ";
 import AboutSection from "./components/AboutSection";
+import ProjectsPreview from "./components/ProjectsPreview";
+import ServicesHero from "./components/ServicesHero";
 // import ServiceScroll from "./components/ServiceScroll";
 import FractalGlass from "./components/FractalGlass/FractalGlass";
 // import LoaderSplash from "./components/LoaderSplash";
@@ -198,6 +200,9 @@ export default function Home() {
       {/* New About Section Component */}
       <AboutSection />
 
+      {/* Services Hero Section */}
+      <ServicesHero />
+
       {/* Service Scroll Section */}
       {/* <ServiceScroll /> */}
 
@@ -323,6 +328,9 @@ export default function Home() {
 
       {/* FAQ Section */}
       <FAQ />
+
+      {/* Projects Preview Section */}
+      <ProjectsPreview />
 
       {/* Full Width Background Image Section */}
       <section className="relative flex min-h-[100dvh] min-h-[100svh] w-full items-end justify-start">
