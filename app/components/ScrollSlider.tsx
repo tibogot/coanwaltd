@@ -225,7 +225,7 @@ export default function ScrollSlider({
 
       {/* Slider Title */}
       <div className="absolute top-1/2 left-8 w-1/2 -translate-y-1/2 text-white max-lg:top-20 max-lg:left-0 max-lg:w-full max-lg:translate-y-0 max-lg:px-8">
-        <div ref={sliderTitleRef} className="max-w-2xl">
+        <div ref={sliderTitleRef} className="max-w-3xl">
           <h1 className="font-pp-neue-montreal text-4xl leading-tight md:text-5xl">
             {slides[0].title}
           </h1>
