@@ -6,6 +6,7 @@ import FAQ from "./components/FAQ";
 import AboutSection from "./components/AboutSection";
 import ProjectsPreview from "./components/ProjectsPreview";
 import ServicesHero from "./components/ServicesHero";
+import AnimatedText from "./components/AnimatedText3";
 // import ServiceScroll from "./components/ServiceScroll";
 import FractalGlass from "./components/FractalGlass/FractalGlass";
 // import LoaderSplash from "./components/LoaderSplash";
@@ -73,9 +74,11 @@ export default function Home() {
               className="h-auto w-[min(60vw,520px)]"
             />
           </LogoReveal>
-          <p className="font-pp-neue-montreal mt-2 text-sm text-white md:text-base">
-            Construction West Africa Unlimited
-          </p>
+          <AnimatedText isHero={true} delay={0.8} duration={0.8}>
+            <p className="font-pp-neue-montreal mt-2 text-sm text-white md:text-base">
+              Construction West Africa Unlimited
+            </p>
+          </AnimatedText>
         </div>
         {/* Background Image - 100vh, not fixed */}
         <div className="absolute inset-0 z-0">
@@ -107,31 +110,35 @@ export default function Home() {
             <p className="font-pp-neue-montreal-mono text-secondary mb-8 text-xs md:text-sm">
               ABOUT
             </p>
-            <h2 className="font-pp-neue-montreal text-secondary text-left text-4xl md:text-6xl">
-              <span className="opacity-0 select-none">A c</span>A construction
-              company,
-              <br />
-              offering integrated solution and
-              <br />
-              related services.
-            </h2>
+            <AnimatedText start="top 80%" stagger={0.2} duration={1}>
+              <h2 className="font-pp-neue-montreal text-secondary text-left text-4xl md:text-6xl">
+                <span className="opacity-0 select-none">A c</span>A construction
+                company,
+                <br />
+                offering integrated solution and
+                <br />
+                related services.
+              </h2>
+            </AnimatedText>
           </div>
           <div className="mt-32 flex justify-end md:mt-48">
             <div className="flex flex-col gap-6">
-              <p className="font-pp-neue-montreal text-secondary max-w-2xl text-left text-base md:text-xl">
-                Three decades of expertise in construction and engineering
-                across West Africa.
-                <br />
-                We deliver integrated solutions from planning to execution.
-                <br />
-                Quality, innovation, and reliability in every project we
-                undertake.
-                <br />
-                Transforming infrastructure and shaping the future of the
-                region.
-                <br />
-                Your trusted partner for comprehensive construction services.
-              </p>
+              <AnimatedText start="top 80%" stagger={0.15} duration={0.9} delay={0.2}>
+                <p className="font-pp-neue-montreal text-secondary max-w-2xl text-left text-base md:text-xl">
+                  Three decades of expertise in construction and engineering
+                  across West Africa.
+                  <br />
+                  We deliver integrated solutions from planning to execution.
+                  <br />
+                  Quality, innovation, and reliability in every project we
+                  undertake.
+                  <br />
+                  Transforming infrastructure and shaping the future of the
+                  region.
+                  <br />
+                  Your trusted partner for comprehensive construction services.
+                </p>
+              </AnimatedText>
               <Link
                 href="/company"
                 className="font-pp-neue-montreal text-secondary hover:text-secondary/80 flex cursor-pointer items-center gap-2 text-sm transition-colors"

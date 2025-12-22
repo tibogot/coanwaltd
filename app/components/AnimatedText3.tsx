@@ -39,7 +39,7 @@ interface AnimatedTextProps {
   delay?: number;
   ease?: string;
   className?: string;
-  isHero?: boolean; // New prop for hero text
+  isHero?: boolean; // Hero text plays immediately, non-hero waits for scroll
 }
 
 function AnimatedText({
@@ -56,131 +56,30 @@ function AnimatedText({
 }: AnimatedTextProps) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const splitRefs = useRef<any[]>([]); // Store all SplitText instances for cleanup
-  const scrollTriggerRefs = useRef<any[]>([]); // Store ScrollTrigger instances for refresh
+  const scrollTriggerRefs = useRef<any[]>([]); // Store ScrollTrigger instances
   const [fontsReady, setFontsReady] = useState(false);
   const [splitTextCreated, setSplitTextCreated] = useState(false);
-  const [pageLoaderReady, setPageLoaderReady] = useState(false);
-  const [navigationComplete, setNavigationComplete] = useState(false);
 
-  // Simplified font loading detection using document.fonts.ready
+  // Font loading detection using document.fonts.ready
   useEffect(() => {
     const checkFontsLoaded = async () => {
       try {
         if (document.fonts && document.fonts.ready) {
           await document.fonts.ready;
-          // For hero text, don't set fontsReady yet - wait for PageLoader
-          if (!isHero) {
-            setFontsReady(true);
-          }
+          // Small delay to ensure fonts are fully rendered
+          setTimeout(() => setFontsReady(true), 50);
         } else {
           // Fallback for browsers that don't support document.fonts
-          if (!isHero) {
-            setFontsReady(true);
-          }
+          setTimeout(() => setFontsReady(true), 100);
         }
       } catch (error) {
         // Fallback: proceed if font detection fails
-        if (!isHero) {
-          setFontsReady(true);
-        }
+        setTimeout(() => setFontsReady(true), 100);
       }
     };
 
     checkFontsLoaded();
-  }, [isHero]);
-
-  // Wait for PageLoader to complete (for both hero and non-hero text)
-  useEffect(() => {
-    const handlePageLoaderComplete = () => {
-      // Set PageLoader ready and fonts ready
-      setPageLoaderReady(true);
-      setTimeout(() => setFontsReady(true), isHero ? 200 : 100);
-    };
-
-    // Check if PageLoader is already complete
-    if (document.documentElement.classList.contains("page-loader-complete")) {
-      handlePageLoaderComplete();
-    } else {
-      // Listen for PageLoader completion
-      window.addEventListener("pageLoaderComplete", handlePageLoaderComplete);
-
-      return () => {
-        window.removeEventListener(
-          "pageLoaderComplete",
-          handlePageLoaderComplete,
-        );
-      };
-    }
-  }, [isHero]);
-
-  // Listen for page transition completion (for navigation)
-  useEffect(() => {
-    if (isHero) return; // Hero text doesn't need this
-
-    let timeoutId: NodeJS.Timeout | null = null;
-    let refreshTimeout: NodeJS.Timeout | null = null;
-
-    // Debounced refresh function to avoid multiple rapid refreshes
-    const scheduleRefresh = () => {
-      if (refreshTimeout) {
-        clearTimeout(refreshTimeout);
-      }
-      refreshTimeout = setTimeout(() => {
-        ScrollTrigger.refresh();
-        refreshTimeout = null;
-      }, 150);
-    };
-
-    const handlePageTransitionComplete = () => {
-      // Clear any pending timeout
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-        timeoutId = null;
-      }
-
-      // Mark navigation as complete and refresh ScrollTrigger
-      setNavigationComplete(true);
-
-      // Wait a bit for layout to stabilize, then refresh ScrollTrigger
-      scheduleRefresh();
-    };
-
-    // Listen for page transition completion
-    window.addEventListener(
-      "pageTransitionComplete",
-      handlePageTransitionComplete,
-    );
-
-    // Check if we came from navigation or if it's initial load
-    const navigatedFlag = sessionStorage.getItem("navigated");
-
-    if (navigatedFlag === "true") {
-      // We're navigating - wait for transition to complete
-      // The event will fire when reveal animation completes
-      // Add a safety timeout in case the event fires before we start listening
-      // (unlikely but possible in edge cases)
-      timeoutId = setTimeout(() => {
-        setNavigationComplete(true);
-        scheduleRefresh();
-      }, 1500); // 1.5s should be more than enough for the transition
-    } else {
-      // Initial load/refresh - no navigation happened, mark as complete immediately
-      setNavigationComplete(true);
-    }
-
-    return () => {
-      window.removeEventListener(
-        "pageTransitionComplete",
-        handlePageTransitionComplete,
-      );
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-      }
-      if (refreshTimeout) {
-        clearTimeout(refreshTimeout);
-      }
-    };
-  }, [isHero]);
+  }, []);
 
   // Add CSS to prevent FOUC - ensure text is hidden until GSAP takes control
   useEffect(() => {
@@ -194,12 +93,12 @@ function AnimatedText({
         .animated-text-wrapper {
           overflow: hidden;
         }
-        
+
         /* Fix for SplitText clipping with tight line heights */
         .animated-text-wrapper.overflow-visible {
           overflow: visible !important;
         }
-        
+
         /* Hide text until animation is ready */
         .animated-text-wrapper.fouc-prevent {
           visibility: hidden !important;
@@ -213,12 +112,6 @@ function AnimatedText({
   useGSAP(
     () => {
       if (!wrapperRef.current || !fontsReady) return;
-
-      // Wait for PageLoader to be ready (for both hero and non-hero text)
-      if (!pageLoaderReady) return;
-
-      // For non-hero text, wait for navigation to complete before creating ScrollTrigger
-      if (!isHero && !navigationComplete) return;
 
       // Add FOUC prevention class initially
       wrapperRef.current.classList.add("fouc-prevent");
@@ -273,7 +166,7 @@ function AnimatedText({
 
               // For hero text, use immediate animation without ScrollTrigger
               if (isHero) {
-                // Remove FOUC prevention class and make element visible for hero text
+                // Remove FOUC prevention class before animation starts
                 if (wrapperRef.current) {
                   wrapperRef.current.classList.remove("fouc-prevent");
                 }
@@ -281,26 +174,24 @@ function AnimatedText({
 
                 gsap.to(split.lines, {
                   yPercent: 0,
-                  autoAlpha: 1, // Reveal with autoAlpha for smooth transition
+                  autoAlpha: 1,
                   stagger,
                   duration,
                   ease,
-                  delay: delay + index * 0.1, // Add slight delay between multiple children
+                  delay: delay + index * 0.1,
                 });
               } else {
-                // Regular scroll-triggered animation - use a more reliable trigger strategy
+                // Regular scroll-triggered animation
                 const scrollTriggerConfig = {
                   trigger: trigger || wrapperRef.current || child,
-                  start: "top 80%", // More reliable start position
-                  toggleActions: "play none none reverse",
-                  refreshPriority: -1, // Lower priority for better performance
+                  start: start,
+                  toggleActions: toggleActions,
                   onEnter: () => {
                     // Remove FOUC prevention class and make element visible
                     if (wrapperRef.current) {
                       wrapperRef.current.classList.remove("fouc-prevent");
                     }
                     gsap.set(child, { visibility: "visible", opacity: 1 });
-                    // Ensure animation plays when entering viewport
                   },
                 };
 
@@ -310,11 +201,11 @@ function AnimatedText({
                   stagger,
                   duration,
                   ease,
-                  delay: delay + 0.3, // Small delay to ensure page transition is complete
+                  delay: delay,
                   scrollTrigger: scrollTriggerConfig,
                 });
 
-                // Store ScrollTrigger instance for potential refresh
+                // Store ScrollTrigger instance
                 if (animation.scrollTrigger) {
                   scrollTriggerRefs.current.push(animation.scrollTrigger);
                 }
@@ -335,10 +226,9 @@ function AnimatedText({
         }
       };
 
-      // Use requestAnimationFrame and additional timeout for better timing
+      // Use requestAnimationFrame for better timing
       requestAnimationFrame(() => {
-        const additionalDelay = isHero ? 200 : 150; // Increased delay for non-hero text
-        setTimeout(createSplitTextInstances, additionalDelay);
+        setTimeout(createSplitTextInstances, 100);
       });
 
       return () => {
@@ -366,8 +256,6 @@ function AnimatedText({
         delay,
         ease,
         fontsReady,
-        pageLoaderReady,
-        navigationComplete,
         isHero,
       ],
     },
