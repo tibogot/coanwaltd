@@ -1,12 +1,13 @@
 "use client";
 
-import LogoReveal from "./components/LogoReveal";
+// import LogoReveal from "./components/LogoReveal";
 import ProfilesTicker from "./components/ProfilesTicker";
 import FAQ from "./components/FAQ";
 import AboutSection from "./components/AboutSection";
 import ProjectsPreview from "./components/ProjectsPreview";
 import ServicesHero from "./components/ServicesHero";
 import AnimatedText from "./components/AnimatedText3";
+import ScrollSlider from "./components/ScrollSlider";
 // import ServiceScroll from "./components/ServiceScroll";
 import FractalGlass from "./components/FractalGlass/FractalGlass";
 // import LoaderSplash from "./components/LoaderSplash";
@@ -17,6 +18,39 @@ import NigeriaMapSvg from "./components/NigeriaMapSvg";
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsapConfig";
+
+const sliderSlides = [
+  {
+    title:
+      "Building sustainable infrastructure across West Africa with innovative engineering solutions and decades of expertise.",
+    image: "/images/vitalis-nwenyi.webp",
+  },
+  {
+    title:
+      "Transforming landscapes through precision road construction and civil engineering excellence in Nigeria.",
+    image: "/images/joshua-oluwagbemiga.webp",
+  },
+  {
+    title:
+      "Delivering quality construction projects from planning to execution with integrated solutions.",
+    image: "/images/sticky-cards/stickycard-4.webp",
+  },
+  {
+    title:
+      "Creating lasting impact through comprehensive infrastructure development and engineering services.",
+    image: "/images/sticky-cards/stickycard-1.webp",
+  },
+  {
+    title:
+      "Shaping the future of transportation with modern highways and urban road networks.",
+    image: "/images/sticky-cards/stickycard-2.webp",
+  },
+  {
+    title:
+      "Three decades of commitment to excellence in construction and infrastructure across the region.",
+    image: "/images/sticky-cards/stickycard-3.webp",
+  },
+];
 
 export default function Home() {
   const statsRowRef = useRef<HTMLDivElement | null>(null);
@@ -64,7 +98,8 @@ export default function Home() {
       <section className="relative min-h-[100dvh] min-h-[100svh] w-full overflow-hidden">
         {/* Bottom-left logo overlay */}
         <div className="pointer-events-none absolute inset-0 z-10 flex flex-col items-start justify-end p-6 md:p-10">
-          <LogoReveal blockColor="var(--primary)">
+          {/* Block animation commented out - might need later */}
+          {/* <LogoReveal blockColor="var(--primary)">
             <Image
               src="/images/newlogohero.svg"
               alt="COANWA"
@@ -73,7 +108,15 @@ export default function Home() {
               priority
               className="h-auto w-[min(60vw,520px)]"
             />
-          </LogoReveal>
+          </LogoReveal> */}
+          <Image
+            src="/images/newlogohero.svg"
+            alt="COANWA"
+            width={850}
+            height={260}
+            priority
+            className="h-auto w-[min(60vw,520px)]"
+          />
           <AnimatedText isHero={true} delay={0.8} duration={0.8}>
             <p className="font-pp-neue-montreal mt-2 text-sm text-white md:text-base">
               Construction West Africa Unlimited
@@ -256,6 +299,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Scroll Slider Section */}
+      <ScrollSlider slides={sliderSlides} />
 
       {/* Orange Background Section with Centered Text */}
       <section className="bg-secondary relative w-full py-24">

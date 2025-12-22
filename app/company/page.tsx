@@ -72,7 +72,7 @@ export default function Company() {
               <div className="border-secondary mb-4 border-t"></div>
 
               {/* Second content block */}
-              <div className="flex flex-col gap-4 md:flex-row">
+              <div className="flex flex-col gap-4 pb-4 md:flex-row">
                 <div className="w-full md:w-1/2">
                   <h3 className="font-pp-neue-montreal text-secondary text-left text-xl md:text-2xl">
                     Our Values
@@ -84,6 +84,27 @@ export default function Company() {
                     do. We prioritize safety, sustainability, and client
                     satisfaction in every project, ensuring lasting impact and
                     meaningful contributions to the communities we serve.
+                  </p>
+                </div>
+              </div>
+
+              {/* Border between blocks */}
+              <div className="border-secondary mb-4 border-t"></div>
+
+              {/* Third content block */}
+              <div className="flex flex-col gap-4 md:flex-row">
+                <div className="w-full md:w-1/2">
+                  <h3 className="font-pp-neue-montreal text-secondary text-left text-xl md:text-2xl">
+                    Our Vision
+                  </h3>
+                </div>
+                <div className="w-full md:w-1/2">
+                  <p className="font-pp-neue-montreal text-secondary text-left text-sm md:text-base">
+                    To be the leading construction and engineering firm in West
+                    Africa, recognized for transforming infrastructure through
+                    cutting-edge technology, sustainable practices, and
+                    unwavering commitment to quality that shapes the future of
+                    the region.
                   </p>
                 </div>
               </div>
