@@ -13,7 +13,10 @@ interface ScrollSliderProps {
   className?: string;
 }
 
-export default function ScrollSlider({ slides, className = "" }: ScrollSliderProps) {
+export default function ScrollSlider({
+  slides,
+  className = "",
+}: ScrollSliderProps) {
   const sliderRef = useRef<HTMLElement>(null);
   const sliderImagesRef = useRef<HTMLDivElement>(null);
   const sliderTitleRef = useRef<HTMLDivElement>(null);
@@ -150,7 +153,7 @@ export default function ScrollSlider({ slides, className = "" }: ScrollSliderPro
           {
             type: "lines",
             linesClass: "line",
-          }
+          },
         );
 
         gsap.set(currentSplit.lines, {
@@ -197,7 +200,7 @@ export default function ScrollSlider({ slides, className = "" }: ScrollSliderPro
         ScrollTrigger.getAll().forEach((st) => st.kill());
       };
     },
-    { scope: sliderRef }
+    { scope: sliderRef },
   );
 
   return (
@@ -221,8 +224,8 @@ export default function ScrollSlider({ slides, className = "" }: ScrollSliderPro
       </div>
 
       {/* Slider Title */}
-      <div className="absolute left-8 top-1/2 w-1/2 -translate-y-1/2 text-white max-lg:left-0 max-lg:top-20 max-lg:w-full max-lg:translate-y-0 max-lg:px-8">
-        <div ref={sliderTitleRef}>
+      <div className="absolute top-1/2 left-8 w-1/2 -translate-y-1/2 text-white max-lg:top-20 max-lg:left-0 max-lg:w-full max-lg:translate-y-0 max-lg:px-8">
+        <div ref={sliderTitleRef} className="max-w-2xl">
           <h1 className="font-pp-neue-montreal text-4xl leading-tight md:text-5xl">
             {slides[0].title}
           </h1>
@@ -230,15 +233,15 @@ export default function ScrollSlider({ slides, className = "" }: ScrollSliderPro
       </div>
 
       {/* Slider Indicator */}
-      <div className="absolute right-8 top-1/2 -translate-y-1/2 max-lg:bottom-8 max-lg:right-8 max-lg:top-auto max-lg:translate-y-0">
+      <div className="absolute top-1/2 right-8 -translate-y-1/2 max-lg:top-auto max-lg:right-8 max-lg:bottom-8 max-lg:translate-y-0">
         <div className="flex flex-col gap-4 px-5 py-4" ref={sliderIndicesRef}>
           {/* Indicators will be dynamically created here */}
         </div>
 
         {/* Progress Bar */}
-        <div className="absolute right-0 top-0 h-full w-px bg-white/35">
+        <div className="absolute top-0 right-0 h-full w-px bg-white/35">
           <div
-            className="absolute left-1/2 top-0 h-full w-0.5 origin-top -translate-x-1/2 scale-y-0 bg-white"
+            className="absolute top-0 left-1/2 h-full w-0.5 origin-top -translate-x-1/2 scale-y-0 bg-white"
             style={{
               willChange: "transform",
             }}
