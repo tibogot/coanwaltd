@@ -2,8 +2,8 @@
 
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
-import { gsap, ScrollTrigger } from "@/lib/gsapConfig";
-import TextReveal from "./TextReveal";
+import { gsap } from "@/lib/gsapConfig";
+import AnimatedText from "./AnimatedText3";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
@@ -34,11 +34,10 @@ const servicesData = [
 
 export default function ServicesHero() {
   const sectionRef = useRef<HTMLElement>(null);
-  const titleRefs = useRef<(HTMLHeadingElement | null)[]>([]);
-  const descRefs = useRef<(HTMLParagraphElement | null)[]>([]);
+  const titleRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const descRefs = useRef<(HTMLDivElement | null)[]>([]);
   const imageRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const titleBlockRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const descBlockRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const imageInnerRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useGSAP(
     () => {
@@ -47,33 +46,29 @@ export default function ServicesHero() {
       const titles = titleRefs.current.filter(Boolean);
       const descs = descRefs.current.filter(Boolean);
       const images = imageRefs.current.filter(Boolean);
-      const titleBlocks = titleBlockRefs.current.filter(Boolean);
-      const descBlocks = descBlockRefs.current.filter(Boolean);
+      const imageInners = imageInnerRefs.current.filter(Boolean);
 
       if (
         titles.length === 0 ||
         descs.length === 0 ||
         images.length === 0 ||
-        titleBlocks.length === 0 ||
-        descBlocks.length === 0
+        imageInners.length === 0
       )
         return;
 
       // Set initial states - show first item, hide others
-      gsap.set([titles[1], titles[2]], { opacity: 0 });
-      gsap.set([descs[1], descs[2]], { opacity: 0 });
+      gsap.set([titles[1], titles[2]], { autoAlpha: 0 });
+      gsap.set([descs[1], descs[2]], { autoAlpha: 0 });
 
-      // Set initial block states
-      gsap.set([...titleBlocks, ...descBlocks], {
-        scaleX: 0,
-        transformOrigin: "left center",
-      });
-
-      // Set initial mask states using clip-path
-      // First image fully visible (no clip)
+      // Set initial mask states using clip-path on outer wrapper
+      // First image fully visible
       gsap.set(images[0], { clipPath: "inset(0% 0% 0% 0%)" });
-      // Other images clipped (hidden)
-      gsap.set([images[1], images[2]], { clipPath: "inset(0% 100% 0% 0%)" });
+      // Other images clipped from top (hidden, will reveal from top to bottom)
+      gsap.set([images[1], images[2]], { clipPath: "inset(100% 0% 0% 0%)" });
+
+      // Set initial scale states on inner divs
+      gsap.set(imageInners[0], { scale: 1 });
+      gsap.set([imageInners[1], imageInners[2]], { scale: 1.2 });
 
       // Create main timeline
       const tl = gsap.timeline({
@@ -89,87 +84,120 @@ export default function ServicesHero() {
 
       // Transition from state 1 to state 2
       tl
-        // Block covers text (slide in from left)
-        .to([titleBlocks[0], descBlocks[0]], {
-          scaleX: 1,
-          duration: 0.5,
+        // Fade out current text
+        .to([titles[0], descs[0]], {
+          autoAlpha: 0,
+          duration: 0.3,
           ease: "power2.inOut",
         })
-        // Clip current image out to the right
+        // Clip current image to the bottom (masking it out from top to bottom)
         .to(
           images[0],
           {
-            clipPath: "inset(0% 0% 0% 100%)",
-            duration: 0.5,
+            clipPath: "inset(0% 0% 100% 0%)",
+            duration: 0.6,
+            ease: "power2.inOut",
+          },
+          "<0.1"
+        )
+        // Scale up the inner div as current image exits
+        .to(
+          imageInners[0],
+          {
+            scale: 1.2,
+            duration: 0.6,
             ease: "power2.inOut",
           },
           "<"
         )
-        // Swap text visibility
-        .set(titles[0], { opacity: 0 })
-        .set(descs[0], { opacity: 0 })
-        .set(titles[1], { opacity: 1 })
-        .set(descs[1], { opacity: 1 })
-        // Block reveals new text (slide out to right)
-        .set([titleBlocks[0], descBlocks[0]], {
-          transformOrigin: "right center",
-        })
-        .to([titleBlocks[0], descBlocks[0]], {
-          scaleX: 0,
-          duration: 0.5,
-          ease: "power2.inOut",
-        })
-        // Reveal new image from left
+        // Reveal new image from top to bottom (unmasking)
         .to(
           images[1],
           {
             clipPath: "inset(0% 0% 0% 0%)",
-            duration: 0.5,
+            duration: 0.6,
             ease: "power2.inOut",
           },
           "<"
         )
+        // Scale down from 1.2 to 1 as it reveals
+        .to(
+          imageInners[1],
+          {
+            scale: 1,
+            duration: 0.6,
+            ease: "power2.inOut",
+          },
+          "<"
+        )
+        // Fade in new text
+        .to(
+          [titles[1], descs[1]],
+          {
+            autoAlpha: 1,
+            duration: 0.3,
+            ease: "power2.inOut",
+          },
+          "<0.2"
+        )
+        // Hold state 2 for a bit
+        .to({}, { duration: 0.3 })
         // Transition from state 2 to state 3
-        // Block covers text (slide in from left)
-        .to([titleBlocks[1], descBlocks[1]], {
-          scaleX: 1,
-          duration: 0.5,
+        // Fade out current text
+        .to([titles[1], descs[1]], {
+          autoAlpha: 0,
+          duration: 0.3,
           ease: "power2.inOut",
-          transformOrigin: "left center",
         })
-        // Clip current image out to the right
+        // Clip current image to the bottom (masking it out from top to bottom)
         .to(
           images[1],
           {
-            clipPath: "inset(0% 0% 0% 100%)",
-            duration: 0.5,
+            clipPath: "inset(0% 0% 100% 0%)",
+            duration: 0.6,
+            ease: "power2.inOut",
+          },
+          "<0.1"
+        )
+        // Scale up the inner div as current image exits
+        .to(
+          imageInners[1],
+          {
+            scale: 1.2,
+            duration: 0.6,
             ease: "power2.inOut",
           },
           "<"
         )
-        // Swap text visibility
-        .set(titles[1], { opacity: 0 })
-        .set(descs[1], { opacity: 0 })
-        .set(titles[2], { opacity: 1 })
-        .set(descs[2], { opacity: 1 })
-        // Block reveals new text (slide out to right)
-        .set([titleBlocks[1], descBlocks[1]], {
-          transformOrigin: "right center",
-        })
-        .to([titleBlocks[1], descBlocks[1]], {
-          scaleX: 0,
-          duration: 0.5,
-          ease: "power2.inOut",
-        })
-        // Reveal new image from left
+        // Reveal new image from top to bottom
         .to(
           images[2],
           {
             clipPath: "inset(0% 0% 0% 0%)",
-            duration: 0.5,
+            duration: 0.6,
             ease: "power2.inOut",
           },
           "<"
+        )
+        // Scale down from 1.2 to 1 as it reveals
+        .to(
+          imageInners[2],
+          {
+            scale: 1,
+            duration: 0.6,
+            ease: "power2.inOut",
+          },
+          "<"
+        )
+        // Fade in new text
+        .to(
+          [titles[2], descs[2]],
+          {
+            autoAlpha: 1,
+            duration: 0.3,
+            ease: "power2.inOut",
+          },
+          "<0.2"
         );
     },
     { scope: sectionRef, dependencies: [] }
@@ -182,51 +210,42 @@ export default function ServicesHero() {
     >
       {/* Left side - Content */}
       <div className="relative z-10 flex w-full flex-col items-start justify-center px-6 md:w-1/2 md:px-12 lg:px-16">
-        <TextReveal blockColor="var(--secondary)" animateOnScroll={true}>
+        <AnimatedText start="top 80%" stagger={0.15} duration={0.8}>
           <p className="font-pp-neue-montreal-mono text-secondary mb-6 text-xs md:text-sm">
             SERVICES
           </p>
-        </TextReveal>
+        </AnimatedText>
 
-        {/* Stacked content - all in same position */}
-        <div className="relative mb-8 h-32 w-full max-w-xl overflow-hidden md:h-40">
+        {/* Stacked titles - all in same position */}
+        <div className="relative mb-8 h-32 w-full max-w-xl md:h-40">
           {servicesData.map((service, index) => (
-            <div key={`title-wrapper-${service.id}`} className="absolute inset-0">
-              <h1
-                ref={(el) => {
-                  titleRefs.current[index] = el;
-                }}
-                className="font-pp-neue-montreal text-secondary relative z-10 w-full text-left text-2xl md:text-4xl lg:text-5xl"
-              >
+            <div
+              key={`title-${service.id}`}
+              ref={(el) => {
+                titleRefs.current[index] = el;
+              }}
+              className="absolute inset-0"
+            >
+              <h1 className="font-pp-neue-montreal text-secondary w-full text-left text-2xl md:text-4xl lg:text-5xl">
                 {service.title}
               </h1>
-              <div
-                ref={(el) => {
-                  titleBlockRefs.current[index] = el;
-                }}
-                className="bg-secondary absolute inset-0 z-20"
-              />
             </div>
           ))}
         </div>
 
-        <div className="relative mb-10 h-32 w-full max-w-lg overflow-hidden md:h-28">
+        {/* Stacked descriptions - all in same position */}
+        <div className="relative mb-10 h-32 w-full max-w-lg md:h-28">
           {servicesData.map((service, index) => (
-            <div key={`desc-wrapper-${service.id}`} className="absolute inset-0">
-              <p
-                ref={(el) => {
-                  descRefs.current[index] = el;
-                }}
-                className="font-pp-neue-montreal text-secondary/80 relative z-10 w-full text-left text-base md:text-lg"
-              >
+            <div
+              key={`desc-${service.id}`}
+              ref={(el) => {
+                descRefs.current[index] = el;
+              }}
+              className="absolute inset-0"
+            >
+              <p className="font-pp-neue-montreal text-secondary/80 w-full text-left text-base md:text-lg">
                 {service.description}
               </p>
-              <div
-                ref={(el) => {
-                  descBlockRefs.current[index] = el;
-                }}
-                className="bg-secondary absolute inset-0 z-20"
-              />
             </div>
           ))}
         </div>
@@ -243,24 +262,31 @@ export default function ServicesHero() {
         </Link>
       </div>
 
-      {/* Right side - Images stacked */}
-      <div className="absolute right-0 top-0 h-full w-full md:relative md:w-1/2">
+      {/* Right side - Images stacked on top of each other */}
+      <div className="absolute right-0 top-0 h-full w-full overflow-hidden md:relative md:w-1/2">
         {servicesData.map((service, index) => (
           <div
             key={`image-${service.id}`}
             ref={(el) => {
               imageRefs.current[index] = el;
             }}
-            className="absolute inset-0 h-full w-full"
+            className="absolute inset-0 h-full w-full overflow-hidden"
           >
-            <Image
-              src={service.image}
-              alt={service.title}
-              fill
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover"
-              priority={index === 0}
-            />
+            <div
+              ref={(el) => {
+                imageInnerRefs.current[index] = el;
+              }}
+              className="h-full w-full"
+            >
+              <Image
+                src={service.image}
+                alt={service.title}
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover"
+                priority={index === 0}
+              />
+            </div>
           </div>
         ))}
       </div>
