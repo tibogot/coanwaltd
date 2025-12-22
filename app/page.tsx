@@ -123,7 +123,12 @@ export default function Home() {
           </div>
           <div className="mt-32 flex justify-end md:mt-48">
             <div className="flex flex-col gap-6">
-              <AnimatedText start="top 80%" stagger={0.15} duration={0.9} delay={0.2}>
+              <AnimatedText
+                start="top 80%"
+                stagger={0.15}
+                duration={0.9}
+                delay={0.2}
+              >
                 <p className="font-pp-neue-montreal text-secondary max-w-2xl text-left text-base md:text-xl">
                   Three decades of expertise in construction and engineering
                   across West Africa.
@@ -230,9 +235,9 @@ export default function Home() {
             Infrastructure Development Across West Africa
           </h2>
           <p className="font-pp-neue-montreal max-w-xs text-left text-base text-white/90 md:text-base">
-            Delivering quality road construction and engineering solutions
-            from planning to execution, transforming Nigeria&apos;s
-            transportation infrastructure.
+            Delivering quality road construction and engineering solutions from
+            planning to execution, transforming Nigeria&apos;s transportation
+            infrastructure.
           </p>
         </div>
       </section>
@@ -257,8 +262,8 @@ export default function Home() {
         <div className="mx-auto flex w-full flex-col items-center justify-center gap-16 px-4 md:gap-20 md:px-8">
           <h3 className="font-pp-neue-montreal max-w-4xl text-center text-xl text-white md:text-4xl">
             Because infrastructure is built on movement, in perpetual
-            development, through the choice of projects that create a
-            profoundly transformative human experience.{" "}
+            development, through the choice of projects that create a profoundly
+            transformative human experience.{" "}
           </h3>
           <p className="font-pp-neue-montreal max-w-sm text-center text-sm text-white/80 md:text-base">
             Your trusted partner for comprehensive road construction and

@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
-import { gsap } from "@/lib/gsapConfig";
+import { gsap, SplitText } from "@/lib/gsapConfig";
 import AnimatedText from "./AnimatedText3";
 import Image from "next/image";
 import Link from "next/link";
@@ -56,9 +56,53 @@ export default function ServicesHero() {
       )
         return;
 
-      // Set initial states - show first item, hide others
-      gsap.set([titles[1], titles[2]], { autoAlpha: 0 });
-      gsap.set([descs[1], descs[2]], { autoAlpha: 0 });
+      // Create SplitText instances for all titles and descriptions
+      const titleSplits: ReturnType<typeof SplitText.create>[] = [];
+      titles.forEach((title) => {
+        const h1 = title?.querySelector("h1");
+        if (h1) {
+          titleSplits.push(
+            SplitText.create(h1, {
+              type: "lines",
+              linesClass: "line-child",
+            })
+          );
+        }
+      });
+
+      const descSplits: ReturnType<typeof SplitText.create>[] = [];
+      descs.forEach((desc) => {
+        const p = desc?.querySelector("p");
+        if (p) {
+          descSplits.push(
+            SplitText.create(p, {
+              type: "lines",
+              linesClass: "line-child",
+            })
+          );
+        }
+      });
+
+      // Set initial states for SplitText lines
+      titleSplits.forEach((split, index) => {
+        if (index === 0) {
+          gsap.set(split.lines, { yPercent: 0, autoAlpha: 1 });
+        } else {
+          gsap.set(split.lines, { yPercent: 100, autoAlpha: 0 });
+        }
+      });
+
+      descSplits.forEach((split, index) => {
+        if (index === 0) {
+          gsap.set(split.lines, { yPercent: 0, autoAlpha: 1 });
+        } else {
+          gsap.set(split.lines, { yPercent: 100, autoAlpha: 0 });
+        }
+      });
+
+      // Set initial states for wrapper divs
+      gsap.set([titles[1], titles[2]], { autoAlpha: 1 });
+      gsap.set([descs[1], descs[2]], { autoAlpha: 1 });
 
       // Set initial mask states using clip-path on outer wrapper
       // First image fully visible
@@ -76,7 +120,14 @@ export default function ServicesHero() {
           trigger: sectionRef.current,
           start: "top top",
           end: "+=300%", // 3x viewport height for 3 states
-          scrub: 1,
+          scrub: 0.5, // Faster scrub for more responsive feel
+          snap: {
+            snapTo: [0, 0.5, 1], // Exact snap points for 3 services
+            duration: 0.5, // Faster, more decisive snap
+            ease: "power2.out",
+            delay: 0, // No delay for immediate snap
+            directional: false, // Snap to closest point regardless of direction
+          },
           pin: true,
           anticipatePin: 1,
         },
@@ -84,12 +135,26 @@ export default function ServicesHero() {
 
       // Transition from state 1 to state 2
       tl
-        // Fade out current text
-        .to([titles[0], descs[0]], {
+        // Animate out current title lines
+        .to(titleSplits[0].lines, {
+          yPercent: -100,
           autoAlpha: 0,
-          duration: 0.3,
+          duration: 0.4,
+          stagger: 0.05,
           ease: "power2.inOut",
         })
+        // Animate out current description lines
+        .to(
+          descSplits[0].lines,
+          {
+            yPercent: -100,
+            autoAlpha: 0,
+            duration: 0.4,
+            stagger: 0.05,
+            ease: "power2.inOut",
+          },
+          "<0.1"
+        )
         // Clip current image to the bottom (masking it out from top to bottom)
         .to(
           images[0],
@@ -130,25 +195,53 @@ export default function ServicesHero() {
           },
           "<"
         )
-        // Fade in new text
+        // Animate in new title lines
         .to(
-          [titles[1], descs[1]],
+          titleSplits[1].lines,
           {
+            yPercent: 0,
             autoAlpha: 1,
-            duration: 0.3,
-            ease: "power2.inOut",
+            duration: 0.4,
+            stagger: 0.05,
+            ease: "power2.out",
           },
           "<0.2"
+        )
+        // Animate in new description lines
+        .to(
+          descSplits[1].lines,
+          {
+            yPercent: 0,
+            autoAlpha: 1,
+            duration: 0.4,
+            stagger: 0.05,
+            ease: "power2.out",
+          },
+          "<0.1"
         )
         // Hold state 2 for a bit
         .to({}, { duration: 0.3 })
         // Transition from state 2 to state 3
-        // Fade out current text
-        .to([titles[1], descs[1]], {
+        // Animate out current title lines
+        .to(titleSplits[1].lines, {
+          yPercent: -100,
           autoAlpha: 0,
-          duration: 0.3,
+          duration: 0.4,
+          stagger: 0.05,
           ease: "power2.inOut",
         })
+        // Animate out current description lines
+        .to(
+          descSplits[1].lines,
+          {
+            yPercent: -100,
+            autoAlpha: 0,
+            duration: 0.4,
+            stagger: 0.05,
+            ease: "power2.inOut",
+          },
+          "<0.1"
+        )
         // Clip current image to the bottom (masking it out from top to bottom)
         .to(
           images[1],
@@ -189,16 +282,36 @@ export default function ServicesHero() {
           },
           "<"
         )
-        // Fade in new text
+        // Animate in new title lines
         .to(
-          [titles[2], descs[2]],
+          titleSplits[2].lines,
           {
+            yPercent: 0,
             autoAlpha: 1,
-            duration: 0.3,
-            ease: "power2.inOut",
+            duration: 0.4,
+            stagger: 0.05,
+            ease: "power2.out",
           },
           "<0.2"
+        )
+        // Animate in new description lines
+        .to(
+          descSplits[2].lines,
+          {
+            yPercent: 0,
+            autoAlpha: 1,
+            duration: 0.4,
+            stagger: 0.05,
+            ease: "power2.out",
+          },
+          "<0.1"
         );
+
+      // Cleanup function
+      return () => {
+        titleSplits.forEach((split) => split?.revert());
+        descSplits.forEach((split) => split?.revert());
+      };
     },
     { scope: sectionRef, dependencies: [] }
   );
@@ -206,15 +319,15 @@ export default function ServicesHero() {
   return (
     <section
       ref={sectionRef}
-      className="relative flex h-screen w-full overflow-hidden"
+      className="relative flex h-screen w-full overflow-hidden snap-start snap-always"
     >
       {/* Left side - Content */}
       <div className="relative z-10 flex w-full flex-col items-start justify-center px-6 md:w-1/2 md:px-12 lg:px-16">
-        <AnimatedText start="top 80%" stagger={0.15} duration={0.8}>
+        {/* <AnimatedText start="top 80%" stagger={0.15} duration={0.8}>
           <p className="font-pp-neue-montreal-mono text-secondary mb-6 text-xs md:text-sm">
             SERVICES
           </p>
-        </AnimatedText>
+        </AnimatedText> */}
 
         {/* Stacked titles - all in same position */}
         <div className="relative mb-8 h-32 w-full max-w-xl md:h-40">
