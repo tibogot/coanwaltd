@@ -1,33 +1,26 @@
 import Link from "next/link";
-import TextReveal from "./components/TextReveal";
 
 export default function NotFound() {
   return (
     <div className="flex min-h-screen w-full items-center justify-center bg-white px-4 py-24 md:px-8">
       <div className="mx-auto flex max-w-4xl flex-col items-center justify-center text-center">
         <div className="mb-8">
-          <TextReveal blockColor="var(--secondary)" animateOnScroll={true}>
-            <h1 className="font-pp-neue-montreal text-6xl text-black md:text-9xl">
-              404
-            </h1>
-          </TextReveal>
+          <h1 className="font-pp-neue-montreal text-6xl text-black md:text-9xl">
+            404
+          </h1>
         </div>
 
         <div className="mb-12">
-          <TextReveal blockColor="var(--secondary)" animateOnScroll={true} delay={0.2}>
-            <h2 className="font-pp-neue-montreal mb-4 text-2xl text-black md:text-4xl">
-              Page Not Found
-            </h2>
-          </TextReveal>
+          <h2 className="font-pp-neue-montreal mb-4 text-2xl text-black md:text-4xl">
+            Page Not Found
+          </h2>
         </div>
 
         <div className="mb-12 max-w-2xl">
-          <TextReveal blockColor="var(--secondary)" animateOnScroll={true} delay={0.4}>
-            <p className="font-pp-neue-montreal text-base text-black/70 md:text-lg">
-              The page you&apos;re looking for doesn&apos;t exist or has been
-              moved. Let&apos;s get you back on track.
-            </p>
-          </TextReveal>
+          <p className="font-pp-neue-montreal text-base text-black/70 md:text-lg">
+            The page you&apos;re looking for doesn&apos;t exist or has been
+            moved. Let&apos;s get you back on track.
+          </p>
         </div>
 
         <Link
@@ -54,4 +47,3 @@ export default function NotFound() {
     </div>
   );
 }
-

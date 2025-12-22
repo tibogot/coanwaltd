@@ -1,6 +1,5 @@
 "use client";
 
-import TextReveal from "./components/TextReveal";
 import LogoReveal from "./components/LogoReveal";
 import ProfilesTicker from "./components/ProfilesTicker";
 import FAQ from "./components/FAQ";
@@ -74,15 +73,9 @@ export default function Home() {
               className="h-auto w-[min(60vw,520px)]"
             />
           </LogoReveal>
-          <TextReveal
-            blockColor="var(--primary)"
-            animateOnScroll={false}
-            delay={0.4}
-          >
-            <p className="font-pp-neue-montreal mt-2 text-sm text-white md:text-base">
-              Construction West Africa Unlimited
-            </p>
-          </TextReveal>
+          <p className="font-pp-neue-montreal mt-2 text-sm text-white md:text-base">
+            Construction West Africa Unlimited
+          </p>
         </div>
         {/* Background Image - 100vh, not fixed */}
         <div className="absolute inset-0 z-0">
@@ -111,38 +104,34 @@ export default function Home() {
 
         <div className="relative z-10 mx-auto flex h-full w-full flex-col">
           <div className="text-left">
-            <TextReveal blockColor="var(--secondary)" animateOnScroll={true}>
-              <p className="font-pp-neue-montreal-mono text-secondary mb-8 text-xs md:text-sm">
-                ABOUT
-              </p>
-              <h2 className="font-pp-neue-montreal text-secondary text-left text-4xl md:text-6xl">
-                <span className="opacity-0 select-none">A c</span>A construction
-                company,
-                <br />
-                offering integrated solution and
-                <br />
-                related services.
-              </h2>
-            </TextReveal>
+            <p className="font-pp-neue-montreal-mono text-secondary mb-8 text-xs md:text-sm">
+              ABOUT
+            </p>
+            <h2 className="font-pp-neue-montreal text-secondary text-left text-4xl md:text-6xl">
+              <span className="opacity-0 select-none">A c</span>A construction
+              company,
+              <br />
+              offering integrated solution and
+              <br />
+              related services.
+            </h2>
           </div>
           <div className="mt-32 flex justify-end md:mt-48">
             <div className="flex flex-col gap-6">
-              <TextReveal blockColor="var(--secondary)" animateOnScroll={true}>
-                <p className="font-pp-neue-montreal text-secondary max-w-2xl text-left text-base md:text-xl">
-                  Three decades of expertise in construction and engineering
-                  across West Africa.
-                  <br />
-                  We deliver integrated solutions from planning to execution.
-                  <br />
-                  Quality, innovation, and reliability in every project we
-                  undertake.
-                  <br />
-                  Transforming infrastructure and shaping the future of the
-                  region.
-                  <br />
-                  Your trusted partner for comprehensive construction services.
-                </p>
-              </TextReveal>
+              <p className="font-pp-neue-montreal text-secondary max-w-2xl text-left text-base md:text-xl">
+                Three decades of expertise in construction and engineering
+                across West Africa.
+                <br />
+                We deliver integrated solutions from planning to execution.
+                <br />
+                Quality, innovation, and reliability in every project we
+                undertake.
+                <br />
+                Transforming infrastructure and shaping the future of the
+                region.
+                <br />
+                Your trusted partner for comprehensive construction services.
+              </p>
               <Link
                 href="/company"
                 className="font-pp-neue-montreal text-secondary hover:text-secondary/80 flex cursor-pointer items-center gap-2 text-sm transition-colors"
@@ -219,41 +208,25 @@ export default function Home() {
         </div>
         {/* Top Left Content */}
         <div className="relative z-10 max-w-2xl p-6 pt-16 md:p-10 md:pt-24">
-          <TextReveal blockColor="var(--primary)" animateOnScroll={true}>
-            <h2 className="font-pp-neue-montreal mb-4 text-left text-3xl text-white md:text-5xl">
-              Road Construction Excellence in Nigeria
-            </h2>
-          </TextReveal>
-          <TextReveal
-            blockColor="var(--primary)"
-            animateOnScroll={true}
-            delay={0.2}
-          >
-            <p className="font-pp-neue-montreal text-left text-base text-white/90 md:text-xl">
-              Building highways, urban roads, and infrastructure projects across
-              West Africa with over three decades of expertise in civil
-              engineering and construction.
-            </p>
-          </TextReveal>
+          <h2 className="font-pp-neue-montreal mb-4 text-left text-3xl text-white md:text-5xl">
+            Road Construction Excellence in Nigeria
+          </h2>
+          <p className="font-pp-neue-montreal text-left text-base text-white/90 md:text-xl">
+            Building highways, urban roads, and infrastructure projects across
+            West Africa with over three decades of expertise in civil
+            engineering and construction.
+          </p>
         </div>
         {/* Bottom Right Container */}
         <div className="bg-secondary relative z-10 flex min-h-[40vh] w-full max-w-lg flex-col justify-between self-end pt-4 pl-4 md:px-6 md:py-6">
-          <TextReveal blockColor="var(--primary)" animateOnScroll={true}>
-            <h2 className="font-pp-neue-montreal max-w-xs text-left text-xl text-white md:text-2xl">
-              Infrastructure Development Across West Africa
-            </h2>
-          </TextReveal>
-          <TextReveal
-            blockColor="var(--primary)"
-            animateOnScroll={true}
-            delay={0.2}
-          >
-            <p className="font-pp-neue-montreal max-w-xs text-left text-base text-white/90 md:text-base">
-              Delivering quality road construction and engineering solutions
-              from planning to execution, transforming Nigeria&apos;s
-              transportation infrastructure.
-            </p>
-          </TextReveal>
+          <h2 className="font-pp-neue-montreal max-w-xs text-left text-xl text-white md:text-2xl">
+            Infrastructure Development Across West Africa
+          </h2>
+          <p className="font-pp-neue-montreal max-w-xs text-left text-base text-white/90 md:text-base">
+            Delivering quality road construction and engineering solutions
+            from planning to execution, transforming Nigeria&apos;s
+            transportation infrastructure.
+          </p>
         </div>
       </section>
 
@@ -261,15 +234,13 @@ export default function Home() {
       <section className="relative w-full py-24 md:py-32">
         <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-center px-4 md:px-8">
           <div className="text-center">
-            <TextReveal blockColor="var(--secondary)" animateOnScroll={true}>
-              <p className="font-pp-neue-montreal-mono text-secondary mb-8 text-xs md:text-sm">
-                STATISTICS
-              </p>
-              <h2 className="font-pp-neue-montreal text-secondary max-w-4xl text-center text-4xl md:text-6xl">
-                Leading road construction and civil engineering solutions across
-                Nigeria and West Africa.
-              </h2>
-            </TextReveal>
+            <p className="font-pp-neue-montreal-mono text-secondary mb-8 text-xs md:text-sm">
+              STATISTICS
+            </p>
+            <h2 className="font-pp-neue-montreal text-secondary max-w-4xl text-center text-4xl md:text-6xl">
+              Leading road construction and civil engineering solutions across
+              Nigeria and West Africa.
+            </h2>
           </div>
         </div>
       </section>
@@ -294,32 +265,18 @@ export default function Home() {
         <div className="mb-16 px-4 md:mb-24 md:px-8">
           <div className="flex flex-col items-start">
             <div className="text-left">
-              <TextReveal
-                animateOnScroll={true}
-                blockColor="var(--secondary)"
-                stagger={0.15}
-                duration={0.8}
-              >
-                <p className="font-pp-neue-montreal-mono text-secondary mb-6 text-xs md:text-sm">
-                  TEAM
-                </p>
-                <p className="font-pp-neue-montreal text-secondary mb-8 max-w-2xl text-left text-4xl md:text-6xl">
-                  Our People
-                </p>
-              </TextReveal>
+              <p className="font-pp-neue-montreal-mono text-secondary mb-6 text-xs md:text-sm">
+                TEAM
+              </p>
+              <p className="font-pp-neue-montreal text-secondary mb-8 max-w-2xl text-left text-4xl md:text-6xl">
+                Our People
+              </p>
             </div>
             <div className="text-left">
-              <TextReveal
-                animateOnScroll={true}
-                blockColor="var(--secondary)"
-                stagger={0.15}
-                duration={0.8}
-              >
-                <p className="font-pp-neue-montreal text-secondary/80 max-w-2xl text-left text-base sm:text-lg md:text-xl">
-                  Meet the dedicated professionals driving excellence across all
-                  our construction and engineering projects.
-                </p>
-              </TextReveal>
+              <p className="font-pp-neue-montreal text-secondary/80 max-w-2xl text-left text-base sm:text-lg md:text-xl">
+                Meet the dedicated professionals driving excellence across all
+                our construction and engineering projects.
+              </p>
             </div>
           </div>
         </div>
@@ -345,13 +302,11 @@ export default function Home() {
         </div>
         {/* Hero Content */}
         <div className="relative z-10 p-4 md:p-8 md:pb-12">
-          <TextReveal blockColor="var(--primary)" animateOnScroll={true}>
-            <p className="font-pp-neue-montreal max-w-6xl text-left text-2xl text-white md:text-6xl">
-              Transforming landscapes and shaping futures through innovative
-              construction solutions and engineering excellence across West
-              Africa.
-            </p>
-          </TextReveal>
+          <p className="font-pp-neue-montreal max-w-6xl text-left text-2xl text-white md:text-6xl">
+            Transforming landscapes and shaping futures through innovative
+            construction solutions and engineering excellence across West
+            Africa.
+          </p>
         </div>
       </section>
     </>

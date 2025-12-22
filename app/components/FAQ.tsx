@@ -2,7 +2,6 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
-import TextReveal from "./TextReveal";
 import { gsap } from "@/lib/gsapConfig";
 
 interface FAQItem {
@@ -114,45 +113,18 @@ export default function FAQ() {
           {/* Left column (desktop): section label */}
           <div className="md:col-span-4">
             <div className="text-left">
-              <TextReveal
-                animateOnScroll={true}
-                blockColor="var(--secondary)"
-                stagger={0.15}
-                duration={0.8}
-              >
-                <p className="font-pp-neue-montreal-mono text-secondary text-xs md:text-sm">
-                  FAQ
-                </p>
-              </TextReveal>
+              <p className="font-pp-neue-montreal-mono text-secondary text-xs md:text-sm">
+                FAQ
+              </p>
             </div>
           </div>
 
           {/* Right column: title + accordion */}
           <div className="md:col-span-8">
             <div className="mb-10 md:mb-14">
-              <TextReveal
-                animateOnScroll={true}
-                blockColor="var(--secondary)"
-                stagger={0.15}
-                duration={0.8}
-              >
-                <h2 className="font-pp-neue-montreal text-secondary mb-6 text-left text-4xl md:text-4xl">
-                  Questions, answered.
-                </h2>
-              </TextReveal>
-              {/* <div className="text-left">
-                <TextReveal
-                  animateOnScroll={true}
-                  blockColor="var(--secondary)"
-                  stagger={0.15}
-                  duration={0.8}
-                >
-                  <p className="font-pp-neue-montreal text-left text-base leading-relaxed text-black/80 sm:text-lg md:text-xl">
-                    Find answers to common questions about our construction
-                    services, processes, and expertise.
-                  </p>
-                </TextReveal>
-              </div> */}
+              <h2 className="font-pp-neue-montreal text-secondary mb-6 text-left text-4xl md:text-4xl">
+                Questions, answered.
+              </h2>
             </div>
 
             {/* FAQ Items */}

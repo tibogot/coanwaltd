@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import TextReveal from "./TextReveal";
 
 const PROJECTS_PREVIEW = [
   {
@@ -35,30 +34,16 @@ export default function ProjectsPreview() {
         <div className="flex flex-col">
           {/* Section label */}
           <div className="text-left mb-6">
-            <TextReveal
-              animateOnScroll={true}
-              blockColor="var(--secondary)"
-              stagger={0.15}
-              duration={0.8}
-            >
-              <p className="font-pp-neue-montreal-mono text-secondary text-xs md:text-sm">
-                PROJECTS
-              </p>
-            </TextReveal>
+            <p className="font-pp-neue-montreal-mono text-secondary text-xs md:text-sm">
+              PROJECTS
+            </p>
           </div>
 
           {/* Title */}
           <div className="mb-10 md:mb-14">
-            <TextReveal
-              animateOnScroll={true}
-              blockColor="var(--secondary)"
-              stagger={0.15}
-              duration={0.8}
-            >
-              <h2 className="font-pp-neue-montreal text-secondary text-left text-4xl md:text-4xl">
-                Featured Projects
-              </h2>
-            </TextReveal>
+            <h2 className="font-pp-neue-montreal text-secondary text-left text-4xl md:text-4xl">
+              Featured Projects
+            </h2>
           </div>
 
           {/* Project Images Grid - fills width */}
@@ -88,22 +73,15 @@ export default function ProjectsPreview() {
 
           {/* CTA Button */}
           <div className="mt-10 md:mt-14">
-            <TextReveal
-              blockColor="var(--secondary)"
-              animateOnScroll={true}
-              delay={0.2}
+            <Link
+              href="/projects"
+              className="bg-secondary hover:bg-secondary/90 inline-block w-fit cursor-pointer rounded-[1px] px-4 py-2 text-sm text-white transition-all duration-200 md:px-5 md:py-2.5 md:text-base"
             >
-              <Link
-                href="/projects"
-                className="bg-secondary hover:bg-secondary/90 inline-block w-fit cursor-pointer rounded-[1px] px-4 py-2 text-sm text-white transition-all duration-200 md:px-5 md:py-2.5 md:text-base"
-              >
-                View All Projects
-              </Link>
-            </TextReveal>
+              View All Projects
+            </Link>
           </div>
         </div>
       </div>
     </section>
   );
 }
-

@@ -1,5 +1,4 @@
 import Image from "next/image";
-import TextReveal from "../components/TextReveal";
 import ProfileGrid from "../components/ProfileGrid";
 
 export default function Company() {
@@ -17,21 +16,13 @@ export default function Company() {
         </div>
         <div className="relative z-10 flex h-full items-end justify-start">
           <div className="p-4 md:p-8 md:pb-12">
-            <TextReveal blockColor="var(--primary)" animateOnScroll={true}>
-              <h1 className="font-pp-neue-montreal mb-4 max-w-4xl text-left text-4xl text-white md:text-6xl">
-                Building Excellence Across West Africa
-              </h1>
-            </TextReveal>
-            <TextReveal
-              blockColor="var(--primary)"
-              animateOnScroll={true}
-              delay={0.2}
-            >
-              <p className="font-pp-neue-montreal max-w-xl text-left text-base text-white/90 md:text-lg">
-                Three decades of expertise in construction and engineering,
-                delivering integrated solutions from planning to execution.
-              </p>
-            </TextReveal>
+            <h1 className="font-pp-neue-montreal mb-4 max-w-4xl text-left text-4xl text-white md:text-6xl">
+              Building Excellence Across West Africa
+            </h1>
+            <p className="font-pp-neue-montreal max-w-xl text-left text-base text-white/90 md:text-lg">
+              Three decades of expertise in construction and engineering,
+              delivering integrated solutions from planning to execution.
+            </p>
           </div>
         </div>
       </div>
@@ -40,20 +31,18 @@ export default function Company() {
       <section className="bg-primary relative w-full overflow-hidden px-4 py-10 md:px-8 md:py-20">
         <div className="relative z-10 mx-auto flex h-full w-full flex-col">
           <div className="text-left">
-            <TextReveal blockColor="var(--secondary)" animateOnScroll={true}>
-              <p className="font-pp-neue-montreal-mono text-secondary mb-8 text-xs md:text-sm">
-                VISION
-              </p>
-              <div className="w-full md:w-1/2">
-                <h2 className="font-pp-neue-montreal text-secondary text-left text-4xl md:text-6xl">
-                  Three decades of excellence,
-                  <br />
-                  building the future of infrastructure
-                  <br />
-                  across West Africa with precision and innovation.
-                </h2>
-              </div>
-            </TextReveal>
+            <p className="font-pp-neue-montreal-mono text-secondary mb-8 text-xs md:text-sm">
+              VISION
+            </p>
+            <div className="w-full md:w-1/2">
+              <h2 className="font-pp-neue-montreal text-secondary text-left text-4xl md:text-6xl">
+                Three decades of excellence,
+                <br />
+                building the future of infrastructure
+                <br />
+                across West Africa with precision and innovation.
+              </h2>
+            </div>
           </div>
           <div className="flex w-full gap-4 py-20">
             <div className="hidden w-1/2 md:block"></div>
@@ -104,11 +93,9 @@ export default function Company() {
       </section>
 
       <div className="bg-primary px-4 md:px-8">
-        <TextReveal blockColor="var(--secondary)" animateOnScroll={true}>
-          <p className="font-pp-neue-montreal-mono text-secondary mb-8 text-left text-xs md:text-sm">
-            LEADERSHIP
-          </p>
-        </TextReveal>
+        <p className="font-pp-neue-montreal-mono text-secondary mb-8 text-left text-xs md:text-sm">
+          LEADERSHIP
+        </p>
       </div>
       <ProfileGrid />
       <section className="relative flex min-h-[100dvh] min-h-[100svh] w-full items-end justify-start">
@@ -123,13 +110,11 @@ export default function Company() {
         </div>
         {/* Hero Content */}
         <div className="relative z-10 p-4 md:p-8 md:pb-12">
-          <TextReveal blockColor="var(--primary)" animateOnScroll={true}>
-            <p className="font-pp-neue-montreal max-w-6xl text-left text-2xl text-white md:text-6xl">
-              Transforming landscapes and shaping futures through innovative
-              construction solutions and engineering excellence across West
-              Africa.
-            </p>
-          </TextReveal>
+          <p className="font-pp-neue-montreal max-w-6xl text-left text-2xl text-white md:text-6xl">
+            Transforming landscapes and shaping futures through innovative
+            construction solutions and engineering excellence across West
+            Africa.
+          </p>
         </div>
       </section>
     </>
