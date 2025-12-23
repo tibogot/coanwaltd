@@ -101,6 +101,7 @@ const ProfilesTicker = () => {
   const tickerWidthRef = useRef<number>(0);
   const resizeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const throwCompleteTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const imagesLoadedRef = useRef<boolean>(false);
 
   // Create a function to create and start animation from a given position
   // Use useCallback to stabilize the function reference
@@ -167,112 +168,170 @@ const ProfilesTicker = () => {
       const tickerElement = tickerRef.current;
       if (!tickerElement) return;
 
-      // Calculate width of one set of profiles
-      const profileElements = tickerElement.querySelectorAll(".profile-card");
-      const firstSetProfiles = Array.from(profileElements).slice(
-        0,
-        PROFILES.length,
-      );
-      const firstSetWidth = calculateWidth(firstSetProfiles);
+      // Wait for images to load before calculating width (prevents mobile layout shifts)
+      const initializeTicker = () => {
+        // Calculate width of one set of profiles
+        const profileElements = tickerElement.querySelectorAll(".profile-card");
+        const firstSetProfiles = Array.from(profileElements).slice(
+          0,
+          PROFILES.length,
+        );
+        const firstSetWidth = calculateWidth(firstSetProfiles);
 
-      tickerWidthRef.current = firstSetWidth;
+        // Only proceed if we have a valid width
+        if (firstSetWidth === 0) {
+          // Retry after a short delay if width is still 0
+          setTimeout(initializeTicker, 100);
+          return;
+        }
 
-      // Set initial position
-      gsap.set(tickerElement, { x: 0 });
+        tickerWidthRef.current = firstSetWidth;
 
-      // Start the initial animation
-      timelineRef.current = startAnimationFromPosition(
-        tickerElement,
-        0,
-        firstSetWidth,
-      );
+        // Set initial position
+        gsap.set(tickerElement, { x: 0 });
 
-      // Create draggable with InertiaPlugin for momentum-based throwing
-      draggableRef.current = Draggable.create(tickerElement, {
-        type: "x",
-        inertia: true,
-        // Enhanced inertia settings for more natural momentum
-        throwProps: true, // Enable throw properties
-        minDuration: 0.5, // Minimum duration of throw animation
-        maxDuration: 2.0, // Maximum duration of throw animation
-        throwResistance: 0.55, // Lower value = more slide after throwing (0.55 feels more fluid)
-        edgeResistance: 0.65,
+        // Start the initial animation
+        timelineRef.current = startAnimationFromPosition(
+          tickerElement,
+          0,
+          firstSetWidth,
+        );
 
-        onDragStart: function () {
-          isDragging.current = true;
+        // Create draggable only after initialization (prevents issues on mobile)
+        if (!draggableRef.current) {
+          draggableRef.current = Draggable.create(tickerElement, {
+            type: "x",
+            inertia: true,
+            // Enhanced inertia settings for more natural momentum
+            throwProps: true, // Enable throw properties
+            minDuration: 0.5, // Minimum duration of throw animation
+            maxDuration: 2.0, // Maximum duration of throw animation
+            throwResistance: 0.55, // Lower value = more slide after throwing (0.55 feels more fluid)
+            edgeResistance: 0.65,
 
-          // Kill any existing animations
-          if (timelineRef.current) {
-            timelineRef.current.pause();
+            onDragStart: function () {
+              isDragging.current = true;
+
+              // Kill any existing animations
+              if (timelineRef.current) {
+                timelineRef.current.pause();
+              }
+              gsap.killTweensOf(tickerElement);
+
+              // Clear any pending throw complete timeouts
+              if (throwCompleteTimeoutRef.current) {
+                clearTimeout(throwCompleteTimeoutRef.current);
+                throwCompleteTimeoutRef.current = null;
+              }
+            },
+
+            onDrag: function () {
+              // Check if we need to loop while dragging
+              const width = tickerWidthRef.current;
+              if (width > 0 && this.x <= -width) {
+                // Reset position to create loop effect
+                gsap.set(tickerElement, { x: 0 });
+                this.update(); // Update Draggable instance with new position
+              } else if (this.x > 0) {
+                // If dragged too far right, snap to end of first set
+                gsap.set(tickerElement, { x: -width + 10 });
+                this.update(); // Update Draggable instance with new position
+              }
+            },
+
+            onDragEnd: function () {
+              // Mark drag as ended but let inertia continue
+              isDragging.current = false;
+
+              // The inertia will continue automatically due to throwProps
+              // Don't restart animation yet - wait for throw complete
+            },
+
+            onThrowUpdate: function () {
+              // Same loop checking logic during throw animation
+              const width = tickerWidthRef.current;
+              if (width > 0 && this.x <= -width) {
+                gsap.set(tickerElement, { x: 0 });
+                this.update();
+              } else if (this.x > 0) {
+                gsap.set(tickerElement, { x: -width + 10 });
+                this.update();
+              }
+            },
+
+            // This is called when the throw/inertia animation completes
+            onThrowComplete: function () {
+              // Clear any existing timeout
+              if (throwCompleteTimeoutRef.current) {
+                clearTimeout(throwCompleteTimeoutRef.current);
+              }
+
+              // Use requestAnimationFrame + setTimeout for better mobile performance
+              // Longer delay on mobile to ensure inertia animation fully completes
+              requestAnimationFrame(() => {
+                throwCompleteTimeoutRef.current = setTimeout(() => {
+                  throwCompleteTimeoutRef.current = null;
+
+                  // Double-check conditions before restarting animation
+                  if (
+                    !isDragging.current &&
+                    !isHovering.current &&
+                    tickerElement
+                  ) {
+                    // Get final resting position
+                    const currentX = gsap.getProperty(
+                      tickerElement,
+                      "x",
+                    ) as number;
+                    const width = tickerWidthRef.current;
+
+                    // Only restart if we have a valid width
+                    if (width > 0) {
+                      // Start the continuous animation from this exact position
+                      startAnimationFromPosition(
+                        tickerElement,
+                        currentX as number,
+                        width,
+                      );
+                    }
+                  }
+                }, 50) as unknown as NodeJS.Timeout; // Increased from 10ms to 50ms for mobile
+              });
+            },
+          })[0] as DraggableInstance;
+        }
+      };
+
+      // Check if images are already loaded
+      const images = tickerElement.querySelectorAll("img");
+      let loadedCount = 0;
+      const totalImages = images.length;
+
+      if (totalImages === 0) {
+        // No images found, initialize immediately
+        initializeTicker();
+      } else {
+        // Wait for all images to load
+        const checkImageLoad = () => {
+          loadedCount++;
+          if (loadedCount >= totalImages || imagesLoadedRef.current) {
+            imagesLoadedRef.current = true;
+            // Small delay to ensure layout is stable
+            requestAnimationFrame(() => {
+              setTimeout(initializeTicker, 50);
+            });
           }
-          gsap.killTweensOf(tickerElement);
+        };
 
-          // Clear any pending throw complete timeouts
-          if (throwCompleteTimeoutRef.current) {
-            clearTimeout(throwCompleteTimeoutRef.current);
-            throwCompleteTimeoutRef.current = null;
+        images.forEach((img) => {
+          if ((img as HTMLImageElement).complete) {
+            checkImageLoad();
+          } else {
+            img.addEventListener("load", checkImageLoad, { once: true });
+            img.addEventListener("error", checkImageLoad, { once: true });
           }
-        },
-
-        onDrag: function () {
-          // Check if we need to loop while dragging
-          if (this.x <= -firstSetWidth) {
-            // Reset position to create loop effect
-            gsap.set(tickerElement, { x: 0 });
-            this.update(); // Update Draggable instance with new position
-          } else if (this.x > 0) {
-            // If dragged too far right, snap to end of first set
-            gsap.set(tickerElement, { x: -firstSetWidth + 10 });
-            this.update(); // Update Draggable instance with new position
-          }
-        },
-
-        onDragEnd: function () {
-          // Mark drag as ended but let inertia continue
-          isDragging.current = false;
-
-          // The inertia will continue automatically due to throwProps
-          // Don't restart animation yet - wait for throw complete
-        },
-
-        onThrowUpdate: function () {
-          // Same loop checking logic during throw animation
-          if (this.x <= -firstSetWidth) {
-            gsap.set(tickerElement, { x: 0 });
-            this.update();
-          } else if (this.x > 0) {
-            gsap.set(tickerElement, { x: -firstSetWidth + 10 });
-            this.update();
-          }
-        },
-
-        // This is called when the throw/inertia animation completes
-        onThrowComplete: function () {
-          // Clear any existing timeout
-          if (throwCompleteTimeoutRef.current) {
-            clearTimeout(throwCompleteTimeoutRef.current);
-          }
-
-          // Use requestAnimationFrame instead of setTimeout for better performance
-          // This ensures it runs after the current render cycle
-          throwCompleteTimeoutRef.current = setTimeout(() => {
-            throwCompleteTimeoutRef.current = null;
-
-            // Double-check conditions before restarting animation
-            if (!isDragging.current && !isHovering.current && tickerElement) {
-              // Get final resting position
-              const currentX = gsap.getProperty(tickerElement, "x") as number;
-
-              // Start the continuous animation from this exact position
-              startAnimationFromPosition(
-                tickerElement,
-                currentX as number,
-                firstSetWidth,
-              );
-            }
-          }, 10) as unknown as NodeJS.Timeout;
-        },
-      })[0] as DraggableInstance;
+        });
+      }
 
       // Handle window resize for responsive behavior with debouncing
       const handleResize = () => {
@@ -281,9 +340,14 @@ const ProfilesTicker = () => {
           clearTimeout(resizeTimeoutRef.current);
         }
 
-        // Debounce resize handler
+        // Debounce resize handler - longer delay on mobile to avoid address bar issues
         resizeTimeoutRef.current = setTimeout(() => {
           if (!tickerElement) return;
+
+          // Don't reset if currently dragging or hovering
+          if (isDragging.current || isHovering.current) {
+            return;
+          }
 
           // Kill existing animation
           if (timelineRef.current) {
@@ -299,16 +363,25 @@ const ProfilesTicker = () => {
           );
           const firstSetWidth = calculateWidth(firstSetProfiles);
 
-          tickerWidthRef.current = firstSetWidth;
+          // Only update if width actually changed significantly (prevents micro-adjustments)
+          if (Math.abs(firstSetWidth - tickerWidthRef.current) > 10) {
+            tickerWidthRef.current = firstSetWidth;
 
-          // Reset position and restart animation
-          gsap.set(tickerElement, { x: 0 });
-          timelineRef.current = startAnimationFromPosition(
-            tickerElement,
-            0,
-            firstSetWidth,
-          );
-        }, 150) as unknown as NodeJS.Timeout;
+            // Preserve current position instead of resetting to 0
+            const currentX = gsap.getProperty(tickerElement, "x") as number;
+            const normalizedX = Math.max(-firstSetWidth, Math.min(0, currentX));
+
+            // Restart animation from preserved position
+            timelineRef.current = startAnimationFromPosition(
+              tickerElement,
+              normalizedX,
+              firstSetWidth,
+            );
+          } else {
+            // Width didn't change much, just update the ref and continue
+            tickerWidthRef.current = firstSetWidth;
+          }
+        }, 300) as unknown as NodeJS.Timeout; // Increased from 150ms to 300ms for mobile
       };
 
       window.addEventListener("resize", handleResize);
@@ -399,8 +472,6 @@ const ProfilesTicker = () => {
           className="flex cursor-grab touch-pan-x active:cursor-grabbing"
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
-          onTouchStart={handleMouseEnter}
-          onTouchEnd={handleMouseLeave}
         >
           {/* First set of profiles */}
           {PROFILES.map((profile) => (
