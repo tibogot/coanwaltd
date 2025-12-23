@@ -65,7 +65,7 @@ export default function ServicesHero() {
             SplitText.create(h1, {
               type: "lines",
               linesClass: "line-child",
-            })
+            }),
           );
         }
       });
@@ -78,7 +78,7 @@ export default function ServicesHero() {
             SplitText.create(p, {
               type: "lines",
               linesClass: "line-child",
-            })
+            }),
           );
         }
       });
@@ -153,7 +153,7 @@ export default function ServicesHero() {
             stagger: 0.05,
             ease: "power2.inOut",
           },
-          "<0.1"
+          "<0.1",
         )
         // Clip current image to the bottom (masking it out from top to bottom)
         .to(
@@ -163,7 +163,7 @@ export default function ServicesHero() {
             duration: 0.6,
             ease: "power2.inOut",
           },
-          "<0.1"
+          "<0.1",
         )
         // Scale up the inner div as current image exits
         .to(
@@ -173,7 +173,7 @@ export default function ServicesHero() {
             duration: 0.6,
             ease: "power2.inOut",
           },
-          "<"
+          "<",
         )
         // Reveal new image from top to bottom (unmasking)
         .to(
@@ -183,7 +183,7 @@ export default function ServicesHero() {
             duration: 0.6,
             ease: "power2.inOut",
           },
-          "<"
+          "<",
         )
         // Scale down from 1.2 to 1 as it reveals
         .to(
@@ -193,7 +193,7 @@ export default function ServicesHero() {
             duration: 0.6,
             ease: "power2.inOut",
           },
-          "<"
+          "<",
         )
         // Animate in new title lines
         .to(
@@ -205,7 +205,7 @@ export default function ServicesHero() {
             stagger: 0.05,
             ease: "power2.out",
           },
-          "<0.2"
+          "<0.2",
         )
         // Animate in new description lines
         .to(
@@ -217,7 +217,7 @@ export default function ServicesHero() {
             stagger: 0.05,
             ease: "power2.out",
           },
-          "<0.1"
+          "<0.1",
         )
         // Hold state 2 for a bit
         .to({}, { duration: 0.3 })
@@ -240,7 +240,7 @@ export default function ServicesHero() {
             stagger: 0.05,
             ease: "power2.inOut",
           },
-          "<0.1"
+          "<0.1",
         )
         // Clip current image to the bottom (masking it out from top to bottom)
         .to(
@@ -250,7 +250,7 @@ export default function ServicesHero() {
             duration: 0.6,
             ease: "power2.inOut",
           },
-          "<0.1"
+          "<0.1",
         )
         // Scale up the inner div as current image exits
         .to(
@@ -260,7 +260,7 @@ export default function ServicesHero() {
             duration: 0.6,
             ease: "power2.inOut",
           },
-          "<"
+          "<",
         )
         // Reveal new image from top to bottom
         .to(
@@ -270,7 +270,7 @@ export default function ServicesHero() {
             duration: 0.6,
             ease: "power2.inOut",
           },
-          "<"
+          "<",
         )
         // Scale down from 1.2 to 1 as it reveals
         .to(
@@ -280,7 +280,7 @@ export default function ServicesHero() {
             duration: 0.6,
             ease: "power2.inOut",
           },
-          "<"
+          "<",
         )
         // Animate in new title lines
         .to(
@@ -292,7 +292,7 @@ export default function ServicesHero() {
             stagger: 0.05,
             ease: "power2.out",
           },
-          "<0.2"
+          "<0.2",
         )
         // Animate in new description lines
         .to(
@@ -304,7 +304,7 @@ export default function ServicesHero() {
             stagger: 0.05,
             ease: "power2.out",
           },
-          "<0.1"
+          "<0.1",
         );
 
       // Cleanup function
@@ -313,13 +313,13 @@ export default function ServicesHero() {
         descSplits.forEach((split) => split?.revert());
       };
     },
-    { scope: sectionRef, dependencies: [] }
+    { scope: sectionRef, dependencies: [] },
   );
 
   return (
     <section
       ref={sectionRef}
-      className="relative flex h-screen w-full overflow-hidden snap-start snap-always"
+      className="relative flex h-screen w-full snap-start snap-always overflow-hidden"
     >
       {/* Left side - Content */}
       <div className="relative z-10 flex w-full flex-col items-start justify-center px-6 md:w-1/2 md:px-12 lg:px-16">
@@ -376,7 +376,7 @@ export default function ServicesHero() {
       </div>
 
       {/* Right side - Images stacked on top of each other */}
-      <div className="absolute right-0 top-0 h-full w-full overflow-hidden md:relative md:w-1/2">
+      <div className="absolute top-0 right-0 h-full w-full overflow-hidden md:relative md:w-1/2">
         {servicesData.map((service, index) => (
           <div
             key={`image-${service.id}`}
@@ -389,7 +389,7 @@ export default function ServicesHero() {
               ref={(el) => {
                 imageInnerRefs.current[index] = el;
               }}
-              className="h-full w-full"
+              className="relative h-full w-full"
             >
               <Image
                 src={service.image}
@@ -405,7 +405,7 @@ export default function ServicesHero() {
       </div>
 
       {/* Overlay gradient for mobile to ensure text readability */}
-      <div className="bg-gradient-to-r from-white/95 via-white/80 to-transparent pointer-events-none absolute inset-0 z-0 md:hidden" />
+      <div className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-r from-white/95 via-white/80 to-transparent md:hidden" />
     </section>
   );
 }

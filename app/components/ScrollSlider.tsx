@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { useGSAP, gsap, ScrollTrigger, SplitText } from "@/lib/gsapConfig";
 
 interface Slide {
@@ -210,14 +211,16 @@ export default function ScrollSlider({
     >
       {/* Slider Images */}
       <div className="absolute h-full w-full" ref={sliderImagesRef}>
-        <img
+        <Image
           src={slides[0].image}
           alt="Slide 1"
+          fill
           className="absolute h-full w-full object-cover"
           style={{
             transformOrigin: "center",
             willChange: "transform, opacity",
           }}
+          priority
         />
         {/* Dark overlay */}
         <div className="pointer-events-none absolute inset-0 bg-black/35" />

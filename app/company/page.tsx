@@ -1,5 +1,6 @@
 import Image from "next/image";
 import ProfileGrid from "../components/ProfileGrid";
+import AnimatedText from "../components/AnimatedText3";
 
 export default function Company() {
   return (
@@ -16,13 +17,17 @@ export default function Company() {
         </div>
         <div className="relative z-10 flex h-full items-end justify-start">
           <div className="p-4 md:p-8 md:pb-12">
-            <h1 className="font-pp-neue-montreal mb-4 max-w-4xl text-left text-4xl text-white md:text-6xl">
-              Building Excellence Across West Africa
-            </h1>
-            <p className="font-pp-neue-montreal max-w-xl text-left text-base text-white/90 md:text-lg">
-              Three decades of expertise in construction and engineering,
-              delivering integrated solutions from planning to execution.
-            </p>
+            <AnimatedText isHero={true}>
+              <h1 className="font-pp-neue-montreal mb-4 max-w-4xl text-left text-4xl text-white md:text-6xl">
+                Building Excellence Across West Africa
+              </h1>
+            </AnimatedText>
+            <AnimatedText isHero={true}>
+              <p className="font-pp-neue-montreal max-w-xl text-left text-base text-white/90 md:text-lg">
+                Three decades of expertise in construction and engineering,
+                delivering integrated solutions from planning to execution.
+              </p>
+            </AnimatedText>
           </div>
         </div>
       </div>
@@ -31,17 +36,21 @@ export default function Company() {
       <section className="bg-primary relative w-full overflow-hidden px-4 py-10 md:px-8 md:py-20">
         <div className="relative z-10 mx-auto flex h-full w-full flex-col">
           <div className="text-left">
-            <p className="font-pp-neue-montreal-mono text-secondary mb-8 text-xs md:text-sm">
-              VISION
-            </p>
+            <AnimatedText>
+              <p className="font-pp-neue-montreal-mono text-secondary mb-8 text-xs md:text-sm">
+                VISION
+              </p>
+            </AnimatedText>
             <div className="w-full md:w-1/2">
-              <h2 className="font-pp-neue-montreal text-secondary text-left text-4xl md:text-6xl">
-                Three decades of excellence,
-                <br />
-                building the future of infrastructure
-                <br />
-                across West Africa with precision and innovation.
-              </h2>
+              <AnimatedText>
+                <h2 className="font-pp-neue-montreal text-secondary text-left text-4xl md:text-6xl">
+                  Three decades of excellence,
+                  <br />
+                  building the future of infrastructure
+                  <br />
+                  across West Africa with precision and innovation.
+                </h2>
+              </AnimatedText>
             </div>
           </div>
           <div className="flex w-full gap-4 py-20">
@@ -53,18 +62,22 @@ export default function Company() {
               {/* First content block */}
               <div className="flex flex-col gap-4 pb-4 md:flex-row">
                 <div className="w-full md:w-1/2">
-                  <h3 className="font-pp-neue-montreal text-secondary text-left text-xl md:text-2xl">
-                    Our Mission
-                  </h3>
+                  <AnimatedText>
+                    <h3 className="font-pp-neue-montreal text-secondary text-left text-xl md:text-2xl">
+                      Our Mission
+                    </h3>
+                  </AnimatedText>
                 </div>
                 <div className="w-full md:w-1/2">
-                  <p className="font-pp-neue-montreal text-secondary text-left text-sm md:text-base">
-                    We are committed to delivering world-class construction and
-                    engineering solutions that transform communities and drive
-                    economic growth across West Africa. Through innovative
-                    approaches and sustainable practices, we build
-                    infrastructure that stands the test of time.
-                  </p>
+                  <AnimatedText>
+                    <p className="font-pp-neue-montreal text-secondary text-left text-sm md:text-base">
+                      We are committed to delivering world-class construction and
+                      engineering solutions that transform communities and drive
+                      economic growth across West Africa. Through innovative
+                      approaches and sustainable practices, we build
+                      infrastructure that stands the test of time.
+                    </p>
+                  </AnimatedText>
                 </div>
               </div>
 
@@ -74,17 +87,21 @@ export default function Company() {
               {/* Second content block */}
               <div className="flex flex-col gap-4 pb-4 md:flex-row">
                 <div className="w-full md:w-1/2">
-                  <h3 className="font-pp-neue-montreal text-secondary text-left text-xl md:text-2xl">
-                    Our Values
-                  </h3>
+                  <AnimatedText>
+                    <h3 className="font-pp-neue-montreal text-secondary text-left text-xl md:text-2xl">
+                      Our Values
+                    </h3>
+                  </AnimatedText>
                 </div>
                 <div className="w-full md:w-1/2">
-                  <p className="font-pp-neue-montreal text-secondary text-left text-sm md:text-base">
-                    Integrity, excellence, and innovation guide everything we
-                    do. We prioritize safety, sustainability, and client
-                    satisfaction in every project, ensuring lasting impact and
-                    meaningful contributions to the communities we serve.
-                  </p>
+                  <AnimatedText>
+                    <p className="font-pp-neue-montreal text-secondary text-left text-sm md:text-base">
+                      Integrity, excellence, and innovation guide everything we
+                      do. We prioritize safety, sustainability, and client
+                      satisfaction in every project, ensuring lasting impact and
+                      meaningful contributions to the communities we serve.
+                    </p>
+                  </AnimatedText>
                 </div>
               </div>
 
@@ -94,18 +111,22 @@ export default function Company() {
               {/* Third content block */}
               <div className="flex flex-col gap-4 md:flex-row">
                 <div className="w-full md:w-1/2">
-                  <h3 className="font-pp-neue-montreal text-secondary text-left text-xl md:text-2xl">
-                    Our Vision
-                  </h3>
+                  <AnimatedText>
+                    <h3 className="font-pp-neue-montreal text-secondary text-left text-xl md:text-2xl">
+                      Our Vision
+                    </h3>
+                  </AnimatedText>
                 </div>
                 <div className="w-full md:w-1/2">
-                  <p className="font-pp-neue-montreal text-secondary text-left text-sm md:text-base">
-                    To be the leading construction and engineering firm in West
-                    Africa, recognized for transforming infrastructure through
-                    cutting-edge technology, sustainable practices, and
-                    unwavering commitment to quality that shapes the future of
-                    the region.
-                  </p>
+                  <AnimatedText>
+                    <p className="font-pp-neue-montreal text-secondary text-left text-sm md:text-base">
+                      To be the leading construction and engineering firm in West
+                      Africa, recognized for transforming infrastructure through
+                      cutting-edge technology, sustainable practices, and
+                      unwavering commitment to quality that shapes the future of
+                      the region.
+                    </p>
+                  </AnimatedText>
                 </div>
               </div>
             </div>
@@ -131,11 +152,13 @@ export default function Company() {
         </div>
         {/* Hero Content */}
         <div className="relative z-10 p-4 md:p-8 md:pb-12">
-          <p className="font-pp-neue-montreal max-w-6xl text-left text-2xl text-white md:text-6xl">
-            Transforming landscapes and shaping futures through innovative
-            construction solutions and engineering excellence across West
-            Africa.
-          </p>
+          <AnimatedText isHero={true}>
+            <p className="font-pp-neue-montreal max-w-6xl text-left text-2xl text-white md:text-6xl">
+              Transforming landscapes and shaping futures through innovative
+              construction solutions and engineering excellence across West
+              Africa.
+            </p>
+          </AnimatedText>
         </div>
       </section>
     </>
