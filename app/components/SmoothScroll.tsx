@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactLenis, useLenis } from "lenis/react";
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { ScrollTrigger } from "@/lib/gsapConfig";
 
 interface SmoothScrollProps {
@@ -23,14 +23,37 @@ function LenisScrollTriggerSync() {
 }
 
 export default function SmoothScroll({ children }: SmoothScrollProps) {
+  // Initialize with false, will be updated in effect
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  useEffect(() => {
+    // Check for prefers-reduced-motion preference
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    // Update state in a callback to avoid synchronous setState warning
+    const updatePreference = () => {
+      setPrefersReducedMotion(mediaQuery.matches);
+    };
+
+    // Initial check
+    updatePreference();
+
+    // Listen for changes to the preference
+    mediaQuery.addEventListener("change", updatePreference);
+    return () => mediaQuery.removeEventListener("change", updatePreference);
+  }, []);
+
   return (
     <ReactLenis
       root
       options={{
-        duration: 1.2,
+        duration: prefersReducedMotion ? 0 : 1.2, // Disable smooth scroll if user prefers reduced motion
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        syncTouch: true, // Enable touch synchronization for smoother mobile experience
+        syncTouch: false, // Disabled for better mobile performance (prevents stuttering)
         smoothWheel: true, // Enable smooth wheel scrolling for better consistency
+        autoRaf: true, // Automatic requestAnimationFrame management for better performance
+        anchors: true, // Enable smooth scrolling to anchor links
+        lerp: 0.1, // Linear interpolation factor (lower = smoother)
       }}
     >
       <LenisScrollTriggerSync />
