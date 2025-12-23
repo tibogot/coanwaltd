@@ -44,11 +44,8 @@ export default function Company() {
             <div className="w-full md:w-1/2">
               <AnimatedText>
                 <h2 className="font-pp-neue-montreal text-secondary text-left text-4xl md:text-6xl">
-                  Three decades of excellence,
-                  <br />
-                  building the future of infrastructure
-                  <br />
-                  across West Africa with precision and innovation.
+                  Building the future of infrastructure across West Africa with
+                  precision and innovation.
                 </h2>
               </AnimatedText>
             </div>
@@ -71,10 +68,10 @@ export default function Company() {
                 <div className="w-full md:w-1/2">
                   <AnimatedText>
                     <p className="font-pp-neue-montreal text-secondary text-left text-sm md:text-base">
-                      We are committed to delivering world-class construction and
-                      engineering solutions that transform communities and drive
-                      economic growth across West Africa. Through innovative
-                      approaches and sustainable practices, we build
+                      We are committed to delivering world-class construction
+                      and engineering solutions that transform communities and
+                      drive economic growth across West Africa. Through
+                      innovative approaches and sustainable practices, we build
                       infrastructure that stands the test of time.
                     </p>
                   </AnimatedText>
@@ -120,11 +117,11 @@ export default function Company() {
                 <div className="w-full md:w-1/2">
                   <AnimatedText>
                     <p className="font-pp-neue-montreal text-secondary text-left text-sm md:text-base">
-                      To be the leading construction and engineering firm in West
-                      Africa, recognized for transforming infrastructure through
-                      cutting-edge technology, sustainable practices, and
-                      unwavering commitment to quality that shapes the future of
-                      the region.
+                      To be the leading construction and engineering firm in
+                      West Africa, recognized for transforming infrastructure
+                      through cutting-edge technology, sustainable practices,
+                      and unwavering commitment to quality that shapes the
+                      future of the region.
                     </p>
                   </AnimatedText>
                 </div>
