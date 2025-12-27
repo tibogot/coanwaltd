@@ -7,7 +7,7 @@ import { gsap, ScrollTrigger, SplitText } from "@/lib/gsapConfig";
 interface GradientTextRevealProps {
   children: ReactNode;
   textColor?: string; // Grey color for initial state (default: #808080)
-  highlightColor?: string; // Final black color (default: #000000) - kept for compatibility but not used for word highlighting
+  highlightColor?: string; // Final color for reveal (default: #000000)
   scrollDistance?: string; // Scroll distance for animation (default: "+=200%")
   stagger?: number; // Stagger between lines (default: 0.8)
   className?: string;
@@ -121,8 +121,6 @@ export default function GradientTextReveal({
             start: start,
             end: scrollDistance,
             scrub: true,
-            pin: true,
-            pinSpacing: false,
           },
         });
 

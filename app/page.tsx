@@ -145,8 +145,16 @@ export default function Home() {
       {/* Gradient Text Reveal Section */}
       <GradientTextSection
         text="Building sustainable infrastructure across West Africa with innovative engineering solutions and decades of expertise."
-        textColor="#4D3D30"
+        textColor="rgba(255, 51, 0, 0.3)"
         highlightColor="#ff3300"
+      />
+
+      {/* Gradient Text Reveal Section - No Pin */}
+      <GradientTextSection
+        text="Transforming landscapes through precision engineering and innovative construction solutions that shape the future of West Africa."
+        textColor="rgba(255, 51, 0, 0.3)"
+        highlightColor="#ff3300"
+        pin={false}
       />
 
       {/* About Section */}
