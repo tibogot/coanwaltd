@@ -251,8 +251,8 @@ export default function Home() {
       {/* <ServiceScroll /> */}
 
       {/* 100vh Image Background Section */}
-      <section className="relative flex min-h-dvh w-full flex-col justify-between overflow-hidden">
-        <div className="absolute inset-0 z-0">
+      {/* <section className="relative flex min-h-dvh w-full flex-col justify-between overflow-hidden"> */}
+      {/* <div className="absolute inset-0 z-0">
           <Image
             src="/images/joshua-oluwagbemiga.webp"
             alt="Background"
@@ -260,9 +260,9 @@ export default function Home() {
             className="object-cover"
             priority
           />
-        </div>
-        {/* Top Left Content */}
-        <div className="relative z-10 max-w-2xl p-6 pt-16 md:p-10 md:pt-24">
+        </div> */}
+      {/* Top Left Content */}
+      {/* <div className="relative z-10 max-w-2xl p-6 pt-16 md:p-10 md:pt-24">
           <h2 className="font-pp-neue-montreal mb-4 text-left text-3xl text-white md:text-5xl">
             Road Construction Excellence in Nigeria
           </h2>
@@ -271,9 +271,9 @@ export default function Home() {
             West Africa with over three decades of expertise in civil
             engineering and construction.
           </p>
-        </div>
-        {/* Bottom Right Container */}
-        <div className="bg-secondary relative z-10 flex min-h-[40vh] w-full max-w-lg flex-col justify-between self-end pt-4 pl-4 md:px-6 md:py-6">
+        </div> */}
+      {/* Bottom Right Container */}
+      {/* <div className="bg-secondary relative z-10 flex min-h-[40vh] w-full max-w-lg flex-col justify-between self-end pt-4 pl-4 md:px-6 md:py-6">
           <h2 className="font-pp-neue-montreal max-w-xs text-left text-xl text-white md:text-2xl">
             Infrastructure Development Across West Africa
           </h2>
@@ -282,8 +282,8 @@ export default function Home() {
             planning to execution, transforming Nigeria&apos;s transportation
             infrastructure.
           </p>
-        </div>
-      </section>
+        </div> */}
+      {/* </section> */}
 
       {/* Centered Title Section */}
       <section className="relative w-full py-24 md:py-32">
