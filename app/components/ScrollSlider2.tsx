@@ -223,7 +223,7 @@ export default function ScrollSlider({
           priority
         />
         {/* Dark overlay */}
-        <div className="pointer-events-none absolute inset-0 bg-black/35" />
+        {/* <div className="pointer-events-none absolute inset-0 bg-black/35" /> */}
       </div>
 
       {/* Slider Title */}

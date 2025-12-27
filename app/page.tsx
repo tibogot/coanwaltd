@@ -7,7 +7,7 @@ import AboutSection from "./components/AboutSection";
 import ProjectsPreview from "./components/ProjectsPreview";
 import ServicesHero from "./components/ServicesHero";
 import AnimatedText from "./components/AnimatedText3";
-import ScrollSlider from "./components/ScrollSlider";
+import ScrollSlider from "./components/ScrollSlider2";
 // import ServiceScroll from "./components/ServiceScroll";
 import FractalGlass from "./components/FractalGlass/FractalGlass";
 // import LoaderSplash from "./components/LoaderSplash";
@@ -16,6 +16,7 @@ import Link from "next/link";
 import { ArrowRight, ArrowDownRight, ArrowUpRight } from "lucide-react";
 import NigeriaMapSvg from "./components/NigeriaMapSvg";
 import GradientTextSection from "./components/GradientTextSection";
+import VisionSection from "./components/VisionSection";
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsapConfig";
@@ -152,14 +153,6 @@ export default function Home() {
         highlightColor="#ff3300"
       /> */}
 
-      {/* Gradient Text Reveal Section - No Pin */}
-      {/* <GradientTextSection
-        text="Transforming landscapes through precision engineering and innovative construction solutions that shape the future of West Africa."
-        textColor="rgba(255, 51, 0, 0.3)"
-        highlightColor="#ff3300"
-        pin={false}
-      /> */}
-
       {/* About Section */}
       <section className="bg-primary relative min-h-[120vh] w-full overflow-hidden px-4 py-30 md:px-8">
         {/* Nigeria map background (watermark) */}
@@ -260,6 +253,9 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Vision Section */}
+      <VisionSection />
+
       {/* New About Section Component */}
       <AboutSection />
 
@@ -267,7 +263,7 @@ export default function Home() {
       <ScrollSlider slides={sliderSlides} />
 
       {/* Services Hero Section */}
-      <ServicesHero />
+      {/* <ServicesHero /> */}
 
       {/* Service Scroll Section */}
       {/* <ServiceScroll /> */}
@@ -307,6 +303,14 @@ export default function Home() {
         </div> */}
       {/* </section> */}
 
+      {/* Gradient Text Reveal Section - No Pin */}
+      <GradientTextSection
+        text="Transforming landscapes through precision engineering and innovative construction solutions that shape the future of West Africa."
+        textColor="rgba(255, 51, 0, 0.3)"
+        highlightColor="#ff3300"
+        pin={false}
+      />
+
       {/* Centered Title Section */}
       <section className="relative w-full py-24 md:py-32">
         <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-center px-4 md:px-8">
@@ -319,21 +323,6 @@ export default function Home() {
               Nigeria and West Africa.
             </h2>
           </div>
-        </div>
-      </section>
-
-      {/* Orange Background Section with Centered Text */}
-      <section className="bg-secondary relative w-full py-24">
-        <div className="mx-auto flex w-full flex-col items-center justify-center gap-16 px-4 md:gap-20 md:px-8">
-          <h3 className="font-pp-neue-montreal max-w-4xl text-center text-xl text-white md:text-4xl">
-            Because infrastructure is built on movement, in perpetual
-            development, through the choice of projects that create a profoundly
-            transformative human experience.{" "}
-          </h3>
-          <p className="font-pp-neue-montreal max-w-sm text-center text-sm text-white/80 md:text-base">
-            Your trusted partner for comprehensive road construction and
-            engineering excellence in West Africa.
-          </p>
         </div>
       </section>
 
@@ -358,6 +347,21 @@ export default function Home() {
           </div>
         </div>
         <ProfilesTicker />
+      </section>
+
+      {/* Orange Background Section with Centered Text */}
+      <section className="bg-secondary relative w-full py-24">
+        <div className="mx-auto flex w-full flex-col items-center justify-center gap-16 px-4 md:gap-20 md:px-8">
+          <h3 className="font-pp-neue-montreal max-w-4xl text-center text-xl text-white md:text-4xl">
+            Because infrastructure is built on movement, in perpetual
+            development, through the choice of projects that create a profoundly
+            transformative human experience.{" "}
+          </h3>
+          <p className="font-pp-neue-montreal max-w-sm text-center text-sm text-white/80 md:text-base">
+            Your trusted partner for comprehensive road construction and
+            engineering excellence in West Africa.
+          </p>
+        </div>
       </section>
 
       {/* FAQ Section */}

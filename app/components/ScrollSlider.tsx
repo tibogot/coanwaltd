@@ -40,22 +40,22 @@ export default function ScrollSlider({
             const indicatorElement = document.createElement("p");
             indicatorElement.dataset.index = String(index);
             indicatorElement.className = "font-pp-neue-montreal-mono";
-            indicatorElement.innerHTML = `<span class="marker"></span><span class="index">${indexNum}</span>`;
+            indicatorElement.innerHTML = `<span class="index">${indexNum}</span><span class="marker-horizontal"></span>`;
             sliderIndicesRef.current?.appendChild(indicatorElement);
 
             if (index === 0) {
               gsap.set(indicatorElement.querySelector(".index"), {
                 opacity: 1,
               });
-              gsap.set(indicatorElement.querySelector(".marker"), {
-                scaleX: 1,
+              gsap.set(indicatorElement.querySelector(".marker-horizontal"), {
+                opacity: 1,
               });
             } else {
               gsap.set(indicatorElement.querySelector(".index"), {
                 opacity: 0.35,
               });
-              gsap.set(indicatorElement.querySelector(".marker"), {
-                scaleX: 0,
+              gsap.set(indicatorElement.querySelector(".marker-horizontal"), {
+                opacity: 0.5,
               });
             }
           });
@@ -109,7 +109,7 @@ export default function ScrollSlider({
         const indicators = sliderIndicesRef.current.querySelectorAll("p");
 
         indicators.forEach((indicator, i) => {
-          const markerElement = indicator.querySelector(".marker");
+          const markerElement = indicator.querySelector(".marker-horizontal");
           const indexElement = indicator.querySelector(".index");
 
           if (i === index) {
@@ -120,7 +120,7 @@ export default function ScrollSlider({
             });
 
             gsap.to(markerElement, {
-              scaleX: 1,
+              opacity: 1,
               duration: 0.3,
               ease: "power2.out",
             });
@@ -132,7 +132,7 @@ export default function ScrollSlider({
             });
 
             gsap.to(markerElement, {
-              scaleX: 0,
+              opacity: 0.5,
               duration: 0.3,
               ease: "power2.out",
             });
@@ -181,11 +181,25 @@ export default function ScrollSlider({
         pin: true,
         pinSpacing: true,
         onUpdate: (self) => {
-          if (progressBarRef.current) {
-            gsap.set(progressBarRef.current, {
-              scaleY: self.progress,
-            });
-          }
+          // Update segments (fill from top to bottom)
+          const segments = document.querySelectorAll('.battery-segment');
+          const filledSegments = Math.floor(self.progress * segments.length);
+
+          segments.forEach((segment, index) => {
+            if (index < filledSegments) {
+              gsap.to(segment, {
+                backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                duration: 0.3,
+                ease: 'power2.out',
+              });
+            } else {
+              gsap.to(segment, {
+                backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                duration: 0.3,
+                ease: 'power2.out',
+              });
+            }
+          });
 
           const currentSlide = Math.floor(self.progress * slides.length);
 
@@ -236,28 +250,34 @@ export default function ScrollSlider({
       </div>
 
       {/* Slider Indicator */}
-      <div className="absolute top-1/2 right-8 -translate-y-1/2 max-lg:top-auto max-lg:right-8 max-lg:bottom-8 max-lg:translate-y-0">
-        <div className="flex flex-col gap-4 px-5 py-4" ref={sliderIndicesRef}>
+      <div className="absolute bottom-8 right-8 flex flex-col gap-6">
+        {/* Numbers on top */}
+        <div className="flex gap-16 px-20" ref={sliderIndicesRef}>
           {/* Indicators will be dynamically created here */}
         </div>
 
-        {/* Progress Bar */}
-        <div className="absolute top-0 right-0 h-full w-px bg-white/35">
-          <div
-            className="absolute top-0 left-1/2 h-full w-0.5 origin-top -translate-x-1/2 scale-y-0 bg-white"
-            style={{
-              willChange: "transform",
-            }}
-            ref={progressBarRef}
-          />
+        {/* Segmented Progress Indicator on bottom */}
+        <div className="relative h-10 flex gap-1 px-20 self-stretch">
+          {/* Create 50 segments */}
+          {Array.from({ length: 50 }).map((_, index) => (
+            <div
+              key={index}
+              className="battery-segment h-full flex-1 bg-white/20 transition-all duration-300"
+              data-segment={index}
+            />
+          ))}
+
+          {/* Hidden element for progress tracking */}
+          <div className="absolute opacity-0" ref={progressBarRef} />
         </div>
       </div>
 
       <style jsx global>{`
         .slider-indices p {
           display: flex;
+          flex-direction: column;
           align-items: center;
-          gap: 1rem;
+          gap: 0.5rem;
           color: white;
           font-size: 0.75rem;
         }
@@ -270,21 +290,36 @@ export default function ScrollSlider({
 
         .index {
           position: relative;
-          width: 1.25rem;
-          display: flex;
-          justify-content: flex-end;
+          display: block;
+          text-align: center;
           will-change: opacity;
           color: white;
+          width: 100%;
         }
 
         .marker {
+          display: inline-block;
           position: relative;
           width: 0.75rem;
           height: 1px;
           background-color: white;
-          transform-origin: right;
-          will-change: transform;
-          transform: scaleX(0);
+          transform-origin: left;
+          will-change: opacity;
+          opacity: 0.5;
+          vertical-align: middle;
+          margin-left: 0.5rem;
+        }
+
+        .marker-horizontal {
+          display: block;
+          position: relative;
+          width: 1px;
+          height: 0.75rem;
+          background-color: white;
+          transform-origin: top;
+          will-change: opacity;
+          opacity: 0.5;
+          margin: 0 auto;
         }
 
         .line {
