@@ -97,10 +97,21 @@ export default function Home() {
       {/* <LoaderSplash /> */}
       {/* Hero Section with Image Background */}
       <section className="relative min-h-dvh w-full overflow-hidden">
-        {/* Bottom-left logo overlay */}
-        <div className="pointer-events-none absolute inset-0 z-10 flex flex-col items-start justify-end p-6 md:p-10">
-          {/* Block animation commented out - might need later */}
-          {/* <LogoReveal blockColor="var(--primary)">
+        {/* Bottom overlay with logo and arrow */}
+        <div className="pointer-events-none absolute inset-0 z-10 flex items-end justify-between p-6 md:p-10">
+          {/* Bottom-left logo */}
+          <div className="flex flex-col items-start">
+            {/* Block animation commented out - might need later */}
+            {/* <LogoReveal blockColor="var(--primary)">
+              <Image
+                src="/images/newlogohero.svg"
+                alt="COANWA"
+                width={850}
+                height={260}
+                priority
+                className="h-auto w-[min(60vw,520px)]"
+              />
+            </LogoReveal> */}
             <Image
               src="/images/newlogohero.svg"
               alt="COANWA"
@@ -109,20 +120,16 @@ export default function Home() {
               priority
               className="h-auto w-[min(60vw,520px)]"
             />
-          </LogoReveal> */}
-          <Image
-            src="/images/newlogohero.svg"
-            alt="COANWA"
-            width={850}
-            height={260}
-            priority
-            className="h-auto w-[min(60vw,520px)]"
-          />
-          <AnimatedText isHero={true} delay={0.8} duration={0.8}>
-            <p className="font-pp-neue-montreal mt-2 text-sm text-white md:text-base">
-              Construction West Africa Unlimited
-            </p>
-          </AnimatedText>
+            <AnimatedText isHero={true} delay={0.8} duration={0.8}>
+              <p className="font-pp-neue-montreal mt-2 text-sm text-white md:text-base">
+                Construction West Africa Unlimited
+              </p>
+            </AnimatedText>
+          </div>
+          {/* Bottom Right Square with Arrow */}
+          <div className="bg-secondary flex h-8 w-8 items-center justify-center md:h-10 md:w-10">
+            <ArrowDownRight className="h-4 w-4 text-white md:h-5 md:w-5" />
+          </div>
         </div>
         {/* Background Image - 100vh, not fixed */}
         <div className="absolute inset-0 z-0">
@@ -135,10 +142,6 @@ export default function Home() {
           />
           {/* FractalGlass version - commented out for now */}
           {/* <FractalGlass imgSrc="/images/vitalis-nwenyi.webp" /> */}
-        </div>
-        {/* Bottom Right Square with Arrow */}
-        <div className="bg-secondary absolute right-0 bottom-0 z-10 flex h-12 w-12 items-center justify-center md:h-16 md:w-16">
-          <ArrowDownRight className="h-5 w-5 text-white md:h-6 md:w-6" />
         </div>
       </section>
 
