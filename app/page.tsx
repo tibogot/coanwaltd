@@ -146,19 +146,19 @@ export default function Home() {
       </section>
 
       {/* Gradient Text Reveal Section */}
-      <GradientTextSection
+      {/* <GradientTextSection
         text="Building sustainable infrastructure across West Africa with innovative engineering solutions and decades of expertise."
         textColor="rgba(255, 51, 0, 0.3)"
         highlightColor="#ff3300"
-      />
+      /> */}
 
       {/* Gradient Text Reveal Section - No Pin */}
-      <GradientTextSection
+      {/* <GradientTextSection
         text="Transforming landscapes through precision engineering and innovative construction solutions that shape the future of West Africa."
         textColor="rgba(255, 51, 0, 0.3)"
         highlightColor="#ff3300"
         pin={false}
-      />
+      /> */}
 
       {/* About Section */}
       <section className="bg-primary relative min-h-[120vh] w-full overflow-hidden px-4 py-30 md:px-8">
@@ -263,6 +263,9 @@ export default function Home() {
       {/* New About Section Component */}
       <AboutSection />
 
+      {/* Scroll Slider Section */}
+      <ScrollSlider slides={sliderSlides} />
+
       {/* Services Hero Section */}
       <ServicesHero />
 
@@ -318,9 +321,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* Scroll Slider Section */}
-      <ScrollSlider slides={sliderSlides} />
 
       {/* Orange Background Section with Centered Text */}
       <section className="bg-secondary relative w-full py-24">

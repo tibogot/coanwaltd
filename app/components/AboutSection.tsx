@@ -7,7 +7,7 @@ import AnimatedText from "./AnimatedText3";
 
 export default function AboutSection() {
   return (
-    <section className="bg-primary relative min-h-[120vh] w-full overflow-hidden px-4 py-30 md:px-8">
+    <section className="bg-primary relative w-full overflow-hidden px-4 py-30 md:px-8">
       <div className="relative z-10 mx-auto flex h-full w-full flex-col">
         <div className="text-left">
           <p className="font-pp-neue-montreal-mono text-secondary mb-8 text-xs md:text-sm">
@@ -29,7 +29,12 @@ export default function AboutSection() {
           </div>
           {/* Right Container */}
           <div className="flex flex-1 flex-col gap-6">
-            <AnimatedText start="top 80%" stagger={0.15} duration={0.9} delay={0.2}>
+            <AnimatedText
+              start="top 80%"
+              stagger={0.15}
+              duration={0.9}
+              delay={0.2}
+            >
               <p className="font-pp-neue-montreal text-secondary text-left text-base md:text-xl">
                 From road construction to infrastructure development, we handle
                 projects of all scales.
@@ -53,7 +58,7 @@ export default function AboutSection() {
           </div>
         </div>
         {/* Full Width Image */}
-        <div className="mt-12 w-full">
+        {/* <div className="mt-12 w-full">
           <div className="relative h-[400px] w-full md:h-[500px]">
             <Image
               src="/images/vitalis-nwenyi.webp"
@@ -62,7 +67,7 @@ export default function AboutSection() {
               className="object-cover"
             />
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );
