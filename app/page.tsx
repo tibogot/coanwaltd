@@ -15,6 +15,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ArrowDownRight, ArrowUpRight } from "lucide-react";
 import NigeriaMapSvg from "./components/NigeriaMapSvg";
+import GradientTextSection from "./components/GradientTextSection";
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsapConfig";
@@ -140,6 +141,13 @@ export default function Home() {
           <ArrowDownRight className="h-5 w-5 text-white md:h-6 md:w-6" />
         </div>
       </section>
+
+      {/* Gradient Text Reveal Section */}
+      <GradientTextSection
+        text="Building sustainable infrastructure across West Africa with innovative engineering solutions and decades of expertise."
+        textColor="#4D3D30"
+        highlightColor="#ff3300"
+      />
 
       {/* About Section */}
       <section className="bg-primary relative min-h-[120vh] w-full overflow-hidden px-4 py-30 md:px-8">
