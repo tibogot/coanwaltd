@@ -9,11 +9,13 @@ interface GradientTextSectionProps {
   children: ReactNode;
   textColor?: string;
   highlightColor?: string;
-  scrollDistance?: string;
+  scrollDistance?: string; // For pinned sections - controls pin duration
   stagger?: number;
   className?: string;
   pin?: boolean;
   contentClassName?: string; // For styling the content container
+  animationStart?: string; // ScrollTrigger start for animation (default: "top bottom" for non-pinned, "top top" for pinned)
+  animationEnd?: string; // ScrollTrigger end for animation (default: "bottom top" for non-pinned, uses scrollDistance for pinned)
 }
 
 export default function GradientTextSection({
@@ -25,6 +27,8 @@ export default function GradientTextSection({
   className = "",
   pin = true,
   contentClassName = "", // Default empty, user can add their own styling
+  animationStart, // When animation starts
+  animationEnd, // When animation ends (defaults to "bottom top" for non-pinned, uses scrollDistance for pinned)
 }: GradientTextSectionProps) {
   const pinContainerRef = useRef<HTMLDivElement>(null);
 
@@ -58,10 +62,10 @@ export default function GradientTextSection({
           <GradientTextReveal
             textColor={textColor}
             highlightColor={highlightColor}
-            scrollDistance="bottom top"
+            scrollDistance={animationEnd || "bottom top"}
             stagger={stagger}
             trigger=".gradient-text-trigger"
-            start="top bottom"
+            start={animationStart || "top bottom"}
             className={contentClassName}
           >
             {children}
@@ -81,9 +85,10 @@ export default function GradientTextSection({
           <GradientTextReveal
             textColor={textColor}
             highlightColor={highlightColor}
-            scrollDistance={scrollDistance}
+            scrollDistance={animationEnd || scrollDistance}
             stagger={stagger}
             trigger=".text-section"
+            start={animationStart || "top top"}
             className={contentClassName}
           >
             {children}

@@ -18,10 +18,10 @@ export default function Footer() {
               <div className="flex flex-col gap-4 md:max-w-md">
                 <Link href="/" className="inline-block cursor-pointer">
                   <Image
-                    src="/images/logovintage.svg"
+                    src="/images/newlogohero.svg"
                     alt="COAN Logo"
-                    width={90}
-                    height={24}
+                    width={110}
+                    height={34}
                     className="h-10 w-auto"
                     style={{ width: "auto" }}
                   />

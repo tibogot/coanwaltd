@@ -387,7 +387,7 @@ export default function Home() {
       </section>
 
       {/* Gradient Text Reveal Section */}
-      <GradientTextSection
+      {/* <GradientTextSection
         textColor="rgba(255, 51, 0, 0.3)"
         highlightColor="#ff3300"
         contentClassName="mx-auto w-full max-w-4xl px-4 md:px-8"
@@ -396,7 +396,7 @@ export default function Home() {
           Building sustainable infrastructure across West Africa with innovative
           engineering solutions and decades of expertise.
         </h4>
-      </GradientTextSection>
+      </GradientTextSection> */}
 
       {/* Service Scroll Section */}
       {/* <ServiceScroll /> */}
@@ -406,6 +406,8 @@ export default function Home() {
         textColor="rgba(255, 51, 0, 0.3)"
         highlightColor="#ff3300"
         pin={false}
+        animationStart="center bottom"
+        animationEnd="center center"
         contentClassName="mx-auto w-full max-w-4xl px-4 md:px-8"
       >
         <h4 className="font-pp-neue-montreal text-4xl leading-tight md:text-6xl">
@@ -484,7 +486,6 @@ export default function Home() {
             alt="Background"
             fill
             className="object-cover"
-            priority
           />
         </div>
         {/* Hero Content */}
