@@ -20,6 +20,7 @@ import VisionSection from "./components/VisionSection";
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsapConfig";
+import StickyCards3D from "./components/StickyCards3D";
 
 const sliderSlides = [
   {
@@ -145,13 +146,6 @@ export default function Home() {
           {/* <FractalGlass imgSrc="/images/vitalis-nwenyi.webp" /> */}
         </div>
       </section>
-
-      {/* Gradient Text Reveal Section */}
-      {/* <GradientTextSection
-        text="Building sustainable infrastructure across West Africa with innovative engineering solutions and decades of expertise."
-        textColor="rgba(255, 51, 0, 0.3)"
-        highlightColor="#ff3300"
-      /> */}
 
       <section className="bg-primary relative w-full overflow-hidden px-4 py-10 md:px-8 md:py-20">
         <div className="relative z-10 mx-auto flex h-full w-full flex-col">
@@ -347,7 +341,9 @@ export default function Home() {
       </section> */}
 
       {/* Scroll Slider Section */}
-      <ScrollSlider slides={sliderSlides} />
+      {/* <ScrollSlider slides={sliderSlides} /> */}
+
+      <StickyCards3D />
 
       {/* Vision Section */}
       <VisionSection />
@@ -386,6 +382,13 @@ export default function Home() {
           </p>
         </div> */}
       </section>
+
+      {/* Gradient Text Reveal Section */}
+      <GradientTextSection
+        text="Building sustainable infrastructure across West Africa with innovative engineering solutions and decades of expertise."
+        textColor="rgba(255, 51, 0, 0.3)"
+        highlightColor="#ff3300"
+      />
 
       {/* New About Section Component */}
       {/* <AboutSection /> */}
