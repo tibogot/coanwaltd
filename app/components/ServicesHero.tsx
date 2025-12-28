@@ -30,6 +30,13 @@ const servicesData = [
       "End-to-end project management ensuring quality, safety, and timely delivery of construction projects across diverse sectors.",
     image: "/images/vitalis-nwenyi.webp",
   },
+  {
+    id: 4,
+    title: "Consulting & Advisory Services",
+    description:
+      "Expert consultation and strategic advisory services to guide infrastructure planning, feasibility studies, and sustainable development initiatives.",
+    image: "/images/joshua-oluwagbemiga.webp",
+  },
 ];
 
 export default function ServicesHero() {
@@ -101,28 +108,28 @@ export default function ServicesHero() {
       });
 
       // Set initial states for wrapper divs
-      gsap.set([titles[1], titles[2]], { autoAlpha: 1 });
-      gsap.set([descs[1], descs[2]], { autoAlpha: 1 });
+      gsap.set([titles[1], titles[2], titles[3]], { autoAlpha: 1 });
+      gsap.set([descs[1], descs[2], descs[3]], { autoAlpha: 1 });
 
       // Set initial mask states using clip-path on outer wrapper
       // First image fully visible
       gsap.set(images[0], { clipPath: "inset(0% 0% 0% 0%)" });
       // Other images clipped from top (hidden, will reveal from top to bottom)
-      gsap.set([images[1], images[2]], { clipPath: "inset(100% 0% 0% 0%)" });
+      gsap.set([images[1], images[2], images[3]], { clipPath: "inset(100% 0% 0% 0%)" });
 
       // Set initial scale states on inner divs
       gsap.set(imageInners[0], { scale: 1 });
-      gsap.set([imageInners[1], imageInners[2]], { scale: 1.2 });
+      gsap.set([imageInners[1], imageInners[2], imageInners[3]], { scale: 1.2 });
 
       // Create main timeline
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top top",
-          end: "+=300%", // 3x viewport height for 3 states
+          end: "+=400%", // 4x viewport height for 4 states
           scrub: 0.5, // Faster scrub for more responsive feel
           snap: {
-            snapTo: [0, 0.5, 1], // Exact snap points for 3 services
+            snapTo: [0, 0.33, 0.67, 1], // Exact snap points for 4 services
             duration: 0.5, // Faster, more decisive snap
             ease: "power2.out",
             delay: 0, // No delay for immediate snap
@@ -297,6 +304,93 @@ export default function ServicesHero() {
         // Animate in new description lines
         .to(
           descSplits[2].lines,
+          {
+            yPercent: 0,
+            autoAlpha: 1,
+            duration: 0.4,
+            stagger: 0.05,
+            ease: "power2.out",
+          },
+          "<0.1",
+        )
+        // Hold state 3 for a bit
+        .to({}, { duration: 0.3 })
+        // Transition from state 3 to state 4
+        // Animate out current title lines
+        .to(titleSplits[2].lines, {
+          yPercent: -100,
+          autoAlpha: 0,
+          duration: 0.4,
+          stagger: 0.05,
+          ease: "power2.inOut",
+        })
+        // Animate out current description lines
+        .to(
+          descSplits[2].lines,
+          {
+            yPercent: -100,
+            autoAlpha: 0,
+            duration: 0.4,
+            stagger: 0.05,
+            ease: "power2.inOut",
+          },
+          "<0.1",
+        )
+        // Clip current image to the bottom (masking it out from top to bottom)
+        .to(
+          images[2],
+          {
+            clipPath: "inset(0% 0% 100% 0%)",
+            duration: 0.6,
+            ease: "power2.inOut",
+          },
+          "<0.1",
+        )
+        // Scale up the inner div as current image exits
+        .to(
+          imageInners[2],
+          {
+            scale: 1.2,
+            duration: 0.6,
+            ease: "power2.inOut",
+          },
+          "<",
+        )
+        // Reveal new image from top to bottom
+        .to(
+          images[3],
+          {
+            clipPath: "inset(0% 0% 0% 0%)",
+            duration: 0.6,
+            ease: "power2.inOut",
+          },
+          "<",
+        )
+        // Scale down from 1.2 to 1 as it reveals
+        .to(
+          imageInners[3],
+          {
+            scale: 1,
+            duration: 0.6,
+            ease: "power2.inOut",
+          },
+          "<",
+        )
+        // Animate in new title lines
+        .to(
+          titleSplits[3].lines,
+          {
+            yPercent: 0,
+            autoAlpha: 1,
+            duration: 0.4,
+            stagger: 0.05,
+            ease: "power2.out",
+          },
+          "<0.2",
+        )
+        // Animate in new description lines
+        .to(
+          descSplits[3].lines,
           {
             yPercent: 0,
             autoAlpha: 1,

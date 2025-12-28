@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import AnimatedText from "../components/AnimatedText3";
 
 export default function Projects() {
   return (
@@ -18,13 +19,17 @@ export default function Projects() {
         </div>
         <div className="relative z-10 flex h-full items-end justify-start">
           <div className="p-4 md:p-8 md:pb-12">
-            <h1 className="font-pp-neue-montreal mb-4 max-w-4xl text-left text-4xl text-white md:text-6xl">
-              Transforming Infrastructure Through Innovation
-            </h1>
-            <p className="font-pp-neue-montreal max-w-xl text-left text-base text-white/90 md:text-lg">
-              Explore our portfolio of successful construction and engineering
-              projects across West Africa.
-            </p>
+            <AnimatedText isHero={true}>
+              <h1 className="font-pp-neue-montreal mb-4 max-w-4xl text-left text-4xl text-white md:text-6xl">
+                Transforming Infrastructure Through Innovation
+              </h1>
+            </AnimatedText>
+            <AnimatedText isHero={true}>
+              <p className="font-pp-neue-montreal max-w-xl text-left text-base text-white/90 md:text-lg">
+                Explore our portfolio of successful construction and engineering
+                projects across West Africa.
+              </p>
+            </AnimatedText>
           </div>
         </div>
       </div>
@@ -33,16 +38,23 @@ export default function Projects() {
       <section className="bg-primary relative min-h-[120vh] w-full overflow-hidden px-4 py-30 md:px-8">
         <div className="relative z-10 mx-auto flex h-full w-full flex-col">
           <div className="text-left">
-            <p className="font-pp-neue-montreal-mono text-secondary mb-8 text-xs md:text-sm">
-              PROJECTS
-            </p>
-            <h2 className="font-pp-neue-montreal text-secondary text-left text-4xl md:text-6xl">
-              Our portfolio showcases excellence,
-              <br />
-              featuring transformative projects
-              <br />
-              that shape communities and infrastructure.
-            </h2>
+            <div className="mb-8 flex items-center gap-3">
+              <div className="bg-secondary h-1.5 w-1.5 flex-shrink-0" />
+              <AnimatedText>
+                <p className="font-pp-neue-montreal-mono text-secondary text-xs md:text-sm">
+                  PROJECTS
+                </p>
+              </AnimatedText>
+            </div>
+            <AnimatedText>
+              <h2 className="font-pp-neue-montreal text-secondary text-left text-4xl md:text-6xl">
+                Our portfolio showcases excellence,
+                <br />
+                featuring transformative projects
+                <br />
+                that shape communities and infrastructure.
+              </h2>
+            </AnimatedText>
           </div>
 
           {/* Project Cards Grid - 2 rows of 3 cards */}
@@ -59,14 +71,18 @@ export default function Projects() {
                 />
               </div>
               <div className="mt-4">
-                <p className="font-pp-neue-montreal-mono text-secondary mb-2 text-left text-sm uppercase md:text-sm">
-                  Ongoing
-                </p>
-                <h3 className="font-pp-neue-montreal text-secondary text-left text-lg md:text-xl">
-                  Award of Contract of the Construction of Yaba-Kpache Road (LOT
-                  EWR) Project, Abuja Under Satellite Town Development Agency
-                  (STDA)
-                </h3>
+                <AnimatedText>
+                  <p className="font-pp-neue-montreal-mono text-secondary mb-2 text-left text-sm uppercase md:text-sm">
+                    Ongoing
+                  </p>
+                </AnimatedText>
+                <AnimatedText>
+                  <h3 className="font-pp-neue-montreal text-secondary text-left text-lg md:text-xl">
+                    Award of Contract of the Construction of Yaba-Kpache Road (LOT
+                    EWR) Project, Abuja Under Satellite Town Development Agency
+                    (STDA)
+                  </h3>
+                </AnimatedText>
               </div>
             </div>
 
@@ -81,14 +97,18 @@ export default function Projects() {
                 />
               </div>
               <div className="mt-4">
-                <p className="font-pp-neue-montreal-mono text-secondary mb-2 text-left text-sm uppercase md:text-sm">
-                  Ongoing
-                </p>
-                <h3 className="font-pp-neue-montreal text-secondary text-left text-lg md:text-xl">
-                  Award of Contract for the provision of Engineering
-                  Infrastructure to Plot 4075, Asokoro Extension (Comprising 50
-                  Plots) Abuja
-                </h3>
+                <AnimatedText>
+                  <p className="font-pp-neue-montreal-mono text-secondary mb-2 text-left text-sm uppercase md:text-sm">
+                    Ongoing
+                  </p>
+                </AnimatedText>
+                <AnimatedText>
+                  <h3 className="font-pp-neue-montreal text-secondary text-left text-lg md:text-xl">
+                    Award of Contract for the provision of Engineering
+                    Infrastructure to Plot 4075, Asokoro Extension (Comprising 50
+                    Plots) Abuja
+                  </h3>
+                </AnimatedText>
               </div>
             </div>
 
@@ -103,14 +123,18 @@ export default function Projects() {
                 />
               </div>
               <div className="mt-4">
-                <p className="font-pp-neue-montreal-mono text-secondary mb-2 text-left text-sm uppercase md:text-sm">
-                  Completed
-                </p>
-                <h3 className="font-pp-neue-montreal text-secondary text-left text-lg md:text-xl">
-                  Award of Contract for the Provision of Engineering
-                  Infrastructure to Plot 1038 Extension, Cadastral Zone AD5,
-                  Maitama District, Abuja
-                </h3>
+                <AnimatedText>
+                  <p className="font-pp-neue-montreal-mono text-secondary mb-2 text-left text-sm uppercase md:text-sm">
+                    Completed
+                  </p>
+                </AnimatedText>
+                <AnimatedText>
+                  <h3 className="font-pp-neue-montreal text-secondary text-left text-lg md:text-xl">
+                    Award of Contract for the Provision of Engineering
+                    Infrastructure to Plot 1038 Extension, Cadastral Zone AD5,
+                    Maitama District, Abuja
+                  </h3>
+                </AnimatedText>
               </div>
             </div>
 
@@ -126,14 +150,18 @@ export default function Projects() {
                 />
               </div>
               <div className="mt-4">
-                <p className="font-pp-neue-montreal-mono text-secondary mb-2 text-left text-sm uppercase md:text-sm">
-                  Completed
-                </p>
-                <h3 className="font-pp-neue-montreal text-secondary text-left text-lg md:text-xl">
-                  Award of Contract for the provision of Infrastructure to
-                  outstanding Areas in Phase I (Lot1 – Provision of
-                  Infrastructure to Plot 447 Extension Maitama District) Abuja
-                </h3>
+                <AnimatedText>
+                  <p className="font-pp-neue-montreal-mono text-secondary mb-2 text-left text-sm uppercase md:text-sm">
+                    Completed
+                  </p>
+                </AnimatedText>
+                <AnimatedText>
+                  <h3 className="font-pp-neue-montreal text-secondary text-left text-lg md:text-xl">
+                    Award of Contract for the provision of Infrastructure to
+                    outstanding Areas in Phase I (Lot1 – Provision of
+                    Infrastructure to Plot 447 Extension Maitama District) Abuja
+                  </h3>
+                </AnimatedText>
               </div>
             </div>
 
@@ -148,13 +176,17 @@ export default function Projects() {
                 />
               </div>
               <div className="mt-4">
-                <p className="font-pp-neue-montreal-mono text-secondary mb-2 text-left text-sm uppercase md:text-sm">
-                  Completed
-                </p>
-                <h3 className="font-pp-neue-montreal text-secondary text-left text-lg md:text-xl">
-                  Award of Contract for the Construction of Road Infrastructure
-                  (Lot 11) for Jibi Resettlement Town
-                </h3>
+                <AnimatedText>
+                  <p className="font-pp-neue-montreal-mono text-secondary mb-2 text-left text-sm uppercase md:text-sm">
+                    Completed
+                  </p>
+                </AnimatedText>
+                <AnimatedText>
+                  <h3 className="font-pp-neue-montreal text-secondary text-left text-lg md:text-xl">
+                    Award of Contract for the Construction of Road Infrastructure
+                    (Lot 11) for Jibi Resettlement Town
+                  </h3>
+                </AnimatedText>
               </div>
             </div>
 
@@ -169,14 +201,18 @@ export default function Projects() {
                 />
               </div>
               <div className="mt-4">
-                <p className="font-pp-neue-montreal-mono text-secondary mb-2 text-left text-sm uppercase md:text-sm">
-                  Completed
-                </p>
-                <h3 className="font-pp-neue-montreal text-secondary text-left text-lg md:text-xl">
-                  Award of Contract for the upgrading of the existing
-                  Engineering Infrastructure at APO/GARKI Resettlement Village,
-                  Abuja (Lot – Roads Works)
-                </h3>
+                <AnimatedText>
+                  <p className="font-pp-neue-montreal-mono text-secondary mb-2 text-left text-sm uppercase md:text-sm">
+                    Completed
+                  </p>
+                </AnimatedText>
+                <AnimatedText>
+                  <h3 className="font-pp-neue-montreal text-secondary text-left text-lg md:text-xl">
+                    Award of Contract for the upgrading of the existing
+                    Engineering Infrastructure at APO/GARKI Resettlement Village,
+                    Abuja (Lot – Roads Works)
+                  </h3>
+                </AnimatedText>
               </div>
             </div>
           </div>

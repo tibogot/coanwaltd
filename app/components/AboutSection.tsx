@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import AnimatedText from "./AnimatedText3";
 
@@ -9,8 +8,9 @@ export default function AboutSection() {
   return (
     <section className="bg-primary relative w-full overflow-hidden px-4 py-30 md:px-8">
       <div className="relative z-10 mx-auto flex h-full w-full flex-col">
-        <div className="text-left">
-          <p className="font-pp-neue-montreal-mono text-secondary mb-8 text-xs md:text-sm">
+        <div className="mb-8 flex items-center gap-3">
+          <div className="bg-secondary h-1.5 w-1.5 shrink-0" />
+          <p className="font-pp-neue-montreal-mono text-secondary text-xs md:text-sm">
             SERVICES
           </p>
         </div>
@@ -51,7 +51,7 @@ export default function AboutSection() {
             </AnimatedText>
             <Link
               href="/services"
-              className="font-pp-neue-montreal text-secondary hover:text-secondary/80 flex cursor-pointer items-center gap-2 text-sm transition-colors"
+              className="bg-secondary hover:bg-secondary/90 inline-flex w-fit cursor-pointer items-center gap-2 rounded-[1px] px-4 py-2 text-sm text-white transition-all duration-200 md:px-5 md:py-2.5 md:text-base"
             >
               View services <ArrowRight size={16} />
             </Link>

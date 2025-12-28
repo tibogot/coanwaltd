@@ -21,6 +21,7 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsapConfig";
 import StickyCards3D from "./components/StickyCards3D";
+import ServiceScroll from "./components/ServiceScroll";
 
 const sliderSlides = [
   {
@@ -340,12 +341,14 @@ export default function Home() {
         </div>
       </section> */}
 
-      {/* Scroll Slider Section */}
+      <AboutSection />
+
+      <ServicesHero />
+
       {/* <ScrollSlider slides={sliderSlides} /> */}
 
-      <StickyCards3D />
+      {/* <StickyCards3D /> */}
 
-      {/* Vision Section */}
       <VisionSection />
 
       {/* 100vh Image Background Section */}
@@ -389,12 +392,6 @@ export default function Home() {
         textColor="rgba(255, 51, 0, 0.3)"
         highlightColor="#ff3300"
       />
-
-      {/* New About Section Component */}
-      {/* <AboutSection /> */}
-
-      {/* Services Hero Section */}
-      {/* <ServicesHero /> */}
 
       {/* Service Scroll Section */}
       {/* <ServiceScroll /> */}

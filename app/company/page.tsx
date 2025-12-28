@@ -35,12 +35,15 @@ export default function Company() {
       {/* About Section Layout (without map SVG) */}
       <section className="bg-primary relative w-full overflow-hidden px-4 py-10 md:px-8 md:py-20">
         <div className="relative z-10 mx-auto flex h-full w-full flex-col">
-          <div className="text-left">
+          <div className="mb-8 flex items-center gap-3">
+            <div className="bg-secondary h-1.5 w-1.5 shrink-0" />
             <AnimatedText>
-              <p className="font-pp-neue-montreal-mono text-secondary mb-8 text-xs md:text-sm">
+              <p className="font-pp-neue-montreal-mono text-secondary text-xs md:text-sm">
                 VISION
               </p>
             </AnimatedText>
+          </div>
+          <div className="text-left">
             <div className="w-full md:w-1/2">
               <AnimatedText>
                 <h2 className="font-pp-neue-montreal text-secondary text-left text-4xl md:text-6xl">
@@ -132,9 +135,12 @@ export default function Company() {
       </section>
 
       <div className="bg-primary px-4 md:px-8">
-        <p className="font-pp-neue-montreal-mono text-secondary mb-8 text-left text-xs md:text-sm">
-          LEADERSHIP
-        </p>
+        <div className="mb-8 flex items-center gap-3">
+          <div className="bg-secondary h-1.5 w-1.5 shrink-0" />
+          <p className="font-pp-neue-montreal-mono text-secondary text-left text-xs md:text-sm">
+            LEADERSHIP
+          </p>
+        </div>
       </div>
       <ProfileGrid />
       <section className="relative flex min-h-[100dvh] min-h-[100svh] w-full items-end justify-start">
