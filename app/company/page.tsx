@@ -5,7 +5,7 @@ import AnimatedText from "../components/AnimatedText3";
 export default function Company() {
   return (
     <>
-      <div className="relative h-[100dvh] w-full overflow-hidden">
+      <div className="relative h-svh w-full overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
             src="/images/chuks-ugwuh.webp"
@@ -143,7 +143,7 @@ export default function Company() {
         </div>
       </div>
       <ProfileGrid />
-      <section className="relative flex min-h-[100dvh] min-h-[100svh] w-full items-end justify-start">
+      <section className="relative flex min-h-svh w-full items-end justify-start">
         <div className="absolute inset-0 z-0">
           <Image
             src="/images/vitalis-nwenyi.webp"

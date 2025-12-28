@@ -7,7 +7,7 @@ export default function Contact() {
   return (
     <>
       {/* Hero Section */}
-      <div className="relative h-[100dvh] w-full overflow-hidden">
+      <div className="relative h-svh w-full overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
             src="/images/john-kakuk.webp"

@@ -99,7 +99,7 @@ export default function Home() {
     <>
       {/* <LoaderSplash /> */}
       {/* Hero Section with Image Background */}
-      <section className="relative min-h-dvh w-full overflow-hidden">
+      <section className="relative min-h-svh w-full overflow-hidden">
         {/* Bottom overlay with logo and arrow */}
         <div className="pointer-events-none absolute inset-0 z-10 flex items-end justify-between p-6 md:p-10">
           {/* Bottom-left logo */}
@@ -352,7 +352,7 @@ export default function Home() {
       <VisionSection />
 
       {/* 100vh Image Background Section */}
-      <section className="relative flex min-h-dvh w-full flex-col justify-between overflow-hidden">
+      <section className="relative flex min-h-svh w-full flex-col justify-between overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
             src="/images/joshua-oluwagbemiga.webp"
@@ -485,7 +485,7 @@ export default function Home() {
       <ProjectsPreview />
 
       {/* Full Width Background Image Section */}
-      <section className="relative flex min-h-dvh w-full items-end justify-start">
+      <section className="relative flex min-h-svh w-full items-end justify-start">
         <div className="absolute inset-0 z-0">
           <Image
             src="/images/vitalis-nwenyi.webp"

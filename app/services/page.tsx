@@ -117,7 +117,7 @@ export default function Services() {
   return (
     <>
       {/* Hero Section - Same as Company Page */}
-      <div className="relative h-[100dvh] w-full overflow-hidden">
+      <div className="relative h-svh w-full overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
             src="/images/sticky-cards/stickycard-4.webp"
@@ -148,7 +148,7 @@ export default function Services() {
       <section className="bg-primary relative w-full overflow-hidden px-4 py-10 md:px-8 md:py-20">
         <div className="relative z-10 mx-auto flex h-full w-full flex-col">
           <div className="mb-8 flex items-center gap-3">
-            <div className="bg-secondary h-1.5 w-1.5 flex-shrink-0" />
+            <div className="bg-secondary h-1.5 w-1.5 shrink-0" />
             <AnimatedText>
               <p className="font-pp-neue-montreal-mono text-secondary text-xs md:text-sm">
                 OUR SERVICES
@@ -197,7 +197,7 @@ export default function Services() {
                     <h3 className="font-pp-neue-montreal text-secondary text-left text-2xl md:text-3xl">
                       {service.title}
                     </h3>
-                    <ArrowUpRight className="text-secondary mt-1 h-5 w-5 flex-shrink-0 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 md:h-6 md:w-6" />
+                    <ArrowUpRight className="text-secondary mt-1 h-5 w-5 shrink-0 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 md:h-6 md:w-6" />
                   </div>
                 </AnimatedText>
                 <AnimatedText>
@@ -215,7 +215,7 @@ export default function Services() {
                     {service.capabilities.map((capability, idx) => (
                       <AnimatedText key={idx}>
                         <li className="font-pp-neue-montreal text-secondary flex items-start gap-2 text-sm md:text-base">
-                          <span className="bg-secondary mt-1.5 h-1 w-1 flex-shrink-0" />
+                          <span className="bg-secondary mt-1.5 h-1 w-1 shrink-0" />
                           {capability}
                         </li>
                       </AnimatedText>
@@ -395,7 +395,7 @@ export default function Services() {
       </section>
 
       {/* Full Width Image Section */}
-      <section className="relative flex min-h-[100dvh] min-h-[100svh] w-full items-end justify-start">
+      <section className="relative flex min-h-svh w-full items-end justify-start">
         <div className="absolute inset-0 z-0">
           <Image
             src="/images/vitalis-nwenyi.webp"
