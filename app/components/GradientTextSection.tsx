@@ -60,9 +60,9 @@ export default function GradientTextSection({
             stagger={stagger}
             trigger=".gradient-text-trigger"
             start="top bottom"
-            className="w-full px-4 md:px-8"
+            className="mx-auto w-full max-w-4xl px-4 md:px-8"
           >
-            <h4 className="font-pp-neue-montreal text-4xl leading-tight md:text-6xl lg:text-7xl">
+            <h4 className="font-pp-neue-montreal text-4xl md:text-6xl">
               {text}
             </h4>
           </GradientTextReveal>

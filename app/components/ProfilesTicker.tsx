@@ -1,7 +1,6 @@
 "use client";
 
-import { useRef, useCallback } from "react";
-import { useGSAP } from "@gsap/react";
+import { useRef, useEffect } from "react";
 import { gsap, Draggable } from "@/lib/gsapConfig";
 import Image from "next/image";
 
@@ -14,12 +13,6 @@ interface ProfileType {
   image: string;
   countries: string[];
 }
-
-// Type guard for Draggable with additional methods
-type DraggableInstance = Draggable & {
-  isActive?: () => boolean;
-  endDrag?: (event?: Event) => void;
-};
 
 const PROFILES: ProfileType[] = [
   {
@@ -92,461 +85,344 @@ const PROFILES: ProfileType[] = [
   },
 ];
 
-const ProfilesTicker = () => {
-  const tickerRef = useRef<HTMLDivElement>(null);
-  const timelineRef = useRef<gsap.core.Timeline | null>(null);
-  const draggableRef = useRef<DraggableInstance | null>(null);
-  const isHovering = useRef<boolean>(false);
-  const isDragging = useRef<boolean>(false);
-  const tickerWidthRef = useRef<number>(0);
-  const resizeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const throwCompleteTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const imagesLoadedRef = useRef<boolean>(false);
+/**
+ * GSAP horizontalLoop helper function
+ * Creates a seamless infinite horizontal loop with draggable support
+ * Based on official GSAP helper: https://gsap.com/docs/v3/HelperFunctions/helpers/seamlessLoop/
+ */
+function horizontalLoop(items: HTMLElement[], config: any) {
+  let timeline: gsap.core.Timeline;
+  items = gsap.utils.toArray(items) as HTMLElement[];
+  config = config || {};
 
-  // Create a function to create and start animation from a given position
-  // Use useCallback to stabilize the function reference
-  const startAnimationFromPosition = useCallback(
-    (element: HTMLDivElement, startX: number, width: number) => {
-      // Kill any existing animations first
-      gsap.killTweensOf(element);
-
-      // Clear previous timeline if exists
-      if (timelineRef.current) {
-        timelineRef.current.kill();
-      }
-
-      // Normalize starting position
-      let normalizedX = startX;
-      if (normalizedX <= -width) {
-        normalizedX = 0;
-        gsap.set(element, { x: normalizedX });
-      } else if (normalizedX > 0) {
-        normalizedX = -width + 10;
-        gsap.set(element, { x: normalizedX });
-      }
-
-      // Calculate remaining duration based on how far we've already gone
-      const progress = Math.abs(normalizedX) / width;
-      const remainingDuration = 30 * (1 - progress);
-
-      // Create new timeline
-      timelineRef.current = gsap.timeline({ repeat: -1 });
-
-      // First move to the end of first set
-      timelineRef.current.to(element, {
-        x: -width,
-        duration: remainingDuration,
-        ease: "none",
+  let onChange = config.onChange,
+    lastIndex = 0,
+    tl = gsap.timeline({
+      repeat: config.repeat,
+      onUpdate:
+        onChange &&
+        function () {
+          let i = tl.closestIndex();
+          if (lastIndex !== i) {
+            lastIndex = i;
+            onChange(items[i], i);
+          }
+        },
+      paused: config.paused,
+      defaults: { ease: "none" },
+      onReverseComplete: () => tl.totalTime(tl.rawTime() + tl.duration() * 100),
+    }),
+    length = items.length,
+    startX = items[0].offsetLeft,
+    times: number[] = [],
+    widths: number[] = [],
+    spaceBefore: number[] = [],
+    xPercents: number[] = [],
+    curIndex = 0,
+    indexIsDirty = false,
+    center = config.center,
+    pixelsPerSecond = (config.speed || 1) * 100,
+    snap =
+      config.snap === false
+        ? (v: number) => v
+        : gsap.utils.snap(config.snap || 1),
+    timeOffset = 0,
+    container =
+      center === true
+        ? items[0].parentNode
+        : gsap.utils.toArray(center)[0] || items[0].parentNode,
+    totalWidth: number,
+    getTotalWidth = () =>
+      items[length - 1].offsetLeft +
+      (xPercents[length - 1] / 100) * widths[length - 1] -
+      startX +
+      spaceBefore[0] +
+      items[length - 1].offsetWidth *
+        gsap.getProperty(items[length - 1], "scaleX") +
+      (parseFloat(config.paddingRight) || 0),
+    populateWidths = () => {
+      let b1 = (container as HTMLElement).getBoundingClientRect(),
+        b2;
+      items.forEach((el, i) => {
+        widths[i] = parseFloat(gsap.getProperty(el, "width", "px") as string);
+        xPercents[i] = snap(
+          (parseFloat(gsap.getProperty(el, "x", "px") as string) / widths[i]) *
+            100 +
+            (gsap.getProperty(el, "xPercent") as number),
+        );
+        b2 = el.getBoundingClientRect();
+        spaceBefore[i] = b2.left - (i ? b1.right : b1.left);
+        b1 = b2;
       });
-
-      // Then loop back to the beginning and continue the full animation
-      timelineRef.current.set(element, { x: 0 });
-      timelineRef.current.to(element, {
-        x: -width,
-        duration: 30,
-        ease: "none",
-        repeat: -1,
+      gsap.set(items, {
+        xPercent: (i: number) => xPercents[i],
       });
-
-      return timelineRef.current;
+      totalWidth = getTotalWidth();
     },
-    [],
-  );
-
-  // Calculate width of profiles - extracted to separate function
-  const calculateWidth = useCallback((elements: Element[]) => {
-    return elements.reduce((total, el) => {
-      const style = window.getComputedStyle(el);
-      const margin =
-        parseFloat(style.marginLeft) + parseFloat(style.marginRight);
-      return total + (el as HTMLElement).offsetWidth + margin;
-    }, 0);
-  }, []);
-
-  useGSAP(
-    () => {
-      const tickerElement = tickerRef.current;
-      if (!tickerElement) return;
-
-      // Wait for images to load before calculating width (prevents mobile layout shifts)
-      const initializeTicker = () => {
-        // Calculate width of one set of profiles
-        const profileElements = tickerElement.querySelectorAll(".profile-card");
-        const firstSetProfiles = Array.from(profileElements).slice(
-          0,
-          PROFILES.length,
-        );
-        const firstSetWidth = calculateWidth(firstSetProfiles);
-
-        // Only proceed if we have a valid width
-        if (firstSetWidth === 0) {
-          // Retry after a short delay if width is still 0
-          setTimeout(initializeTicker, 100);
-          return;
-        }
-
-        tickerWidthRef.current = firstSetWidth;
-
-        // Set initial position
-        gsap.set(tickerElement, { x: 0 });
-
-        // Start the initial animation
-        timelineRef.current = startAnimationFromPosition(
-          tickerElement,
-          0,
-          firstSetWidth,
-        );
-
-        // Create draggable only after initialization (prevents issues on mobile)
-        if (!draggableRef.current) {
-          draggableRef.current = Draggable.create(tickerElement, {
-            type: "x",
-            inertia: true,
-            // Enhanced inertia settings for more natural momentum
-            throwProps: true, // Enable throw properties
-            minDuration: 0.5, // Minimum duration of throw animation
-            maxDuration: 2.0, // Maximum duration of throw animation
-            throwResistance: 0.55, // Lower value = more slide after throwing (0.55 feels more fluid)
-            edgeResistance: 0.65,
-
-            onDragStart: function () {
-              isDragging.current = true;
-
-              // Kill any existing animations
-              if (timelineRef.current) {
-                timelineRef.current.pause();
-              }
-              gsap.killTweensOf(tickerElement);
-
-              // Clear any pending throw complete timeouts
-              if (throwCompleteTimeoutRef.current) {
-                clearTimeout(throwCompleteTimeoutRef.current);
-                throwCompleteTimeoutRef.current = null;
-              }
-            },
-
-            onDrag: function () {
-              // Check if we need to loop while dragging
-              const width = tickerWidthRef.current;
-              if (width > 0 && this.x <= -width) {
-                // Reset position to create loop effect
-                gsap.set(tickerElement, { x: 0 });
-                this.update(); // Update Draggable instance with new position
-              } else if (this.x > 0) {
-                // If dragged too far right, snap to end of first set
-                gsap.set(tickerElement, { x: -width + 10 });
-                this.update(); // Update Draggable instance with new position
-              }
-            },
-
-            onDragEnd: function () {
-              // Mark drag as ended but let inertia continue
-              isDragging.current = false;
-
-              // The inertia will continue automatically due to throwProps
-              // Don't restart animation yet - wait for throw complete
-            },
-
-            onThrowUpdate: function () {
-              // Same loop checking logic during throw animation
-              const width = tickerWidthRef.current;
-              if (width > 0 && this.x <= -width) {
-                gsap.set(tickerElement, { x: 0 });
-                this.update();
-              } else if (this.x > 0) {
-                gsap.set(tickerElement, { x: -width + 10 });
-                this.update();
-              }
-            },
-
-            // This is called when the throw/inertia animation completes
-            onThrowComplete: function () {
-              // Clear any existing timeout
-              if (throwCompleteTimeoutRef.current) {
-                clearTimeout(throwCompleteTimeoutRef.current);
-              }
-
-              // Use requestAnimationFrame + setTimeout for better mobile performance
-              // Longer delay on mobile to ensure inertia animation fully completes
-              requestAnimationFrame(() => {
-                throwCompleteTimeoutRef.current = setTimeout(() => {
-                  throwCompleteTimeoutRef.current = null;
-
-                  // Double-check conditions before restarting animation
-                  if (
-                    !isDragging.current &&
-                    !isHovering.current &&
-                    tickerElement
-                  ) {
-                    // Get final resting position
-                    const currentX = gsap.getProperty(
-                      tickerElement,
-                      "x",
-                    ) as number;
-                    const width = tickerWidthRef.current;
-
-                    // Only restart if we have a valid width
-                    if (width > 0) {
-                      // Start the continuous animation from this exact position
-                      startAnimationFromPosition(
-                        tickerElement,
-                        currentX as number,
-                        width,
-                      );
-                    }
-                  }
-                }, 50) as unknown as NodeJS.Timeout; // Increased from 10ms to 50ms for mobile
-              });
-            },
-          })[0] as DraggableInstance;
-        }
-      };
-
-      // Check if images are already loaded
-      const images = tickerElement.querySelectorAll("img");
-      let loadedCount = 0;
-      const totalImages = images.length;
-
-      if (totalImages === 0) {
-        // No images found, initialize immediately
-        initializeTicker();
-      } else {
-        // Wait for all images to load
-        const checkImageLoad = () => {
-          loadedCount++;
-          if (loadedCount >= totalImages || imagesLoadedRef.current) {
-            imagesLoadedRef.current = true;
-            // Small delay to ensure layout is stable
-            requestAnimationFrame(() => {
-              setTimeout(initializeTicker, 50);
-            });
-          }
-        };
-
-        images.forEach((img) => {
-          if ((img as HTMLImageElement).complete) {
-            checkImageLoad();
-          } else {
-            img.addEventListener("load", checkImageLoad, { once: true });
-            img.addEventListener("error", checkImageLoad, { once: true });
-          }
-        });
-      }
-
-      // Handle window resize for responsive behavior with debouncing
-      const handleResize = () => {
-        // Clear existing timeout
-        if (resizeTimeoutRef.current) {
-          clearTimeout(resizeTimeoutRef.current);
-        }
-
-        // Debounce resize handler - longer delay on mobile to avoid address bar issues
-        resizeTimeoutRef.current = setTimeout(() => {
-          if (!tickerElement) return;
-
-          // Don't reset if currently dragging or hovering
-          if (isDragging.current || isHovering.current) {
-            return;
-          }
-
-          // Kill existing animation
-          if (timelineRef.current) {
-            timelineRef.current.kill();
-          }
-
-          // Recalculate widths after resize
-          const profileElements =
-            tickerElement.querySelectorAll(".profile-card");
-          const firstSetProfiles = Array.from(profileElements).slice(
-            0,
-            PROFILES.length,
+    timeWrap: (time: number) => time,
+    populateOffsets = () => {
+      timeOffset = center
+        ? (tl.duration() * (container as HTMLElement).offsetWidth) /
+          2 /
+          totalWidth
+        : 0;
+      center &&
+        times.forEach((t, i) => {
+          times[i] = timeWrap(
+            (tl as any).labels["label" + i] +
+              (tl.duration() * widths[i]) / 2 / totalWidth -
+              timeOffset,
           );
-          const firstSetWidth = calculateWidth(firstSetProfiles);
-
-          // Only update if width actually changed significantly (prevents micro-adjustments)
-          if (Math.abs(firstSetWidth - tickerWidthRef.current) > 10) {
-            tickerWidthRef.current = firstSetWidth;
-
-            // Preserve current position instead of resetting to 0
-            const currentX = gsap.getProperty(tickerElement, "x") as number;
-            const normalizedX = Math.max(-firstSetWidth, Math.min(0, currentX));
-
-            // Restart animation from preserved position
-            timelineRef.current = startAnimationFromPosition(
-              tickerElement,
-              normalizedX,
-              firstSetWidth,
-            );
-          } else {
-            // Width didn't change much, just update the ref and continue
-            tickerWidthRef.current = firstSetWidth;
-          }
-        }, 300) as unknown as NodeJS.Timeout; // Increased from 150ms to 300ms for mobile
-      };
-
-      window.addEventListener("resize", handleResize);
-
-      return () => {
-        // Clear all timeouts
-        if (resizeTimeoutRef.current) {
-          clearTimeout(resizeTimeoutRef.current);
-        }
-        if (throwCompleteTimeoutRef.current) {
-          clearTimeout(throwCompleteTimeoutRef.current);
-        }
-
-        // Cleanup on component unmount
-        if (timelineRef.current) {
-          timelineRef.current.kill();
-        }
-
-        // Kill all GSAP animations
-        gsap.killTweensOf(tickerElement);
-
-        if (draggableRef.current) {
-          draggableRef.current.kill();
-        }
-
-        window.removeEventListener("resize", handleResize);
-      };
+        });
     },
-    {
-      dependencies: [startAnimationFromPosition, calculateWidth],
-      scope: tickerRef,
-    },
-  );
-
-  // Handle mouse interaction - use useCallback to prevent unnecessary re-renders
-  const handleMouseEnter = useCallback(() => {
-    isHovering.current = true;
-
-    // Immediately pause the animation at current position
-    if (timelineRef.current) {
-      timelineRef.current.pause();
-    }
-
-    // Kill any active inertia animation
-    const draggable = draggableRef.current;
-    if (
-      draggable &&
-      typeof draggable.isActive === "function" &&
-      draggable.isActive()
-    ) {
-      if (typeof draggable.endDrag === "function") {
-        draggable.endDrag();
+    getClosest = (values: number[], value: number, wrap: number) => {
+      let i = values.length,
+        closest = 1e10,
+        index = 0,
+        d;
+      while (i--) {
+        d = Math.abs(values[i] - value);
+        if (d > wrap / 2) {
+          d = wrap - d;
+        }
+        if (d < closest) {
+          closest = d;
+          index = i;
+        }
       }
-    }
+      return index;
+    },
+    populateTimeline = () => {
+      let i, item, curX, distanceToStart, distanceToLoop;
+      tl.clear();
+      for (i = 0; i < length; i++) {
+        item = items[i];
+        curX = (xPercents[i] / 100) * widths[i];
+        distanceToStart = item.offsetLeft + curX - startX + spaceBefore[0];
+        distanceToLoop =
+          distanceToStart +
+          widths[i] * (gsap.getProperty(item, "scaleX") as number);
+        tl.to(
+          item,
+          {
+            xPercent: snap(((curX - distanceToLoop) / widths[i]) * 100),
+            duration: distanceToLoop / pixelsPerSecond,
+          },
+          0,
+        )
+          .fromTo(
+            item,
+            {
+              xPercent: snap(
+                ((curX - distanceToLoop + totalWidth) / widths[i]) * 100,
+              ),
+            },
+            {
+              xPercent: xPercents[i],
+              duration:
+                (curX - distanceToLoop + totalWidth - curX) / pixelsPerSecond,
+              immediateRender: false,
+            },
+            distanceToLoop / pixelsPerSecond,
+          )
+          .add("label" + i, distanceToStart / pixelsPerSecond);
+        times[i] = distanceToStart / pixelsPerSecond;
+      }
+      timeWrap = gsap.utils.wrap(0, tl.duration());
+    },
+    refresh = (deep?: boolean) => {
+      let progress = tl.progress();
+      tl.progress(0, true);
+      populateWidths();
+      deep && populateTimeline();
+      populateOffsets();
+      deep && (tl as any).draggable
+        ? tl.time(times[curIndex], true)
+        : tl.progress(progress, true);
+    },
+    onResize = () => refresh(true),
+    proxy: HTMLDivElement;
 
-    // Clear any pending throw complete timeouts
-    if (throwCompleteTimeoutRef.current) {
-      clearTimeout(throwCompleteTimeoutRef.current);
-      throwCompleteTimeoutRef.current = null;
+  gsap.set(items, { x: 0 });
+  populateWidths();
+  populateTimeline();
+  populateOffsets();
+  window.addEventListener("resize", onResize);
+
+  function toIndex(index: number, vars?: any) {
+    vars = vars || {};
+    Math.abs(index - curIndex) > length / 2 &&
+      (index += index > curIndex ? -length : length);
+    let newIndex = gsap.utils.wrap(0, length, index),
+      time = times[newIndex];
+    if (time > tl.time() !== index > curIndex && index !== curIndex) {
+      time += tl.duration() * (index > curIndex ? 1 : -1);
     }
+    if (time < 0 || time > tl.duration()) {
+      vars.modifiers = { time: timeWrap };
+    }
+    curIndex = newIndex;
+    vars.overwrite = true;
+    gsap.killTweensOf(proxy);
+    return vars.duration === 0
+      ? tl.time(timeWrap(time))
+      : tl.tweenTo(time, vars);
+  }
+
+  (tl as any).toIndex = (index: number, vars?: any) => toIndex(index, vars);
+  (tl as any).closestIndex = (setCurrent?: boolean) => {
+    let index = getClosest(times, tl.time(), tl.duration());
+    if (setCurrent) {
+      curIndex = index;
+      indexIsDirty = false;
+    }
+    return index;
+  };
+  (tl as any).current = () =>
+    indexIsDirty ? (tl as any).closestIndex(true) : curIndex;
+  (tl as any).next = (vars?: any) => toIndex((tl as any).current() + 1, vars);
+  (tl as any).previous = (vars?: any) =>
+    toIndex((tl as any).current() - 1, vars);
+  (tl as any).times = times;
+  tl.progress(1, true).progress(0, true);
+
+  if (config.reversed) {
+    (tl.vars as any).onReverseComplete();
+    tl.reverse();
+  }
+
+  // DRAGGABLE CONFIGURATION
+  if (config.draggable && typeof Draggable === "function") {
+    proxy = document.createElement("div");
+    let wrap = gsap.utils.wrap(0, 1),
+      ratio: number,
+      startProgress: number,
+      draggable: any,
+      lastSnap: number,
+      initChangeX: number,
+      wasPlaying: boolean,
+      align = () =>
+        tl.progress(
+          wrap(startProgress + (draggable.startX - draggable.x) * ratio),
+        ),
+      syncIndex = () => (tl as any).closestIndex(true);
+
+    draggable = Draggable.create(proxy, {
+      trigger: items[0].parentNode as HTMLElement,
+      type: "x",
+      onPressInit() {
+        let x = this.x;
+        gsap.killTweensOf(tl);
+        wasPlaying = !tl.paused();
+        tl.pause();
+        startProgress = tl.progress();
+        refresh();
+        ratio = 1 / totalWidth;
+        initChangeX = startProgress / -ratio - x;
+        gsap.set(proxy, { x: startProgress / -ratio });
+      },
+      onDrag: align,
+      onThrowUpdate: align,
+      overshootTolerance: 0,
+      inertia: true,
+      snap(value: number) {
+        if (Math.abs(startProgress / -ratio - this.x) < 10) {
+          return lastSnap + initChangeX;
+        }
+        let time = -(value * ratio) * tl.duration(),
+          wrappedTime = timeWrap(time),
+          snapTime = times[getClosest(times, wrappedTime, tl.duration())],
+          dif = snapTime - wrappedTime;
+        Math.abs(dif) > tl.duration() / 2 &&
+          (dif += dif < 0 ? tl.duration() : -tl.duration());
+        lastSnap = (time + dif) / tl.duration() / -ratio;
+        return lastSnap;
+      },
+      onRelease() {
+        syncIndex();
+        draggable.isThrowing && (indexIsDirty = true);
+      },
+      onThrowComplete: () => {
+        syncIndex();
+        wasPlaying && tl.play();
+      },
+    })[0];
+    (tl as any).draggable = draggable;
+  }
+
+  (tl as any).closestIndex(true);
+  lastIndex = curIndex;
+  onChange && onChange(items[curIndex], curIndex);
+  timeline = tl;
+
+  return timeline;
+}
+
+const ProfilesTicker = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    const items = gsap.utils.toArray(".profile-card") as HTMLElement[];
+
+    // Create the horizontal loop with draggable enabled
+    const loop = horizontalLoop(items, {
+      repeat: -1,
+      speed: 0.5, // Adjust speed (lower = slower)
+      draggable: true,
+      center: false,
+      paddingRight: 0,
+    });
+
+    // Cleanup
+    return () => {
+      loop.kill();
+    };
   }, []);
-
-  const handleMouseLeave = useCallback(() => {
-    isHovering.current = false;
-
-    // Only restart if not actively dragging
-    if (!isDragging.current && tickerRef.current) {
-      // Get the exact current position
-      const currentX = gsap.getProperty(tickerRef.current, "x") as number;
-
-      // Make sure any inertia has completed
-      gsap.killTweensOf(tickerRef.current);
-
-      // Resume animation precisely from current position
-      startAnimationFromPosition(
-        tickerRef.current,
-        currentX as number,
-        tickerWidthRef.current,
-      );
-    }
-  }, [startAnimationFromPosition]);
 
   return (
     <div className="relative z-10 w-full overflow-hidden py-0">
-      <div className="inline-flex w-max">
-        <div
-          ref={tickerRef}
-          className="flex cursor-grab touch-pan-x active:cursor-grabbing"
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-        >
-          {/* First set of profiles */}
-          {PROFILES.map((profile) => (
-            <div
-              key={`first-${profile.id}`}
-              className="profile-card group relative m-4 flex h-[400px] w-[280px] cursor-pointer flex-col md:h-[600px] md:w-[400px]"
-            >
-              {/* Profile Image */}
-              <div className="group relative h-full w-full overflow-hidden">
-                <Image
-                  src={profile.image}
-                  alt={profile.name}
-                  fill
-                  className="object-cover transition-transform duration-600 ease-in-out group-hover:scale-105"
-                  sizes="(max-width: 768px) 280px, 400px"
-                />
-                {/* Info Card - moves up on hover to reveal full content */}
-                <div className="absolute right-0 bottom-0 left-0 h-16 overflow-hidden transition-all duration-500 ease-out group-hover:h-32 md:h-20 md:group-hover:h-40">
-                  <div className="bg-secondary absolute right-0 bottom-0 left-0 flex h-32 translate-y-16 flex-col justify-between px-4 py-3 transition-transform duration-500 ease-out group-hover:translate-y-0 md:h-40 md:translate-y-20 md:px-6 md:py-4">
-                    <div className="flex flex-col">
-                      <h3 className="font-pp-neue-montreal text-left text-lg text-white md:text-2xl">
-                        {profile.name}
-                      </h3>
-                      <p className="font-pp-neue-montreal-mono text-left text-sm text-white/80 uppercase md:text-sm">
-                        {profile.title}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="font-pp-neue-montreal text-left text-xs text-white/70 md:text-sm">
-                        {profile.description}
-                      </p>
-                    </div>
+      <div
+        ref={containerRef}
+        className="flex cursor-grab active:cursor-grabbing"
+      >
+        {PROFILES.map((profile) => (
+          <div
+            key={profile.id}
+            className="profile-card group relative m-4 flex h-[400px] w-[280px] shrink-0 cursor-pointer flex-col md:h-[600px] md:w-[400px]"
+          >
+            {/* Profile Image */}
+            <div className="relative h-full w-full overflow-hidden">
+              <Image
+                src={profile.image}
+                alt={profile.name}
+                fill
+                className="object-cover transition-transform duration-600 ease-in-out group-hover:scale-105"
+                sizes="(max-width: 768px) 280px, 400px"
+                unoptimized={profile.image.startsWith("http")}
+              />
+              {/* Info Card - moves up on hover to reveal full content */}
+              <div className="absolute right-0 bottom-0 left-0 h-16 overflow-hidden transition-all duration-500 ease-out group-hover:h-32 md:h-20 md:group-hover:h-40">
+                <div className="bg-secondary absolute right-0 bottom-0 left-0 flex h-32 translate-y-16 flex-col justify-between px-4 py-3 transition-transform duration-500 ease-out group-hover:translate-y-0 md:h-40 md:translate-y-20 md:px-6 md:py-4">
+                  <div className="flex flex-col">
+                    <h3 className="font-pp-neue-montreal text-left text-lg text-white md:text-2xl">
+                      {profile.name}
+                    </h3>
+                    <p className="font-pp-neue-montreal-mono text-left text-sm text-white/80 uppercase md:text-sm">
+                      {profile.title}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="font-pp-neue-montreal text-left text-xs text-white/70 md:text-sm">
+                      {profile.description}
+                    </p>
                   </div>
                 </div>
               </div>
             </div>
-          ))}
-
-          {/* Duplicate set for seamless looping */}
-          {PROFILES.map((profile) => (
-            <div
-              key={`second-${profile.id}`}
-              className="profile-card group relative m-4 flex h-[400px] w-[280px] cursor-pointer flex-col md:h-[600px] md:w-[400px]"
-            >
-              {/* Profile Image */}
-              <div className="group relative h-full w-full overflow-hidden">
-                <Image
-                  src={profile.image}
-                  alt={profile.name}
-                  fill
-                  className="object-cover transition-transform duration-600 ease-in-out group-hover:scale-105"
-                  sizes="(max-width: 768px) 280px, 400px"
-                />
-                {/* Info Card - moves up on hover to reveal full content */}
-                <div className="absolute right-0 bottom-0 left-0 h-16 overflow-hidden transition-all duration-500 ease-out group-hover:h-32 md:h-20 md:group-hover:h-40">
-                  <div className="bg-secondary absolute right-0 bottom-0 left-0 flex h-32 translate-y-16 flex-col justify-between px-4 py-3 transition-transform duration-500 ease-out group-hover:translate-y-0 md:h-40 md:translate-y-20 md:px-6 md:py-4">
-                    <div className="flex flex-col">
-                      <h3 className="font-pp-neue-montreal text-left text-lg text-white md:text-2xl">
-                        {profile.name}
-                      </h3>
-                      <p className="font-pp-neue-montreal-mono text-left text-sm text-white/80 uppercase md:text-sm">
-                        {profile.title}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="font-pp-neue-montreal text-left text-xs text-white/70 md:text-sm">
-                        {profile.description}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
     </div>
   );

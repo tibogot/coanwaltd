@@ -153,9 +153,103 @@ export default function Home() {
         highlightColor="#ff3300"
       /> */}
 
+      <section className="bg-primary relative w-full overflow-hidden px-4 py-10 md:px-8 md:py-20">
+        <div className="relative z-10 mx-auto flex h-full w-full flex-col">
+          <div className="mb-8 flex items-center gap-3">
+            <div className="bg-secondary h-1.5 w-1.5 flex-shrink-0" />
+            <AnimatedText>
+              <p className="font-pp-neue-montreal-mono text-secondary text-xs md:text-sm">
+                WHO WE ARE
+              </p>
+            </AnimatedText>
+          </div>
+          <div className="flex w-full flex-col gap-4 md:flex-row md:items-start md:gap-8">
+            {/* Left section - Title */}
+            <div className="w-full text-left md:w-1/2">
+              <AnimatedText>
+                <h2 className="font-pp-neue-montreal text-secondary text-left text-4xl md:text-6xl">
+                  Building the future of infrastructure across West Africa with
+                  precision and innovation.
+                </h2>
+              </AnimatedText>
+            </div>
+            {/* Right section - Content */}
+            <div className="flex w-full flex-col gap-6 md:w-1/2">
+              <AnimatedText>
+                <p className="font-pp-neue-montreal text-secondary text-left text-base md:text-xl">
+                  Three decades of expertise in construction and engineering
+                  across West Africa. We deliver integrated solutions from
+                  planning to execution, transforming infrastructure and shaping
+                  the future of the region through quality, innovation, and
+                  reliability in every project we undertake. Our commitment to
+                  excellence drives us to push boundaries, embrace cutting-edge
+                  technologies, and maintain the highest standards in safety and
+                  sustainability. With a proven track record spanning major
+                  highways, urban road networks, and critical infrastructure
+                  projects, we have built lasting partnerships with communities,
+                  governments, and private sector clients. Your trusted partner
+                  for comprehensive construction services that stand the test of
+                  time and contribute to meaningful economic growth and
+                  development across the region.
+                </p>
+              </AnimatedText>
+              <Link
+                href="/company"
+                className="font-pp-neue-montreal text-secondary hover:text-secondary/80 flex cursor-pointer items-center gap-2 text-sm transition-colors"
+              >
+                Learn more <ArrowRight size={16} />
+              </Link>
+            </div>
+          </div>
+        </div>
+        <div
+          ref={statsRowRef}
+          className="mt-auto flex w-full flex-col gap-8 pt-20 pb-10 sm:flex-row sm:items-end sm:justify-between sm:gap-12 md:pt-28 md:pb-14"
+        >
+          <div className="text-left">
+            <div
+              data-count="89"
+              data-suffix="%"
+              className="font-pp-neue-montreal text-secondary text-6xl tabular-nums md:text-8xl"
+              style={{ letterSpacing: "-0.05em" }}
+            >
+              89%
+            </div>
+            <div className="font-pp-neue-montreal text-secondary mt-2 text-sm md:text-base">
+              client satisfaction
+            </div>
+          </div>
+          <div className="text-left">
+            <div
+              data-count="34"
+              data-suffix="+"
+              className="font-pp-neue-montreal text-secondary text-6xl tabular-nums md:text-8xl"
+              style={{ letterSpacing: "-0.05em" }}
+            >
+              34+
+            </div>
+            <div className="font-pp-neue-montreal text-secondary mt-2 text-sm md:text-base">
+              delivering excellence
+            </div>
+          </div>
+          <div className="text-left">
+            <div
+              data-count="48"
+              data-suffix="+"
+              className="font-pp-neue-montreal text-secondary text-6xl tabular-nums md:text-8xl"
+              style={{ letterSpacing: "-0.05em" }}
+            >
+              48+
+            </div>
+            <div className="font-pp-neue-montreal text-secondary mt-2 text-sm md:text-base">
+              completed successfully
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* About Section */}
-      <section className="bg-primary relative min-h-[120vh] w-full overflow-hidden px-4 py-30 md:px-8">
-        {/* Nigeria map background (watermark) */}
+      {/* <section className="bg-primary relative min-h-[120vh] w-full overflow-hidden px-4 py-30 md:px-8">
         <div className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center opacity-70">
           <NigeriaMapSvg className="h-full w-full p-10 md:p-16" aria-hidden />
         </div>
@@ -208,7 +302,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Stats Row (bottom of section) */}
           <div
             ref={statsRowRef}
             className="mt-auto flex w-full flex-col gap-8 pt-20 pb-10 sm:flex-row sm:items-end sm:justify-between sm:gap-12 md:pt-28 md:pb-14"
@@ -217,7 +310,8 @@ export default function Home() {
               <div
                 data-count="89"
                 data-suffix="%"
-                className="font-pp-neue-montreal text-secondary text-6xl tracking-tight md:text-8xl"
+                className="font-pp-neue-montreal tabular-nums text-secondary text-6xl md:text-8xl"
+              style={{ letterSpacing: '-0.05em' }}
               >
                 89%
               </div>
@@ -229,7 +323,8 @@ export default function Home() {
               <div
                 data-count="34"
                 data-suffix="+"
-                className="font-pp-neue-montreal text-secondary text-6xl tracking-tight md:text-8xl"
+                className="font-pp-neue-montreal tabular-nums text-secondary text-6xl md:text-8xl"
+              style={{ letterSpacing: '-0.05em' }}
               >
                 34+
               </div>
@@ -241,7 +336,8 @@ export default function Home() {
               <div
                 data-count="48"
                 data-suffix="+"
-                className="font-pp-neue-montreal text-secondary text-6xl tracking-tight md:text-8xl"
+                className="font-pp-neue-montreal tabular-nums text-secondary text-6xl md:text-8xl"
+              style={{ letterSpacing: '-0.05em' }}
               >
                 48+
               </div>
@@ -251,7 +347,13 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
+
+      {/* Scroll Slider Section */}
+      <ScrollSlider slides={sliderSlides} />
+
+      {/* Vision Section */}
+      <VisionSection />
 
       {/* 100vh Image Background Section */}
       <section className="relative flex min-h-dvh w-full flex-col justify-between overflow-hidden">
@@ -265,7 +367,7 @@ export default function Home() {
           />
         </div>
         {/* Top Left Content */}
-        {/* <div className="relative z-10 max-w-2xl p-6 pt-16 md:p-10 md:pt-24">
+        <div className="relative z-10 max-w-2xl p-6 pt-16 md:p-10 md:pt-24">
           <h2 className="font-pp-neue-montreal mb-4 text-left text-3xl text-white md:text-5xl">
             Road Construction Excellence in Nigeria
           </h2>
@@ -274,7 +376,7 @@ export default function Home() {
             West Africa with over three decades of expertise in civil
             engineering and construction.
           </p>
-        </div> */}
+        </div>
         {/* Bottom Right Container */}
         {/* <div className="bg-secondary relative z-10 flex min-h-[40vh] w-full max-w-lg flex-col justify-between self-end pt-4 pl-4 md:px-6 md:py-6">
           <h2 className="font-pp-neue-montreal max-w-xs text-left text-xl text-white md:text-2xl">
@@ -288,14 +390,8 @@ export default function Home() {
         </div> */}
       </section>
 
-      {/* Vision Section */}
-      <VisionSection />
-
       {/* New About Section Component */}
-      <AboutSection />
-
-      {/* Scroll Slider Section */}
-      <ScrollSlider slides={sliderSlides} />
+      {/* <AboutSection /> */}
 
       {/* Services Hero Section */}
       {/* <ServicesHero /> */}
@@ -305,14 +401,14 @@ export default function Home() {
 
       {/* Gradient Text Reveal Section - No Pin */}
       <GradientTextSection
-        text="Transforming landscapes through precision engineering and innovative construction solutions that shape the future of West Africa."
+        text="Leading road construction and civil engineering solutions across Nigeria and West Africa."
         textColor="rgba(255, 51, 0, 0.3)"
         highlightColor="#ff3300"
         pin={false}
       />
 
       {/* Centered Title Section */}
-      <section className="relative w-full py-24 md:py-32">
+      {/* <section className="relative w-full py-24 md:py-32">
         <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-center px-4 md:px-8">
           <div className="text-center">
             <p className="font-pp-neue-montreal-mono text-secondary mb-8 text-xs md:text-sm">
@@ -324,16 +420,19 @@ export default function Home() {
             </h2>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Profiles Ticker Section */}
       <section className="bg-primary relative w-full py-24">
         <div className="mb-16 px-4 md:mb-24 md:px-8">
           <div className="flex flex-col items-start">
-            <div className="text-left">
-              <p className="font-pp-neue-montreal-mono text-secondary mb-6 text-xs md:text-sm">
+            <div className="mb-8 flex items-center gap-3">
+              <div className="bg-secondary h-1.5 w-1.5 shrink-0" />
+              <p className="font-pp-neue-montreal-mono text-secondary text-xs md:text-sm">
                 TEAM
               </p>
+            </div>
+            <div className="text-left">
               <p className="font-pp-neue-montreal text-secondary mb-8 max-w-2xl text-left text-4xl md:text-6xl">
                 Our People
               </p>
@@ -350,7 +449,7 @@ export default function Home() {
       </section>
 
       {/* Orange Background Section with Centered Text */}
-      <section className="bg-secondary relative w-full py-24">
+      {/* <section className="bg-secondary relative w-full py-24">
         <div className="mx-auto flex w-full flex-col items-center justify-center gap-16 px-4 md:gap-20 md:px-8">
           <h3 className="font-pp-neue-montreal max-w-4xl text-center text-xl text-white md:text-4xl">
             Because infrastructure is built on movement, in perpetual
@@ -362,7 +461,7 @@ export default function Home() {
             engineering excellence in West Africa.
           </p>
         </div>
-      </section>
+      </section> */}
 
       {/* FAQ Section */}
       <FAQ />

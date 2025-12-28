@@ -33,7 +33,8 @@ export default function ProjectsPreview() {
       <div className="px-4 md:px-8">
         <div className="flex flex-col">
           {/* Section label */}
-          <div className="text-left mb-6">
+          <div className="mb-6 flex items-center gap-3">
+            <div className="bg-secondary h-1.5 w-1.5 shrink-0" />
             <p className="font-pp-neue-montreal-mono text-secondary text-xs md:text-sm">
               PROJECTS
             </p>

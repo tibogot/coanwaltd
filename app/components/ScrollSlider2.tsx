@@ -226,6 +226,14 @@ export default function ScrollSlider({
         {/* <div className="pointer-events-none absolute inset-0 bg-black/35" /> */}
       </div>
 
+      {/* Fixed Title - Top Left */}
+      <div className="pointer-events-none absolute top-8 left-8 z-20 flex items-center gap-3 md:top-8 md:left-8">
+        <div className="h-1.5 w-1.5 shrink-0 bg-white" />
+        <p className="font-pp-neue-montreal-mono text-xs text-white md:text-sm">
+          PROJECTS
+        </p>
+      </div>
+
       {/* Slider Title */}
       <div className="absolute top-1/2 left-8 w-1/2 -translate-y-1/2 text-white max-lg:top-20 max-lg:left-0 max-lg:w-full max-lg:translate-y-0 max-lg:px-8">
         <div ref={sliderTitleRef} className="max-w-3xl">

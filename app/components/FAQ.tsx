@@ -112,7 +112,8 @@ export default function FAQ() {
         <div className="grid grid-cols-1 gap-12 md:grid-cols-12 md:gap-16">
           {/* Left column (desktop): section label */}
           <div className="md:col-span-4">
-            <div className="text-left">
+            <div className="flex items-center gap-3">
+              <div className="bg-secondary h-1.5 w-1.5 shrink-0" />
               <p className="font-pp-neue-montreal-mono text-secondary text-xs md:text-sm">
                 FAQ
               </p>
