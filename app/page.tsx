@@ -388,21 +388,31 @@ export default function Home() {
 
       {/* Gradient Text Reveal Section */}
       <GradientTextSection
-        text="Building sustainable infrastructure across West Africa with innovative engineering solutions and decades of expertise."
         textColor="rgba(255, 51, 0, 0.3)"
         highlightColor="#ff3300"
-      />
+        contentClassName="mx-auto w-full max-w-4xl px-4 md:px-8"
+      >
+        <h4 className="font-pp-neue-montreal text-4xl leading-tight md:text-7xl">
+          Building sustainable infrastructure across West Africa with innovative
+          engineering solutions and decades of expertise.
+        </h4>
+      </GradientTextSection>
 
       {/* Service Scroll Section */}
       {/* <ServiceScroll /> */}
 
       {/* Gradient Text Reveal Section - No Pin */}
       <GradientTextSection
-        text="Leading road construction and civil engineering solutions across Nigeria and West Africa."
         textColor="rgba(255, 51, 0, 0.3)"
         highlightColor="#ff3300"
         pin={false}
-      />
+        contentClassName="mx-auto w-full max-w-4xl px-4 md:px-8"
+      >
+        <h4 className="font-pp-neue-montreal text-4xl leading-tight md:text-6xl">
+          Leading road construction and civil engineering solutions across
+          Nigeria and West Africa.
+        </h4>
+      </GradientTextSection>
 
       {/* Centered Title Section */}
       {/* <section className="relative w-full py-24 md:py-32">

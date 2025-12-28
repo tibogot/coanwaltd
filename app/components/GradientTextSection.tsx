@@ -1,28 +1,30 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, ReactNode } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsapConfig";
 import GradientTextReveal from "./GradientTextReveal";
 
 interface GradientTextSectionProps {
-  text: string;
+  children: ReactNode;
   textColor?: string;
   highlightColor?: string;
   scrollDistance?: string;
   stagger?: number;
   className?: string;
   pin?: boolean;
+  contentClassName?: string; // For styling the content container
 }
 
 export default function GradientTextSection({
-  text,
+  children,
   textColor = "#808080", // Grey color for initial state
   highlightColor = "#000000", // Black color for final state
   scrollDistance = "+=200%",
   stagger = 0.8,
   className = "",
   pin = true,
+  contentClassName = "", // Default empty, user can add their own styling
 }: GradientTextSectionProps) {
   const pinContainerRef = useRef<HTMLDivElement>(null);
 
@@ -60,11 +62,9 @@ export default function GradientTextSection({
             stagger={stagger}
             trigger=".gradient-text-trigger"
             start="top bottom"
-            className="mx-auto w-full max-w-4xl px-4 md:px-8"
+            className={contentClassName}
           >
-            <h4 className="font-pp-neue-montreal text-4xl leading-tight md:text-6xl">
-              {text}
-            </h4>
+            {children}
           </GradientTextReveal>
         </div>
       </section>
@@ -84,11 +84,9 @@ export default function GradientTextSection({
             scrollDistance={scrollDistance}
             stagger={stagger}
             trigger=".text-section"
-            className="w-full px-4 md:px-8"
+            className={contentClassName}
           >
-            <h4 className="font-pp-neue-montreal text-4xl leading-tight md:text-6xl lg:text-7xl">
-              {text}
-            </h4>
+            {children}
           </GradientTextReveal>
         </div>
       </div>
