@@ -176,7 +176,7 @@ export default function Home() {
             {/* Right section - Content */}
             <div className="flex w-full flex-col gap-6 md:w-1/2">
               <AnimatedText>
-                <p className="font-pp-neue-montreal text-secondary text-left text-base md:text-xl">
+                <p className="font-pp-neue-montreal text-secondary mb-4 text-left text-base md:text-xl">
                   Three decades of expertise in construction and engineering
                   across West Africa. We deliver integrated solutions from
                   planning to execution, transforming infrastructure and shaping
@@ -187,15 +187,12 @@ export default function Home() {
                   sustainability. With a proven track record spanning major
                   highways, urban road networks, and critical infrastructure
                   projects, we have built lasting partnerships with communities,
-                  governments, and private sector clients. Your trusted partner
-                  for comprehensive construction services that stand the test of
-                  time and contribute to meaningful economic growth and
-                  development across the region.
+                  governments, and private sector clients.
                 </p>
               </AnimatedText>
               <Link
                 href="/company"
-                className="font-pp-neue-montreal text-secondary hover:text-secondary/80 flex cursor-pointer items-center gap-2 text-sm transition-colors"
+                className="bg-secondary hover:bg-secondary/90 inline-flex w-fit cursor-pointer items-center gap-2 rounded-[1px] px-4 py-2 text-sm text-white transition-all duration-200 md:px-5 md:py-2.5 md:text-base"
               >
                 Learn more <ArrowRight size={16} />
               </Link>
@@ -210,7 +207,7 @@ export default function Home() {
             <div
               data-count="89"
               data-suffix="%"
-              className="font-pp-neue-montreal text-secondary text-6xl tabular-nums md:text-8xl"
+              className="font-pp-neue-montreal-mono text-secondary text-6xl tabular-nums md:text-8xl"
               style={{ letterSpacing: "-0.05em" }}
             >
               89%
@@ -223,7 +220,7 @@ export default function Home() {
             <div
               data-count="34"
               data-suffix="+"
-              className="font-pp-neue-montreal text-secondary text-6xl tabular-nums md:text-8xl"
+              className="font-pp-neue-montreal-mono text-secondary text-6xl tabular-nums md:text-8xl"
               style={{ letterSpacing: "-0.05em" }}
             >
               34+
@@ -236,7 +233,7 @@ export default function Home() {
             <div
               data-count="48"
               data-suffix="+"
-              className="font-pp-neue-montreal text-secondary text-6xl tabular-nums md:text-8xl"
+              className="font-pp-neue-montreal-mono text-secondary text-6xl tabular-nums md:text-8xl"
               style={{ letterSpacing: "-0.05em" }}
             >
               48+
