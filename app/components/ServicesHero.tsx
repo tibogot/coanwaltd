@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
-import { gsap, SplitText } from "@/lib/gsapConfig";
+import { gsap, SplitText, ScrollTrigger } from "@/lib/gsapConfig";
 import AnimatedText from "./AnimatedText3";
 import Image from "next/image";
 import Link from "next/link";
@@ -136,7 +136,11 @@ export default function ServicesHero() {
             directional: false, // Snap to closest point regardless of direction
           },
           pin: true,
+          pinSpacing: true,
           anticipatePin: 1,
+          invalidateOnRefresh: true,
+          fastScrollEnd: true,
+          refreshPriority: 1,
         },
       });
 
@@ -401,6 +405,11 @@ export default function ServicesHero() {
           "<0.1",
         );
 
+      // Refresh ScrollTrigger after timeline is created to prevent pin jumping
+      requestAnimationFrame(() => {
+        ScrollTrigger.refresh();
+      });
+
       // Cleanup function
       return () => {
         titleSplits.forEach((split) => split?.revert());
@@ -416,7 +425,7 @@ export default function ServicesHero() {
       className="relative flex h-screen w-full snap-start snap-always overflow-hidden"
     >
       {/* Left side - Content */}
-      <div className="relative z-10 flex w-full flex-col items-start justify-center px-6 md:w-1/2 md:px-12 lg:px-16">
+      <div className="relative z-10 flex w-full flex-col items-start justify-center px-4 md:w-1/2 md:px-8">
         {/* <AnimatedText start="top 80%" stagger={0.15} duration={0.8}>
           <p className="font-pp-neue-montreal-mono text-secondary mb-6 text-xs md:text-sm">
             SERVICES
