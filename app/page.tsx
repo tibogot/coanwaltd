@@ -151,7 +151,7 @@ export default function Home() {
       <section className="bg-primary relative w-full overflow-hidden px-4 py-10 md:px-8 md:py-20">
         <div className="relative z-10 mx-auto flex h-full w-full flex-col">
           <div className="mb-8 flex items-center gap-3">
-            <div className="bg-secondary h-1.5 w-1.5 flex-shrink-0" />
+            <div className="bg-secondary h-1.5 w-1.5 shrink-0" />
             <AnimatedText>
               <p className="font-pp-neue-montreal-mono text-secondary text-xs md:text-sm">
                 WHO WE ARE

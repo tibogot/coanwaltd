@@ -278,11 +278,12 @@ export default function Services() {
 
       {/* Gradient Text Section */}
       <GradientTextSection
-        text="Delivering excellence through integrated engineering and construction services across West Africa."
         textColor="rgba(255, 51, 0, 0.3)"
         highlightColor="#ff3300"
         pin={false}
-      />
+      >
+        Delivering excellence through integrated engineering and construction services across West Africa.
+      </GradientTextSection>
 
       {/* Expertise Section */}
       <section className="bg-primary relative w-full overflow-hidden px-4 py-10 md:px-8 md:py-20">
