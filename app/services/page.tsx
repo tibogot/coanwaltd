@@ -170,9 +170,9 @@ export default function Services() {
               <AnimatedText>
                 <p className="font-pp-neue-montreal text-secondary text-left text-base md:text-xl">
                   We provide comprehensive construction solutions across civil,
-                  mechanical, and electrical engineering disciplines. Our team of
-                  experts delivers end-to-end services from initial planning and
-                  design through to construction, commissioning, and ongoing
+                  mechanical, and electrical engineering disciplines. Our team
+                  of experts delivers end-to-end services from initial planning
+                  and design through to construction, commissioning, and ongoing
                   maintenance. With three decades of experience across West
                   Africa, we bring unmatched expertise to every project,
                   ensuring quality, safety, and timely delivery.
@@ -197,7 +197,7 @@ export default function Services() {
                     <h3 className="font-pp-neue-montreal text-secondary text-left text-2xl md:text-3xl">
                       {service.title}
                     </h3>
-                    <ArrowUpRight className="text-secondary mt-1 h-5 w-5 flex-shrink-0 transition-transform group-hover:-translate-y-1 group-hover:translate-x-1 md:h-6 md:w-6" />
+                    <ArrowUpRight className="text-secondary mt-1 h-5 w-5 flex-shrink-0 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 md:h-6 md:w-6" />
                   </div>
                 </AnimatedText>
                 <AnimatedText>
@@ -281,8 +281,14 @@ export default function Services() {
         textColor="rgba(255, 51, 0, 0.3)"
         highlightColor="#ff3300"
         pin={false}
+        animationStart="center bottom"
+        animationEnd="center center"
+        contentClassName="mx-auto w-full max-w-4xl px-4 md:px-8"
       >
-        Delivering excellence through integrated engineering and construction services across West Africa.
+        <h4 className="font-pp-neue-montreal text-4xl leading-tight md:text-6xl">
+          Leading road construction and civil engineering solutions across
+          Nigeria and West Africa.
+        </h4>
       </GradientTextSection>
 
       {/* Expertise Section */}

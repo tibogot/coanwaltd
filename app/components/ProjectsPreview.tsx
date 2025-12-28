@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import AnimatedText from "./AnimatedText3";
 
 const PROJECTS_PREVIEW = [
   {
@@ -35,16 +36,20 @@ export default function ProjectsPreview() {
           {/* Section label */}
           <div className="mb-6 flex items-center gap-3">
             <div className="bg-secondary h-1.5 w-1.5 shrink-0" />
-            <p className="font-pp-neue-montreal-mono text-secondary text-xs md:text-sm">
-              PROJECTS
-            </p>
+            <AnimatedText>
+              <p className="font-pp-neue-montreal-mono text-secondary text-xs md:text-sm">
+                PROJECTS
+              </p>
+            </AnimatedText>
           </div>
 
           {/* Title */}
           <div className="mb-10 md:mb-14">
-            <h2 className="font-pp-neue-montreal text-secondary text-left text-4xl md:text-4xl">
-              Featured Projects
-            </h2>
+            <AnimatedText>
+              <h2 className="font-pp-neue-montreal text-secondary text-left text-4xl md:text-4xl">
+                Featured Projects
+              </h2>
+            </AnimatedText>
           </div>
 
           {/* Project Images Grid - fills width */}

@@ -437,20 +437,26 @@ export default function Home() {
           <div className="flex flex-col items-start">
             <div className="mb-8 flex items-center gap-3">
               <div className="bg-secondary h-1.5 w-1.5 shrink-0" />
-              <p className="font-pp-neue-montreal-mono text-secondary text-xs md:text-sm">
-                TEAM
-              </p>
+              <AnimatedText>
+                <p className="font-pp-neue-montreal-mono text-secondary text-xs md:text-sm">
+                  TEAM
+                </p>
+              </AnimatedText>
             </div>
             <div className="text-left">
-              <p className="font-pp-neue-montreal text-secondary mb-8 max-w-2xl text-left text-4xl md:text-6xl">
-                Our People
-              </p>
+              <AnimatedText>
+                <p className="font-pp-neue-montreal text-secondary mb-8 max-w-2xl text-left text-4xl md:text-6xl">
+                  Our People
+                </p>
+              </AnimatedText>
             </div>
             <div className="text-left">
-              <p className="font-pp-neue-montreal text-secondary/80 max-w-2xl text-left text-base sm:text-lg md:text-xl">
-                Meet the dedicated professionals driving excellence across all
-                our construction and engineering projects.
-              </p>
+              <AnimatedText>
+                <p className="font-pp-neue-montreal text-secondary/80 max-w-2xl text-left text-base sm:text-lg md:text-xl">
+                  Meet the dedicated professionals driving excellence across all
+                  our construction and engineering projects.
+                </p>
+              </AnimatedText>
             </div>
           </div>
         </div>
