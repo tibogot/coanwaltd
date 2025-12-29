@@ -104,32 +104,26 @@ const StickyCards3D = () => {
           key={index}
         >
           {/* Dark overlay for text readability */}
-          <div className="absolute inset-0 z-1 bg-black/10" />
+          {/* <div className="absolute inset-0 z-1 bg-black/10" /> */}
 
           {/* Content */}
           <div className="relative z-3 flex h-full w-full flex-col justify-between p-8 md:p-12">
             {/* Top Row - Number and Title */}
             <div className="flex w-full items-start gap-8 md:gap-12">
               {/* Index - Top Left */}
-              <div className="font-pp-neue-montreal text-white">
-                <h1 className="text-2xl font-light tracking-tight md:text-4xl">
-                  {cardData.index}
-                </h1>
+              <div className="font-pp-neue-montreal-mono text-white">
+                <h1 className="text-xs md:text-sm">{cardData.index}</h1>
               </div>
 
               {/* Title - To the right of number, pushed down */}
               <div className="font-pp-neue-montreal mt-6 text-white md:mt-8">
-                <h2 className="text-4xl md:text-6xl">
-                  {cardData.title}
-                </h2>
+                <h2 className="text-4xl md:text-6xl">{cardData.title}</h2>
               </div>
             </div>
 
             {/* Description - Bottom */}
             <div className="font-pp-neue-montreal max-w-2xl text-white">
-              <p className="text-base md:text-3xl">
-                {cardData.description}
-              </p>
+              <p className="text-base md:text-3xl">{cardData.description}</p>
             </div>
           </div>
         </div>
