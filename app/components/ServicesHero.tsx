@@ -115,11 +115,15 @@ export default function ServicesHero() {
       // First image fully visible
       gsap.set(images[0], { clipPath: "inset(0% 0% 0% 0%)" });
       // Other images clipped from top (hidden, will reveal from top to bottom)
-      gsap.set([images[1], images[2], images[3]], { clipPath: "inset(100% 0% 0% 0%)" });
+      gsap.set([images[1], images[2], images[3]], {
+        clipPath: "inset(100% 0% 0% 0%)",
+      });
 
       // Set initial scale states on inner divs
       gsap.set(imageInners[0], { scale: 1 });
-      gsap.set([imageInners[1], imageInners[2], imageInners[3]], { scale: 1.2 });
+      gsap.set([imageInners[1], imageInners[2], imageInners[3]], {
+        scale: 1.2,
+      });
 
       // Create main timeline
       const tl = gsap.timeline({
@@ -127,20 +131,10 @@ export default function ServicesHero() {
           trigger: sectionRef.current,
           start: "top top",
           end: "+=400%", // 4x viewport height for 4 states
-          scrub: 0.5, // Faster scrub for more responsive feel
-          snap: {
-            snapTo: [0, 0.33, 0.67, 1], // Exact snap points for 4 services
-            duration: 0.5, // Faster, more decisive snap
-            ease: "power2.out",
-            delay: 0, // No delay for immediate snap
-            directional: false, // Snap to closest point regardless of direction
-          },
+          scrub: 1, // Smoother scrub for more fluid feel
           pin: true,
-          pinSpacing: true,
-          anticipatePin: 1,
+          pinSpacing: true, // Seamless pinning like StickyCards3D
           invalidateOnRefresh: true,
-          fastScrollEnd: true,
-          refreshPriority: 1,
         },
       });
 
