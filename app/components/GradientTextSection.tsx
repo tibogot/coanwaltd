@@ -57,7 +57,7 @@ export default function GradientTextSection({
   // For non-pinned sections, use a simpler layout without the 300vh container
   if (!pin) {
     return (
-      <section className={`relative w-full overflow-hidden py-32 md:py-48 ${className}`}>
+      <section className={`relative w-full overflow-hidden ${className}`}>
         <div className="gradient-text-trigger flex h-auto w-full items-center justify-center text-center">
           <GradientTextReveal
             textColor={textColor}

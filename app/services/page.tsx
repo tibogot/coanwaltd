@@ -283,6 +283,7 @@ export default function Services() {
         pin={false}
         animationStart="center bottom"
         animationEnd="center 30%"
+        className="py-32 md:py-48"
         contentClassName="mx-auto w-full max-w-4xl px-4 md:px-8"
       >
         <h4 className="font-pp-neue-montreal text-4xl leading-tight md:text-6xl">

@@ -349,8 +349,6 @@ export default function Home() {
 
       {/* <ScrollSlider slides={sliderSlides} /> */}
 
-      {/* <StickyCards3D /> */}
-
       <VisionSection />
 
       {/* Gradient Text Reveal Section */}
@@ -375,6 +373,7 @@ export default function Home() {
         pin={false}
         animationStart="center bottom"
         animationEnd="center 30%"
+        className="py-32 md:py-80"
         contentClassName="mx-auto w-full max-w-4xl px-4 md:px-8"
       >
         <h4 className="font-pp-neue-montreal text-4xl leading-tight md:text-6xl">
@@ -398,7 +397,9 @@ export default function Home() {
         </div>
       </section> */}
 
-      <ImageHeroSection />
+      <StickyCards3D />
+
+      {/* <ImageHeroSection /> */}
 
       <WhyChooseUs />
 
@@ -467,10 +468,9 @@ export default function Home() {
         </div>
         {/* Hero Content */}
         <div className="relative z-10 p-4 md:p-8 md:pb-12">
-          <p className="font-pp-neue-montreal max-w-6xl text-left text-2xl text-white md:text-6xl">
+          <p className="font-pp-neue-montreal max-w-5xl text-left text-2xl text-white md:text-6xl">
             Transforming landscapes and shaping futures through innovative
-            construction solutions and engineering excellence across West
-            Africa.
+            construction solutions.
           </p>
         </div>
       </section>
