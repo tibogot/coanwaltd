@@ -6,7 +6,7 @@ import AnimatedText from "./AnimatedText3";
 
 export default function AboutSection() {
   return (
-    <section className="bg-primary relative w-full overflow-hidden px-4 py-30 md:px-8">
+    <section className="bg-primary relative w-full overflow-hidden px-4 py-20 md:px-8">
       <div className="relative z-10 mx-auto flex h-full w-full flex-col">
         <div className="mb-8 flex items-center gap-3">
           <div className="bg-secondary h-1.5 w-1.5 shrink-0" />

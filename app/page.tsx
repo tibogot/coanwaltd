@@ -22,6 +22,8 @@ import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsapConfig";
 import StickyCards3D from "./components/StickyCards3D";
 import ServiceScroll from "./components/ServiceScroll";
+import WhyChooseUs from "./components/WhyChooseUs";
+import ImageHeroSection from "./components/ImageHeroSection";
 
 const sliderSlides = [
   {
@@ -341,7 +343,7 @@ export default function Home() {
         </div>
       </section> */}
 
-      <AboutSection />
+      {/* <AboutSection /> */}
 
       <ServicesHero />
 
@@ -350,41 +352,6 @@ export default function Home() {
       {/* <StickyCards3D /> */}
 
       <VisionSection />
-
-      {/* 100vh Image Background Section */}
-      <section className="relative flex min-h-svh w-full flex-col justify-between overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/images/joshua-oluwagbemiga.webp"
-            alt="Background"
-            fill
-            className="object-cover"
-            priority
-          />
-        </div>
-        {/* Top Left Content */}
-        <div className="relative z-10 max-w-2xl p-6 pt-16 md:p-10 md:pt-24">
-          <h2 className="font-pp-neue-montreal mb-4 text-left text-3xl text-white md:text-5xl">
-            Road Construction Excellence in Nigeria
-          </h2>
-          <p className="font-pp-neue-montreal text-left text-base text-white/90 md:text-xl">
-            Building highways, urban roads, and infrastructure projects across
-            West Africa with over three decades of expertise in civil
-            engineering and construction.
-          </p>
-        </div>
-        {/* Bottom Right Container */}
-        {/* <div className="bg-secondary relative z-10 flex min-h-[40vh] w-full max-w-lg flex-col justify-between self-end pt-4 pl-4 md:px-6 md:py-6">
-          <h2 className="font-pp-neue-montreal max-w-xs text-left text-xl text-white md:text-2xl">
-            Infrastructure Development Across West Africa
-          </h2>
-          <p className="font-pp-neue-montreal max-w-xs text-left text-base text-white/90 md:text-base">
-            Delivering quality road construction and engineering solutions from
-            planning to execution, transforming Nigeria&apos;s transportation
-            infrastructure.
-          </p>
-        </div> */}
-      </section>
 
       {/* Gradient Text Reveal Section */}
       {/* <GradientTextSection
@@ -407,7 +374,7 @@ export default function Home() {
         highlightColor="#ff3300"
         pin={false}
         animationStart="center bottom"
-        animationEnd="center center"
+        animationEnd="center 30%"
         contentClassName="mx-auto w-full max-w-4xl px-4 md:px-8"
       >
         <h4 className="font-pp-neue-montreal text-4xl leading-tight md:text-6xl">
@@ -430,6 +397,10 @@ export default function Home() {
           </div>
         </div>
       </section> */}
+
+      <ImageHeroSection />
+
+      <WhyChooseUs />
 
       {/* Profiles Ticker Section */}
       <section className="bg-primary relative w-full py-24">
