@@ -397,7 +397,7 @@ export default function Home() {
         </div>
       </section> */}
 
-      <StickyCards3D />
+      {/* <StickyCards3D /> */}
 
       {/* <ImageHeroSection /> */}
 
